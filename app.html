@@ -1,0 +1,2080 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>学习打卡 · 日常</title>
+<style>
+:root{--bg:#f0f4f8;--card:#fff;--text:#2d3748;--text2:#718096;--pri:#667eea;--priL:#ebf0ff;--ok:#48bb78;--okL:#e6f7ee;--warn:#ed8936;--danger:#e53e3e;--border:#e2e8f0;--shadow:0 4px 16px rgba(0,0,0,.06);--r:16px}
+[data-theme="dark"]{--bg:#1a1a2e;--card:#16213e;--text:#e2e8f0;--text2:#a0aec0;--pri:#7c8cf8;--priL:#1e2a4a;--ok:#68d391;--okL:#1a3a2a;--warn:#f6ad55;--danger:#fc8181;--border:#2d3748;--shadow:0 4px 16px rgba(0,0,0,.3)}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Helvetica Neue',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;transition:background .3s,color .3s;padding-bottom:80px}
+.header{padding:20px 16px 16px;background:linear-gradient(135deg,var(--pri),#764ba2);color:#fff;border-radius:0 0 24px 24px}
+[data-theme="dark"] .header{background:linear-gradient(135deg,#1e2a4a,#2d1b4e)}
+.ht{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.ui{display:flex;align-items:center;gap:8px;font-size:14px;opacity:.9}
+.btn-icon{background:none;border:none;color:#fff;font-size:20px;cursor:pointer;padding:4px 8px}
+.cc{background:rgba(255,255,255,.15);border-radius:12px;padding:16px;text-align:center;backdrop-filter:blur(10px)}
+[data-theme="dark"] .cc{background:rgba(255,255,255,.08)}
+.cn{font-size:48px;font-weight:800;line-height:1}
+.cl{font-size:13px;opacity:.85;margin-top:4px}
+.pw{margin-top:12px;height:6px;background:rgba(255,255,255,.2);border-radius:3px;overflow:hidden}
+.pb{height:100%;background:#fff;border-radius:3px;transition:width .5s}
+.pt{font-size:11px;opacity:.7;margin-top:6px}
+.stats{display:flex;gap:10px;padding:16px}
+.sc{flex:1;background:var(--card);border-radius:12px;padding:14px 10px;text-align:center;box-shadow:var(--shadow)}
+.sn{font-size:24px;font-weight:700;color:var(--pri)}
+.sl{font-size:11px;color:var(--text2);margin-top:4px}
+.sc.streak .sn{color:var(--warn)}
+.sc.pomo .sn{color:var(--ok)}
+.encourage{margin:0 16px 16px;background:linear-gradient(135deg,var(--pri),#764ba2);border-radius:14px;padding:16px 18px;color:#fff;box-shadow:var(--shadow);cursor:pointer}
+[data-theme="dark"] .encourage{background:linear-gradient(135deg,#1e2a4a,#2d1b4e)}
+.et{font-size:14px;line-height:1.6;font-weight:500}
+.er{font-size:11px;opacity:.7;margin-top:8px}
+.kbit{margin:0 16px 16px;background:var(--card);border-radius:14px;padding:14px 16px;box-shadow:var(--shadow);border-left:4px solid var(--pri)}
+.kbit-label{font-size:11px;color:var(--pri);font-weight:600;margin-bottom:4px}
+.kbit-text{font-size:13px;line-height:1.6;color:var(--text)}
+.mode-sec{padding:0 16px 16px}
+.mode-bar{background:var(--card);border-radius:12px;padding:14px 16px;box-shadow:var(--shadow);display:flex;align-items:center;justify-content:space-between}
+.ml{font-size:14px;font-weight:600}
+.md{font-size:12px;color:var(--text2);margin-top:2px}
+.mb{background:var(--pri);color:#fff;border:none;border-radius:20px;padding:8px 16px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap}
+.mb.shell{background:var(--warn)}
+.st{padding:0 16px;font-size:16px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.dt-badge{font-size:11px;padding:2px 8px;border-radius:10px;font-weight:500}
+.dt-badge.flight{background:#fff3cd;color:#856404}
+.dt-badge.rest{background:#d4edda;color:#155724}
+[data-theme="dark"] .dt-badge.flight{background:#3d3318;color:#f6ad55}
+[data-theme="dark"] .dt-badge.rest{background:#1a3a2a;color:#68d391}
+.tl{padding:0 16px}
+.tc{background:var(--card);border-radius:14px;padding:14px 16px;margin-bottom:10px;box-shadow:var(--shadow);display:flex;align-items:flex-start;gap:12px;transition:opacity .3s}
+.tc.done{opacity:.5}
+.tc.done .tn{text-decoration:line-through}
+.tcb{width:24px;height:24px;border-radius:50%;border:2px solid var(--border);flex-shrink:0;margin-top:2px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;color:#fff;transition:all .2s}
+.tc.done .tcb{background:var(--ok);border-color:var(--ok)}
+.ti{flex:1}
+.tn{font-size:15px;font-weight:600}
+.td{font-size:12px;color:var(--text2);margin-top:4px;line-height:1.5}
+.tbr{display:flex;align-items:center;gap:8px;margin-top:6px;flex-wrap:wrap}
+.tag{display:inline-block;font-size:10px;padding:2px 8px;border-radius:8px;font-weight:500}
+.tag.core{background:var(--priL);color:var(--pri)}
+.tag.flex{background:var(--okL);color:var(--ok)}
+.tbtn{display:inline-flex;align-items:center;gap:4px;background:var(--pri);color:#fff!important;font-size:12px;font-weight:600;padding:5px 12px;border-radius:16px;border:none;cursor:pointer;white-space:nowrap}
+.tbtn:active{transform:scale(.95)}
+.tbtn.english{background:#f59e0b}
+.tbtn.politics{background:#ef4444}
+.tbtn.word{background:#10b981}
+.tbtn.anki{background:#8b5cf6}
+.tbtn.major{background:#3b82f6}
+.pomo-sec{padding:16px}
+.pomo-card{background:var(--card);border-radius:16px;padding:24px;box-shadow:var(--shadow);text-align:center}
+.ptimer{font-size:56px;font-weight:800;font-variant-numeric:tabular-nums;color:var(--pri);line-height:1;margin:16px 0}
+.ptimer.running{color:var(--ok)}
+.pc{display:flex;gap:10px;justify-content:center}
+.pbtn{border:none;border-radius:24px;padding:12px 28px;font-size:15px;font-weight:600;cursor:pointer}
+.pbtn.start{background:var(--pri);color:#fff}
+.pbtn.stop{background:var(--danger);color:#fff}
+.pbtn.reset{background:var(--border);color:var(--text)}
+.pinput{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:10px 14px;font-size:14px;color:var(--text);margin-bottom:12px}
+.pstats{font-size:13px;color:var(--text2);margin-top:12px}
+.sec{padding:0 16px 16px}
+.card-box{background:var(--card);border-radius:14px;padding:16px;box-shadow:var(--shadow)}
+.input{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:10px 14px;font-size:14px;color:var(--text);margin-bottom:8px}
+.ta{width:100%;min-height:80px;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:10px 14px;font-size:14px;color:var(--text);resize:vertical;margin-bottom:8px;font-family:inherit}
+.save-btn{background:var(--pri);color:#fff;border:none;border-radius:10px;padding:10px 20px;font-size:14px;font-weight:600;cursor:pointer}
+.save-btn.danger{background:var(--danger)}
+.list-item{background:var(--bg);border-radius:10px;padding:10px 14px;margin-bottom:8px;font-size:13px}
+.list-item .topic{font-weight:600;color:var(--pri)}
+.del-btn{background:none;border:none;color:var(--danger);font-size:12px;cursor:pointer;float:right}
+.nav{position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--border);display:flex;padding:8px 0;z-index:100}
+.ni{flex:1;text-align:center;font-size:9px;color:var(--text2);cursor:pointer;padding:6px 0}
+.ni.active{color:var(--pri);font-weight:600}
+.ni .ico{font-size:18px;display:block;margin-bottom:2px}
+.page{display:none}
+.page.active{display:block}
+.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:var(--text);color:var(--bg);padding:10px 20px;border-radius:20px;font-size:13px;z-index:200;opacity:0;transition:opacity .3s;white-space:nowrap}
+.toast.show{opacity:1}
+.empty{text-align:center;padding:40px 20px;color:var(--text2);font-size:14px}
+.flip-card{background:var(--bg);border-radius:10px;padding:14px;margin-bottom:8px;cursor:pointer}
+.flip-q{font-size:14px;font-weight:600;color:var(--pri)}
+.flip-a{font-size:13px;color:var(--text);margin-top:8px;display:none;line-height:1.6;white-space:pre-wrap}
+.flip-card.open .flip-a{display:block}
+.flip-card.open .flip-q{color:var(--ok)}
+.ch-tabs{display:flex;gap:6px;margin-bottom:12px;overflow-x:auto;padding-bottom:4px}
+.ch-tab{flex-shrink:0;padding:6px 14px;border-radius:16px;background:var(--bg);font-size:13px;color:var(--text2);cursor:pointer;border:1px solid var(--border)}
+.ch-tab.active{background:var(--pri);color:#fff;border-color:var(--pri)}
+.sleep-slider{width:100%;margin:16px 0 8px;-webkit-appearance:none;height:6px;border-radius:3px;background:var(--border);outline:none}
+.sleep-slider::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;border-radius:50%;background:var(--pri);cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.2)}
+.sq-row{display:flex;gap:8px;margin-top:12px}
+.sq-btn{flex:1;padding:10px;border-radius:10px;border:2px solid var(--border);background:var(--bg);font-size:13px;color:var(--text);cursor:pointer;text-align:center}
+.sq-btn.active{border-color:var(--pri);background:var(--priL);color:var(--pri);font-weight:600}
+.sleep-advice{background:var(--bg);border-radius:10px;padding:12px 14px;margin-top:12px;font-size:13px;color:var(--text);line-height:1.5}
+.sleep-chart{display:flex;gap:6px;align-items:flex-end;height:80px;margin-top:12px}
+.sleep-bar{flex:1;border-radius:4px 4px 0 0;min-height:4px;opacity:.7;transition:height .3s}
+.sleep-bar.good{background:var(--ok)}.sleep-bar.warn{background:var(--warn)}.sleep-bar.bad{background:var(--danger)}
+.sleep-col{flex:1;display:flex;flex-direction:column;align-items:center}
+.sleep-lbl{font-size:9px;color:var(--text2);margin-top:4px}
+.sched-paste{width:100%;min-height:120px;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:10px 14px;font-size:13px;color:var(--text);resize:vertical;margin-bottom:8px;font-family:inherit}
+.sched-item{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px}
+.sched-item .date{font-weight:600}
+.sched-item .info{flex:1;margin-left:12px;font-size:11px;color:var(--text2)}
+.ff-card{background:var(--card);border-radius:14px;margin-bottom:10px;box-shadow:var(--shadow);overflow:hidden}
+.ff-header{display:flex;align-items:center;gap:8px;padding:12px 14px}
+.ff-date{font-size:13px;font-weight:700}
+.ff-type{font-size:11px;padding:2px 8px;border-radius:8px;font-weight:500}
+.ff-type.flight{background:#fff3cd;color:#856404}
+.ff-type.rest{background:#d4edda;color:#155724}
+[data-theme="dark"] .ff-type.flight{background:#3d3318;color:#f6ad55}
+[data-theme="dark"] .ff-type.rest{background:#1a3a2a;color:#68d391}
+.ff-info{flex:1;font-size:11px;color:var(--text2)}
+.ff-del{background:none;border:none;color:var(--danger);font-size:12px;cursor:pointer}
+.ff-body{padding:0 14px 12px}
+.ff-stars{display:flex;gap:4px;margin-bottom:8px}
+.ff-star{font-size:22px;cursor:pointer;opacity:.4;transition:opacity .15s;-webkit-tap-highlight-color:transparent}
+.ff-star.on{opacity:1}
+.ff-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.ff-tag{padding:5px 12px;border-radius:16px;border:2px solid var(--border);background:var(--bg);font-size:12px;cursor:pointer;color:var(--text2)}
+.ff-tag.on{border-color:var(--pri);background:var(--priL);color:var(--pri);font-weight:600}
+.ff-photo-row{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.ff-photo-btn{padding:6px 12px;border-radius:10px;background:var(--bg);border:1px solid var(--border);font-size:12px;cursor:pointer;color:var(--text2)}
+.ff-photo-preview{width:60px;height:60px;border-radius:8px;object-fit:cover}
+.ff-note{width:100%;min-height:36px;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:8px 10px;font-size:13px;color:var(--text);resize:vertical;font-family:inherit;margin-bottom:8px}
+.ff-save{background:var(--pri);color:#fff;border:none;border-radius:10px;padding:8px 20px;font-size:13px;font-weight:600;cursor:pointer}
+.ff-saved{font-size:11px;color:var(--ok);margin-left:8px;display:none}
+.ff-saved.show{display:inline}
+.ff-rating-display{font-size:13px;color:var(--text);margin-top:4px}
+.ff-tags-display{display:flex;gap:4px;flex-wrap:wrap;margin-top:4px}
+.ff-tag-display{font-size:10px;padding:2px 8px;border-radius:8px;background:var(--priL);color:var(--pri)}
+.mood-row{display:flex;gap:6px;margin-bottom:8px;flex-wrap:wrap}
+.mood-btn{padding:6px 12px;border-radius:16px;border:2px solid var(--border);background:var(--bg);font-size:12px;cursor:pointer}
+.mood-btn.active{border-color:var(--pri);background:var(--priL);color:var(--pri)}
+.sw-card{background:var(--card);border-radius:14px;margin-bottom:12px;box-shadow:var(--shadow);overflow:hidden}
+.sw-card-head{padding:14px 16px 8px}
+.sw-card-tag{display:inline-block;font-size:10px;padding:2px 8px;border-radius:8px;font-weight:600;margin-bottom:6px}
+.sw-card-tag.policy{background:#e3f2fd;color:#1976d2}
+.sw-card-tag.news{background:#fff3e0;color:#f57c00}
+.sw-card-tag.trend{background:#e8f5e9;color:#388e3c}
+.sw-card-tag.global{background:#f3e5f5;color:#7b1fa2}
+[data-theme="dark"] .sw-card-tag.policy{background:#1a2a3a;color:#64b5f6}
+[data-theme="dark"] .sw-card-tag.news{background:#3d3318;color:#ffb74d}
+[data-theme="dark"] .sw-card-tag.trend{background:#1a3a2a;color:#81c784}
+[data-theme="dark"] .sw-card-tag.global{background:#2a1a3a;color:#ce93d8}
+.sw-card-title{font-size:15px;font-weight:700;line-height:1.4;color:var(--text)}
+.sw-card-meta{font-size:11px;color:var(--text2);margin-top:4px;display:flex;gap:8px}
+.sw-card-summary{font-size:13px;color:var(--text);line-height:1.6;padding:0 16px 10px}
+.sw-card-detail{font-size:12px;color:var(--text2);line-height:1.6;padding:0 16px;max-height:0;overflow:hidden;transition:max-height .3s ease,padding .3s ease;border-top:1px solid var(--border)}
+.sw-card.open .sw-card-detail{max-height:500px;padding:10px 16px 14px}
+.sw-card-toggle{font-size:12px;color:var(--pri);text-align:center;padding:6px 0;cursor:pointer;font-weight:600}
+.sw-card-toggle:hover{background:var(--priL)}
+.backup-btn{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:10px 20px;font-size:13px;color:var(--text2);cursor:pointer;width:100%;margin-top:8px}
+</style>
+</head>
+<body>
+
+<!-- 主应用 -->
+<div id="app">
+<!-- 首页 -->
+<div id="p-home" class="page active">
+<div class="header">
+<div class="ht">
+<div class="ui"><span>👋</span><span id="dn">同学</span></div>
+<div><button class="btn-icon" onclick="toggleTheme()" id="themeBtn">🌙</button></div>
+</div>
+<div class="cc">
+<div class="cn" id="dl">150</div>
+<div class="cl">距离目标还有（天）</div>
+<div class="pw"><div class="pb" id="pbar" style="width:3%"></div></div>
+<div class="pt" id="ptext">进度 3%</div>
+</div>
+</div>
+<div class="stats">
+<div class="sc streak"><div class="sn" id="stk">0</div><div class="sl">连续打卡</div></div>
+<div class="sc pomo"><div class="sn" id="tp">0</div><div class="sl">今日番茄</div></div>
+<div class="sc"><div class="sn" id="wc">0%</div><div class="sl">本周完成</div></div>
+</div>
+<div class="encourage" onclick="getEncourage()"><div class="et" id="encT">你今天打开了这里，就已经比昨天的自己进步了。</div><div class="er">点击换一句 →</div></div>
+<div class="kbit"><div class="kbit-label">📖 今日知识点</div><div class="kbit-text" id="kbitText">加载中...</div></div>
+<div class="mode-sec">
+<div class="mode-bar">
+<div><div class="ml" id="ml">正常模式</div><div class="md" id="md">按计划执行全部任务</div></div>
+<button class="mb" id="mbtn" onclick="toggleMode()">切缩壳模式</button>
+</div>
+</div>
+<div class="st">今日任务 <span class="dt-badge rest" id="dtBadge">休息日</span></div>
+<div class="tl" id="taskList"><div class="empty">加载中...</div></div>
+<div style="text-align:center;padding:16px 0">
+<span onclick="showAnxiety()" style="font-size:13px;color:var(--text2);cursor:pointer;border-bottom:1px dashed var(--text2)">😵 有点焦虑？点这里</span>
+</div>
+</div>
+
+<!-- 焦虑弹窗 -->
+<div id="anxietyModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.6);z-index:300;align-items:center;justify-content:center;padding:20px">
+<div style="background:var(--card);border-radius:20px;padding:28px 24px;max-width:360px;width:100%;text-align:center">
+<div style="font-size:48px;margin-bottom:12px">🫧</div>
+<div style="font-size:18px;font-weight:700;margin-bottom:8px;color:var(--text)">深呼吸，没事的</div>
+<div id="anxietyMsg" style="font-size:14px;color:var(--text2);line-height:1.6;margin-bottom:20px"></div>
+<div style="font-size:13px;color:var(--text2);margin-bottom:16px">跟着这个节奏呼吸：</div>
+<div style="width:120px;height:120px;border-radius:50%;background:linear-gradient(135deg,var(--pri),#764ba2);margin:0 auto 20px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;font-weight:600;animation:breathe 4s ease-in-out infinite">吸气<br>呼气</div>
+<style>@keyframes breathe{0%,100%{transform:scale(.8);opacity:.7}50%{transform:scale(1.1);opacity:1}}</style>
+<button onclick="closeAnxiety()" style="background:var(--pri);color:#fff;border:none;border-radius:24px;padding:12px 32px;font-size:15px;font-weight:600;cursor:pointer">好了，我平静多了</button>
+</div>
+</div>
+
+<!-- 勾选分享内容弹窗 -->
+<div id="sharePicker" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.6);z-index:400;padding:20px;display:flex;align-items:center;justify-content:center">
+<div style="background:var(--card);border-radius:20px;padding:24px 20px;max-width:360px;width:100%">
+<div style="font-size:18px;font-weight:700;margin-bottom:6px;text-align:center">选择要分享的内容</div>
+<div style="font-size:13px;color:var(--text2);text-align:center;margin-bottom:16px">勾选你想让老师看到的板块</div>
+<div id="shareOptions" style="display:flex;flex-direction:column;gap:10px">
+<label style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:var(--bg);border-radius:10px;cursor:pointer;font-size:14px"><input type="checkbox" id="opt_tasks" checked style="width:20px;height:20px"> ✅ 今日完成任务</label>
+<label style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:var(--bg);border-radius:10px;cursor:pointer;font-size:14px"><input type="checkbox" id="opt_stats" checked style="width:20px;height:20px"> 📊 学习数据</label>
+<label style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:var(--bg);border-radius:10px;cursor:pointer;font-size:14px"><input type="checkbox" id="opt_words" style="width:20px;height:20px"> 📖 单词记录</label>
+<label style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:var(--bg);border-radius:10px;cursor:pointer;font-size:14px"><input type="checkbox" id="opt_knowledge" checked style="width:20px;height:20px"> 📚 今日知识点</label>
+<label style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:var(--bg);border-radius:10px;cursor:pointer;font-size:14px"><input type="checkbox" id="opt_diary" style="width:20px;height:20px"> 📔 心情状态</label>
+</div>
+<button onclick="generateShareImage()" style="width:100%;background:var(--ok);color:#fff;border:none;border-radius:12px;padding:14px;font-size:15px;font-weight:600;cursor:pointer;margin-top:16px">生成打卡图</button>
+<button onclick="document.getElementById('sharePicker').style.display='none'" style="width:100%;background:var(--border);color:var(--text);border:none;border-radius:12px;padding:12px;font-size:14px;cursor:pointer;margin-top:8px">取消</button>
+</div>
+</div>
+
+<!-- 打卡图预览弹窗 -->
+<div id="checkinModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.85);z-index:500;padding:20px;overflow-y:auto">
+<div style="max-width:400px;margin:0 auto;text-align:center">
+<div style="color:#fff;font-size:16px;font-weight:600;margin-bottom:12px">长按图片保存到相册，或点击下方分享</div>
+<img id="checkinImg" style="width:100%;border-radius:12px;box-shadow:0 8px 32px rgba(0,0,0,.3)" src="">
+<div style="display:flex;gap:10px;margin-top:16px">
+<a id="downloadLink" href="#" download="学习打卡.png" style="flex:1;background:var(--ok);color:#fff;text-decoration:none;padding:14px;border-radius:12px;font-size:15px;font-weight:600;display:block">💾 保存图片</a>
+<button onclick="document.getElementById('checkinModal').style.display='none'" style="flex:1;background:var(--border);color:var(--text);border:none;padding:14px;border-radius:12px;font-size:15px;font-weight:600;cursor:pointer">关闭</button>
+</div>
+<div style="color:rgba(255,255,255,.5);font-size:12px;margin-top:12px">💡 如果保存不成功，可以截图发给老师</div>
+</div>
+</div>
+
+<!-- 番茄页 -->
+<div id="p-pomo" class="page">
+<div class="header"><div class="ht"><div class="ui"><span>🌳</span><span>专注种树</span></div></div>
+<div class="cc"><div style="font-size:14px;opacity:.85">今日已种树</div><div class="cn" id="ptc" style="font-size:36px">0 棵</div><div class="pt" id="ptm">0 分钟专注</div></div></div>
+<div class="pomo-sec">
+<div class="pomo-card">
+<div style="font-size:14px;color:var(--text2)">正在专注</div>
+<input type="text" class="pinput" id="pomoTask" placeholder="在做什么？（如：背单词/专业课）">
+<div class="ptimer" id="pTimer">25:00</div>
+<div class="pc">
+<button class="pbtn start" id="pStart" onclick="startPomo()">开始</button>
+<button class="pbtn reset" onclick="resetPomo()">重置</button>
+</div>
+<div class="pstats" id="pStats">累计种树 0 棵</div>
+</div>
+</div>
+<div class="sec">
+<div class="st" style="padding:0">🕐 今日时间规划</div>
+<div id="planList"><div class="empty">加载中...</div></div>
+<div id="planAdvice" style="margin-top:12px;padding:12px 14px;background:var(--priL);border-radius:10px;font-size:13px;color:var(--pri);line-height:1.5;display:none"></div>
+</div>
+<div class="sec">
+<button onclick="openSharePicker()" style="width:100%;background:var(--ok);color:#fff;border:none;border-radius:14px;padding:14px;font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 4px 12px rgba(72,187,120,.3)">📤 生成打卡图（发给老师）</button>
+</div>
+</div>
+
+<!-- 知识库页 -->
+<div id="p-knowledge" class="page">
+<div class="header"><div class="ht"><div class="ui"><span>📚</span><span>专业课知识库</span></div></div></div>
+<div class="sec" style="padding-top:16px">
+<div class="st" style="padding:0">点击卡片翻看答案</div>
+<div class="ch-tabs" id="chTabs"></div>
+<div id="cardList"><div class="empty">加载中...</div></div>
+</div>
+</div>
+
+<!-- 日记页 -->
+<div id="p-diary" class="page">
+<div class="header"><div class="ht"><div class="ui"><span>📔</span><span>今日日记</span></div></div></div>
+<div class="sec" style="padding-top:16px">
+<div class="st" style="padding:0">今天，心里想说什么？</div>
+<div class="card-box">
+<div style="font-size:13px;color:var(--text2);margin-bottom:6px">今天的心情</div>
+<div class="mood-row" id="moodRow">
+<div class="mood-btn" data-v="😊 开心" onclick="selectMood(this)">😊 开心</div>
+<div class="mood-btn" data-v="😌 平静" onclick="selectMood(this)">😌 平静</div>
+<div class="mood-btn" data-v="😔 低落" onclick="selectMood(this)">😔 低落</div>
+<div class="mood-btn" data-v="🥱 疲惫" onclick="selectMood(this)">🥱 疲惫</div>
+<div class="mood-btn" data-v="😤 烦躁" onclick="selectMood(this)">😤 烦躁</div>
+<div class="mood-btn" data-v="🥳 兴奋" onclick="selectMood(this)">🥳 兴奋</div>
+</div>
+<input type="hidden" id="diaryMood">
+<div style="font-size:13px;color:var(--text2);margin-bottom:6px;margin-top:10px">📖 今天学到了什么？</div>
+<textarea class="ta" id="diaryStudy" placeholder="哪怕只是一个知识点、一个单词，写下来就是收获" style="min-height:70px"></textarea>
+<div style="font-size:13px;color:var(--text2);margin-bottom:6px;margin-top:10px">💭 对自己说句话</div>
+<textarea class="ta" id="diarySelfTalk" placeholder="今天辛苦了 / 再加油一下 / 没关系明天再来" style="min-height:60px"></textarea>
+<div style="font-size:13px;color:var(--text2);margin-bottom:6px;margin-top:10px">✨ 今天有趣的小事</div>
+<textarea class="ta" id="diaryFun" placeholder="哪怕是很小的事也值得记录～" style="min-height:70px"></textarea>
+<div style="font-size:13px;color:var(--text2);margin-bottom:6px;margin-top:10px">🎯 明天的小目标</div>
+<textarea class="ta" id="diaryGoal" placeholder="明天想做到的一件小事就好" style="min-height:50px"></textarea>
+<button class="save-btn" style="width:100%;margin-top:10px" onclick="saveDiary()">保存今日日记</button>
+</div>
+</div>
+</div>
+
+<!-- 单词小记页 -->
+<div id="p-words" class="page">
+<div class="header"><div class="ht"><div class="ui"><span>📖</span><span>单词小记</span></div></div></div>
+<div class="sec" style="padding-top:16px">
+<div class="st" style="padding:0">记录新学/印象深刻的词</div>
+<div class="card-box">
+<input type="text" class="input" id="wnWord" placeholder="单词（如：abandon）">
+<input type="text" class="input" id="wnMeaning" placeholder="中文意思（如：放弃）">
+<textarea class="ta" id="wnNote" placeholder="备注（怎么记住的？在阅读里见到的？）" style="min-height:60px"></textarea>
+<button class="save-btn" style="width:100%" onclick="addWordNote()">记录</button>
+</div>
+<div class="st" style="padding:0;margin-top:16px">今日记录</div>
+<div id="wnList"><div class="empty">还没有记录</div></div>
+</div>
+</div>
+
+<!-- 睡眠页 -->
+<div id="p-sleep" class="page">
+<div class="header"><div class="ht"><div class="ui"><span>😴</span><span>睡眠记录</span></div></div>
+<div class="cc"><div style="font-size:14px;opacity:.85">昨晚睡了</div><div class="cn" id="shDisplay" style="font-size:36px">— 小时</div><div class="pt" id="saText">本周平均 — 小时</div></div></div>
+<div style="padding:16px">
+<div class="st" style="padding:0">记录昨晚睡眠</div>
+<div class="card-box">
+<div style="text-align:center;font-size:48px;font-weight:800;color:var(--pri)"><span id="ssVal">7.0</span><span style="font-size:16px;font-weight:500;color:var(--text2)"> 小时</span></div>
+<input type="range" class="sleep-slider" id="ssSlider" min="0" max="12" step="0.5" value="7.0" oninput="document.getElementById('ssVal').textContent=this.value">
+<div class="sq-row">
+<div class="sq-btn" id="sqBad" onclick="selectSQ('bad',this)">😴 很差</div>
+<div class="sq-btn active" id="sqNormal" onclick="selectSQ('normal',this)">🙂 一般</div>
+<div class="sq-btn" id="sqGood" onclick="selectSQ('good',this)">😊 很好</div>
+</div>
+<button class="save-btn" style="width:100%;margin-top:12px" onclick="saveSleep()">保存</button>
+<div class="sleep-advice" id="sAdvice" style="display:none"></div>
+</div>
+<div class="st" style="padding:0;margin-top:16px">本周睡眠趋势</div>
+<div class="card-box"><div class="sleep-chart" id="sChart"></div></div>
+</div>
+</div>
+
+<!-- 政治学习页 -->
+<div id="p-video" class="page">
+<div class="header"><div class="ht"><div class="ui"><span>🎬</span><span>政治学习</span></div></div></div>
+<div class="sec" style="padding-top:16px">
+<div class="st" style="padding:0">徐涛强化班（B站正版）</div>
+<div class="card-box">
+<div style="font-size:13px;line-height:1.6;color:var(--text);margin-bottom:12px">
+徐涛老师在B站课堂有正版的2027考研政治精讲班，点下方按钮会跳转到B站APP打开课程页面。<br><br>
+<span style="color:var(--warn);font-weight:600">注意：</span>课程需要购买（几百元），购买后一年内有效。如果你暂时不买，先看下面的"每日政治知识点"也能学。
+</div>
+<a href="https://www.bilibili.com/cheese/play/ep2373641" target="_blank" class="save-btn" style="width:100%;display:block;text-align:center;text-decoration:none;margin-bottom:10px" onclick="event.stopPropagation()">打开B站徐涛课程 →</a>
+<div style="font-size:12px;color:var(--text2);text-align:center">这是B站官方课堂链接，安全稳定</div>
+</div>
+<div class="st" style="padding:0;margin-top:16px">每日政治知识点（视频替代）</div>
+<div class="card-box">
+<div class="kbit" style="margin:0;border-left-color:var(--ok)">
+<div class="kbit-label" style="color:var(--ok)">📝 今天先学这个</div>
+<div class="kbit-text" id="politicsToday">加载中...</div>
+</div>
+<div style="font-size:12px;color:var(--text2);margin-top:10px;line-height:1.5">
+政治不用急着全看视频。从7月开始，每天看1-2个知识点+周末做肖1000题，完全来得及。<br><br>
+推荐节奏：<br>
+• 7-8月：每天看知识点，周末做肖1000题马原部分<br>
+• 9-10月：看徐涛强化班重点章节（马原+毛中特）<br>
+• 11-12月：背肖四肖八
+</div>
+</div>
+</div>
+</div>
+
+<!-- 排班页 -->
+<div id="p-sched" class="page">
+<div class="header"><div class="ht"><div class="ui"><span>✈️</span><span>排班 & 航班感受</span></div></div></div>
+<div class="sec" style="padding-top:16px">
+<div class="st" style="padding:0">粘贴航班信息自动识别</div>
+<div class="card-box">
+<textarea class="sched-paste" id="schedPaste" placeholder="直接粘贴你收到的航班短信，比如：&#10;张佳蓓,您的航班为：&#10;2026-07-22 16:05--18:45&#10;MF8153 厦并&#10;2026-07-22 20:15--22:55&#10;MF8154 并厦&#10;..."></textarea>
+<button class="save-btn" style="width:100%" onclick="parseSched()">一键识别并设置排班</button>
+</div>
+<div class="st" style="padding:0;margin-top:16px">我的排班 <button class="save-btn danger" style="float:right;padding:4px 12px;font-size:12px" onclick="clearSched()">清空</button></div>
+<div id="schedList"><div class="empty">暂无排班，粘贴上方文本自动识别</div></div>
+<div style="margin-top:16px">
+<button class="backup-btn" onclick="exportData()">📤 导出备份</button>
+<button class="backup-btn" onclick="importData()">📥 导入备份</button>
+<input type="file" id="importFile" accept=".json" style="display:none" onchange="handleImport(this)">
+</div>
+</div>
+</div>
+
+<!-- 社工资讯页 -->
+<div id="p-news" class="page">
+<div class="header"><div class="ht"><div class="ui"><span>📰</span><span>社工资讯</span></div></div></div>
+<div class="sec" style="padding-top:16px">
+<div id="swFactCard" style="background:linear-gradient(135deg,#667eea,#764ba2);border-radius:14px;padding:16px 18px;color:#fff;margin-bottom:14px;box-shadow:var(--shadow)">
+<div style="font-size:11px;opacity:.8;font-weight:600;margin-bottom:6px">💡 社工小知识 · 每日一条</div>
+<div id="swFactText" style="font-size:14px;line-height:1.6">加载中...</div>
+<div style="font-size:11px;opacity:.6;margin-top:8px;text-align:right" id="swFactIdx"></div>
+</div>
+<div id="swFilter" style="display:flex;gap:6px;margin-bottom:12px;overflow-x:auto;padding-bottom:4px">
+<div class="sw-ftag active" onclick="filterSW('all',this)" style="flex-shrink:0;padding:6px 14px;border-radius:16px;background:var(--pri);color:#fff;font-size:13px;cursor:pointer">全部</div>
+<div class="sw-ftag" onclick="filterSW('policy',this)" style="flex-shrink:0;padding:6px 14px;border-radius:16px;background:var(--bg);font-size:13px;color:var(--text2);cursor:pointer;border:1px solid var(--border)">📋 政策</div>
+<div class="sw-ftag" onclick="filterSW('news',this)" style="flex-shrink:0;padding:6px 14px;border-radius:16px;background:var(--bg);font-size:13px;color:var(--text2);cursor:pointer;border:1px solid var(--border)">📰 动态</div>
+<div class="sw-ftag" onclick="filterSW('trend',this)" style="flex-shrink:0;padding:6px 14px;border-radius:16px;background:var(--bg);font-size:13px;color:var(--text2);cursor:pointer;border:1px solid var(--border)">📈 趋势</div>
+<div class="sw-ftag" onclick="filterSW('global',this)" style="flex-shrink:0;padding:6px 14px;border-radius:16px;background:var(--bg);font-size:13px;color:var(--text2);cursor:pointer;border:1px solid var(--border)">🌍 国际</div>
+</div>
+<div id="swNewsList"><div class="empty">加载中...</div></div>
+</div>
+</div>
+
+<!-- 底部导航 -->
+<div class="nav">
+<div class="ni active" onclick="switchPage('home',this)"><span class="ico">📋</span>任务</div>
+<div class="ni" onclick="switchPage('pomo',this)"><span class="ico">🌳</span>番茄</div>
+<div class="ni" onclick="switchPage('knowledge',this)"><span class="ico">📚</span>知识库</div>
+<div class="ni" onclick="switchPage('words',this)"><span class="ico">📖</span>单词</div>
+<div class="ni" onclick="switchPage('diary',this)"><span class="ico">📔</span>日记</div>
+<div class="ni" onclick="switchPage('sleep',this)"><span class="ico">😴</span>睡眠</div>
+<div class="ni" onclick="switchPage('video',this)"><span class="ico">🎬</span>视频</div>
+<div class="ni" onclick="switchPage('news',this)"><span class="ico">📰</span>资讯</div>
+<div class="ni" onclick="switchPage('sched',this)"><span class="ico">✈️</span>排班</div>
+</div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ============================================================
+// 常量数据（原后端Python代码中的硬编码数据）
+// ============================================================
+
+const KNOWLEDGE_BITS = [
+    "社会工作核心价值观：利他主义。这是社工的灵魂，区别于志愿者的关键。",
+    "社会工作三大方法：个案工作、小组工作、社区工作。",
+    "马斯洛需求层次：生理→安全→归属与爱→尊重→自我实现。低层满足才追求高层。",
+    "埃里克森八阶段：青少年期（12-20岁）的核心任务是建立自我同一性。",
+    "弗洛伊德人格结构：本我（快乐原则）→自我（现实原则）→超我（道德原则）。",
+    "标签理论：越轨行为不是天生的，是社会贴标签造成的。初级越轨→被贴标签→次级越轨。",
+    "系统理论三个层级：微观（家庭/同辈）→中观（系统间互动）→宏观（政策/制度/文化）。",
+    "增强权能理论：弱势群体的无力感根源是社会结构性压迫，不是个人能力缺失。",
+    "优势视角：人人有优势、困境蕴含资源。摒弃问题视角，以优势为介入核心。",
+    "ABC理论：A（事件）→B（信念认知，核心变量）→C（情绪结果）。非理性信念是问题根源。",
+    "危机介入六原则：及时处理、限定目标、输入希望、提供支持、恢复自尊、培养自主能力。",
+    "小组工作四类型：教育小组、成长小组、支持小组、治疗小组。",
+    "小组工作四模式：社会目标模式、治疗模式、互动模式、发展模式。",
+    "小组五阶段：准备→开始（磨合）→转折（冲突）→成熟（凝聚力峰值）→结束。",
+    "皮亚杰四阶段：感知运动（0-2岁）→前运算（2-7岁）→具体运算（7-12岁）→形式运算（12岁+）。",
+    "社会支持网络四类：家庭支持、社区支持、政府支持、社会支持。",
+    "人本主义核心：人与生俱来有自我实现的潜能。问题是环境压抑了潜能。",
+    "认知行为理论：认知是刺激和行为之间的中间环节。改变认知→改变行为。",
+    "社会工作对服务对象四功能：促进正常生活、恢复弱化功能、促进人的发展、促进人与环境适应。",
+    "社会工作对社会四功能：维护社会秩序、构建社会资本、促进社会和谐、推动社会进步。",
+];
+
+const POLITICS_BITS = [
+    "马克思主义：物质决定意识，意识对物质有反作用。社会存在决定社会意识。",
+    "辩证法三大规律：对立统一、量变质变、否定之否定。",
+    "唯物史观：生产力决定生产关系，经济基础决定上层建筑。",
+    "商品二因素：使用价值（有用性）和价值（无差别人类劳动）。",
+    "货币职能：价值尺度、流通手段、贮藏手段、支付手段、世界货币。",
+    "剩余价值：工人创造的价值中，被资本家无偿占有的部分。",
+    "资本积累：剩余价值转化为资本，扩大再生产。",
+    "资本主义基本矛盾：生产社会化与生产资料资本主义私人占有之间的矛盾。",
+    "新民主主义革命总路线：无产阶级领导的，人民大众的，反对帝国主义、封建主义、官僚资本主义的革命。",
+    "毛泽东思想活的灵魂：实事求是、群众路线、独立自主。",
+    "邓小平理论首要问题：什么是社会主义、怎样建设社会主义。",
+    "三个代表：代表中国先进生产力发展要求、先进文化前进方向、最广大人民根本利益。",
+    "科学发展观：第一要义是发展，核心是以人为本，基本要求是全面协调可持续，根本方法是统筹兼顾。",
+    "中国梦：实现中华民族伟大复兴。",
+    "新时代社会主要矛盾：人民日益增长的美好生活需要和不平衡不充分的发展之间的矛盾。",
+    "五位一体：经济建设、政治建设、文化建设、社会建设、生态文明建设。",
+    "四个全面：全面建设社会主义现代化国家、全面深化改革、全面依法治国、全面从严治党。",
+    "新发展理念：创新、协调、绿色、开放、共享。",
+    "供给侧结构性改革：减少无效和低端供给，扩大有效和中高端供给。",
+    "人类命运共同体：持久和平、普遍安全、共同繁荣、开放包容、清洁美丽。",
+];
+
+const CHAPTER_KNOWLEDGE = {
+    "第一章": [
+        {"q": "社会工作的定义", "a": "以利他主义价值观为指导，以社会学、心理学等多学科知识为理论基础，运用个案、小组、社区等标准化专业助人方法，面向有困境的个人、家庭、群体、社区开展的专业化、职业化助人服务活动。"},
+        {"q": "社会工作五大要素", "a": "1.服务对象 2.社会工作者 3.价值观（核心：利他主义）4.助人活动 5.专业方法（个案、小组、社区）"},
+        {"q": "社会工作对服务对象四大功能", "a": "1.促进正常生活 2.恢复弱化功能 3.促进人的发展 4.促进人与社会环境相互适应"},
+        {"q": "社会工作对社会四大功能", "a": "1.维护社会秩序 2.构建社会资本 3.促进社会和谐 4.推动社会进步"},
+        {"q": "社工直接服务角色", "a": "1.服务提供者 2.治疗者 3.支持者 4.使能者 5.关系协调者"},
+        {"q": "社工间接服务角色", "a": "1.行政管理者 2.资源筹措者 3.政策研究者"},
+        {"q": "社工与志愿者区别", "a": "1.活动方式（职业vs志愿）2.专业技术（系统培训vs无培训）3.问题难度（复杂vs简单）4.社会约束（法规vs道德）"},
+        {"q": "社工发展基本原则", "a": "1.坚持党的领导 2.社会主义核心价值观引领 3.以人民为中心 4.职业化、专业化、本土化"},
+    ],
+    "第二章": [
+        {"q": "我国社工价值观七要点", "a": "1.以人民为中心，回应社会需求 2.接纳和尊重 3.个别化与非评判 4.注重和谐秩序，促进社会共融与发展 5.平等对待，注重民主参与 6.权利和责任并重 7.个人发展机遇与国家社会发展进程相结合"},
+        {"q": "国际社工价值观六要点", "a": "1.服务大众 2.践行社会公正 3.强调个人尊严和价值 4.注重人际关系的重要性 5.待人真诚和守信 6.注重能力培养和再学习"},
+        {"q": "基本信念三原则", "a": "1.尊重 2.独特性 3.相信人能改变"},
+        {"q": "实践原则四要点", "a": "1.接纳（≠认同）2.非批判 3.个别化 4.保密（存在破格情况）5.当事人自决（两大前提：清晰认知能力、无外力胁迫）"},
+        {"q": "接纳的含义", "a": "包容服务对象全部情绪、观念、过往行为，客观接纳其真实状态；接纳≠认同其错误价值观或违规行为"},
+        {"q": "保密原则的例外", "a": "当出现案主自伤、伤人、侵害未成年人等生命安全风险时，可突破保密原则，及时告知相关方"},
+        {"q": "当事人自决两大前提", "a": "1.服务对象具备清晰认知能力 2.无外力胁迫。若案主精神失常、未成年无判断能力，由监护人代为决策"},
+        {"q": "社工伦理基本原则", "a": "1.服务对象为本 2.专业价值高于个人价值 3.坚持专业权威性"},
+        {"q": "伦理责任六大内容", "a": "1.对服务对象 2.对同事 3.对机构 4.作为专业人员 5.对专业 6.对全社会"},
+        {"q": "伦理决定七大原则（有优先级）", "a": "1.保护生命原则（最高）2.差别平等原则 3.自由自主原则 4.最小伤害原则 5.生命质量原则 6.隐私保密原则 7.真诚原则"},
+        {"q": "伦理守则内涵六要点", "a": "1.服务 2.社会正义 3.人的尊严和价值 4.人类关系的重要性 5.正直 6.能力"},
+        {"q": "我国社工伦理守则内容", "a": "1.尊重服务对象，全心全意服务 2.信任支持同事，促进共同成长 3.践行专业使命，促进机构发展 4.提升专业能力，维护专业形象 5.勇担社会责任，增进社会福祉"},
+        {"q": "伦理守则的作用", "a": "1.维护服务对象的权益 2.帮助社工解决伦理难题 3.促进专业的健康发展 4.促进社会服务机构的能力建设 5.维护社会正义"},
+    ],
+    "第三章": [
+        {"q": "马斯洛五层次", "a": "生理→安全→归属与爱→尊重→自我实现。低层满足才追求高层。"},
+        {"q": "ERG理论", "a": "生存(E)→关系(R)→成长(G)。不严格递进，可同时追求多种；有挫折-退化效应。"},
+        {"q": "社会环境七要素", "a": "1.家庭 2.同辈群体 3.学校 4.工作单位 5.社区 6.文化 7.大众传媒"},
+        {"q": "家庭五功能", "a": "1.生育 2.经济 3.情感支持 4.社会化 5.赡养与照料"},
+        {"q": "弗洛伊德三大内容", "a": "1.意识层次（意识/前意识/潜意识）2.人格三分（本我/自我/超我）3.焦虑与心理防卫机制"},
+        {"q": "人格三原则", "a": "本我=快乐原则；自我=现实原则；超我=道德原则"},
+        {"q": "埃里克森八阶段", "a": "1.婴儿期:信任vs不信任 2.幼儿期:自主vs羞怯 3.儿童早期:主动vs内疚 4.儿童中期:勤奋vs自卑 5.青少年:同一性vs混乱 6.成年早期:亲密vs孤独 7.成年中期:繁殖vs停滞 8.成年晚期:整合vs绝望"},
+        {"q": "皮亚杰四阶段", "a": "1.感知运动(0-2岁) 2.前运算(2-7岁):自我中心 3.具体运算(7-12岁):守恒 4.形式运算(12岁+):抽象逻辑"},
+        {"q": "科尔伯格三水平六阶段", "a": "前习俗(惩罚服从/相对功利)→习俗(好孩子/法规秩序)→后习俗(社会契约/普遍伦理)"},
+        {"q": "符号互动论三子理论", "a": "1.米德·角色扮演 2.托马斯·情境定义 3.库利·镜中我"},
+        {"q": "标签理论", "a": "越轨行为是社会贴标签造成的。初级越轨→贴标签→内化→次级越轨。"},
+    ],
+    "第四章": [
+        {"q": "理论在社工中的功能", "a": "1.解释问题 2.预测与判断 3.确定干预模式 4.指导服务实践 5.发展新理论"},
+        {"q": "社工理论两大分类", "a": "1.支持社会工作的理论（基础学科）2.社会工作理论（实务干预）"},
+        {"q": "精神分析取向运用原则", "a": "1.个别化 2.签订治疗契约 3.安全支持环境 4.自由联想 5.倾听理解"},
+        {"q": "心理社会治疗模式核心", "a": "人在情景中。心理问题与社会环境互为因果，兼顾心理调适与环境改善。"},
+        {"q": "认知行为理论核心", "a": "认知是刺激与行为的中介。非理性认知→负面情绪→偏差行为。改变认知+改变行为。"},
+        {"q": "系统理论三层级", "a": "微观(家庭/同辈)→中观(系统间互动)→宏观(政策/制度/文化)"},
+        {"q": "生态系统四要素", "a": "1.栖息地 2.生存空间 3.人际适配性 4.资源交换关系"},
+        {"q": "人本主义核心", "a": "人有自我实现潜能。问题是环境压抑了潜能。营造尊重、接纳、真诚氛围。"},
+        {"q": "增强权能理论", "a": "无力感根源是社会结构性压迫，非个人能力缺失。破除环境障碍→唤醒权能。"},
+        {"q": "优势视角", "a": "人人有优势、困境蕴含资源。核心：优势、增强权能、成员资格、抗逆力、治愈整合、对话合作、悬置怀疑。"},
+        {"q": "社会支持网络四类", "a": "1.家庭支持 2.社区支持 3.政府支持 4.社会支持"},
+    ],
+    "第五章": [
+        {"q": "个案工作本质", "a": "恢复和增强服务对象的社会功能、调适人与社会环境的适应关系。"},
+        {"q": "心理社会治疗三大诊断", "a": "1.心理动态诊断（人格/潜意识）2.缘由诊断（问题时间线）3.分类诊断（生理/心理/社会）"},
+        {"q": "直接治疗技巧", "a": "非反思性：支持、直接影响、探索-描述-宣泄；反思性：现实反思、心理动力反思、人格发展反思"},
+        {"q": "ABC理论", "a": "A(诱发事件)→B(信念认知,核心变量)→C(情绪结果)。非理性信念是问题根源。"},
+        {"q": "三类非理性信念", "a": "1.绝对化要求 2.过分概括化 3.灾难化思维"},
+        {"q": "任务中心模式两要素", "a": "1.清晰界定问题（具象可描述）2.合理界定任务（具体可操作有时限）"},
+        {"q": "危机介入六原则", "a": "1.及时处理 2.限定目标 3.输入希望 4.提供支持 5.恢复自尊 6.培养自主能力"},
+        {"q": "危机分类", "a": "普通生活经历危机（升学/结婚/失业/丧亲）；特殊经历危机（灾害/暴力/事故/性侵/重病）"},
+    ],
+    "第六章": [
+        {"q": "小组工作五要素", "a": "1.专业社工 2.组员 3.小组目标 4.互动过程 5.小组规范"},
+        {"q": "小组四类型", "a": "1.教育小组 2.成长小组 3.支持小组 4.治疗小组"},
+        {"q": "小组五特点", "a": "1.问题相似性 2.靠互动与团体动力改变 3.微型社会模拟 4.平等民主参与 5.预防+发展+治疗三重属性"},
+        {"q": "小组四模式", "a": "1.社会目标模式 2.治疗模式 3.互动模式 4.发展模式"},
+        {"q": "小组五阶段", "a": "1.准备 2.开始（磨合）3.转折（冲突）4.成熟（凝聚力峰值）5.结束（分离）"},
+        {"q": "开始阶段社工角色", "a": "领导者、鼓励者、组织者"},
+        {"q": "转折阶段社工角色", "a": "协助者、引导者、工作者、辅导者、调解人、支持者"},
+        {"q": "小组成熟阶段社工角色", "a": "信息资源供给者、资源链接者、能力赋能促进者、进程引导者、支持者"},
+        {"q": "小组评估分类", "a": "研究用途：过程评估/结果评估；实务用途：组前需求/小组过程/结案效果评估"},
+    ],
+};
+
+const SW_NEWS = [
+    {"type":"policy","icon":"📋","tag":"政策前沿","title":"《关于推进社会工作专业人员队伍建设的意见》","date":"2026.03","source":"中共中央社会工作部","summary":"中央首次出台社工人才队伍建设专项文件，目标到2030年社工专业人才总量达到200万人，持证社工达到80万人。","detail":"文件明确提出：①扩大社会工作专业招生规模 ②完善社工职业资格评价体系 ③建立社工岗位开发和薪酬保障机制 ④推动社工在基层治理、医务、学校、司法等领域深入发展。对考研人来说，意味着社工专业毕业生就业渠道将进一步拓宽。"},
+    {"type":"policy","icon":"📝","tag":"考试大纲","title":"2025年版《社会工作者职业资格考试大纲》发布","date":"2025.11","source":"人社部","summary":"新版大纲调整了部分考点权重，增加了基层治理、新就业群体服务等新内容。","detail":"变化要点：①综合能力科目中「社会工作理论」权重提升 ②实务科目新增「新就业形态劳动者服务」 ③政策与法规科目增加2024年以来新颁布的社会政策。考研复习时可关注这些新增方向。"},
+    {"type":"news","icon":"🏛️","tag":"顶层动态","title":"习近平对社会工作作出重要指示","date":"2024.11","source":"新华社","summary":"强调社会工作是党和国家工作的重要组成部分，要推动新时代社会工作高质量发展。","detail":"指出社会工作事关党长期执政和国家长治久安，要抓好新经济组织、新社会组织、新就业群体党建工作，抓好混合所有制企业、非公有制企业党建工作，抓好党建引领基层治理和基层政权建设。这为社会工作专业发展提供了顶层政治保障。"},
+    {"type":"news","icon":"🌟","tag":"地方实践","title":"北京实施第七批\"优才计划\"培养社工骨干","date":"2025.09","source":"北京社会建设工作领导小组","summary":"选拔300名优秀社区工作者进入高校攻读社工硕士，学费由政府补贴。","detail":"\"优才计划\"已累计培养社工硕士近2000名，毕业后在社区治理、社会组织、医务社工等领域发挥骨干作用。这类政策说明社工硕士在体制内认可度越来越高。"},
+    {"type":"news","icon":"📱","tag":"数字社工","title":"四川\"天府民声\"平台上线，数字社工服务覆盖全省","date":"2025.06","source":"四川省社会工作部","summary":"依托大数据平台实现群众诉求智能匹配社工服务，已服务超过500万人次。","detail":"平台整合了全省社工机构资源，通过AI匹配需求与服务，居民在线提交诉求后系统自动分配最近的社工跟进。这是社会工作数字化的典型实践，也创造了大量\"数字社工\"新岗位。"},
+    {"type":"trend","icon":"📈","tag":"行业数据","title":"全国持证社工突破90万人","date":"2025.12","source":"民政部","summary":"2025年全国社会工作者职业资格考试报考人数突破120万，再创历史新高。","detail":"截至2025年底，全国持证社工达到90.7万人，其中助理社工师53.2万人，社工师37.5万人。广东、江苏、浙江持证人数排名前三。社工职业化进程加速，专业人才缺口依然巨大。"},
+    {"type":"trend","icon":"🏥","tag":"领域拓展","title":"医务社工全面铺开，三甲医院将强制配备","date":"2025.08","source":"国家卫健委","summary":"国家卫健委要求三级综合医院全部设立社工岗位，医务社工迎来爆发期。","detail":"医务社工在医患沟通、临终关怀、慢病管理、医疗救助等方面发挥独特作用。目前全国已有超过3000家医院开展医务社工服务，但人才缺口达数万人。厦航做服务出身的你，转做医务社工非常对口。"},
+    {"type":"trend","icon":"🏫","tag":"领域拓展","title":"学校社工试点扩至全国200城","date":"2025.10","source":"教育部","summary":"中小学驻校社工覆盖范围持续扩大，关注青少年心理健康与校园欺凌防治。","detail":"学校社工主要服务包括：学生心理健康筛查与干预、校园欺凌预防与处理、家庭教育指导、生涯规划辅导等。随着青少年心理问题日益受到关注，学校社工正在成为热门就业方向。"},
+    {"type":"trend","icon":"⚖️","tag":"领域拓展","title":"司法社工纳入法律援助体系","date":"2025.05","source":"司法部","summary":"未成年人司法社工、社区矫正社工需求大幅增长。","detail":"新修订的《法律援助法》明确将社会工作服务纳入法律援助范围。司法社工在未成年人犯罪预防、被害人救助、社区矫正等领域作用独特。这是一个门槛较高但收入和社会认可度都很好的细分领域。"},
+    {"type":"trend","icon":"💼","tag":"就业前景","title":"社工硕士就业方向全景图","date":"2026.01","source":"行业报告","summary":"社工硕士（MSW）就业方向多元化，体制内外均有广阔空间。","detail":"体制内：民政、街道、社区、工青妇等群团组织\n体制外：社工机构、医院、学校、基金会、企业CSR\n新兴方向：数字社工、ESG咨询、企业员工关怀、养老运营\n厦大MSW毕业生在长三角、珠三角非常抢手，起薪普遍8-12k，资深社工年薪可达20万+。"},
+    {"type":"global","icon":"🌍","tag":"国际视野","title":"国际社工联（IFSW）发布2030全球议程","date":"2025.03","source":"IFSW","summary":"聚焦气候变化、数字鸿沟、全球心理健康三大主题，推动社工参与全球治理。","detail":"IFSW代表全球300万社工，2030议程强调社工在应对气候变化难民、消除数字鸿沟、促进全球心理健康方面的作用。对于有留学计划的你来说，国际社工是一个很好的交叉方向。"},
+    {"type":"global","icon":"🌏","tag":"国际视野","title":"新西兰社工注册制度与留学路径","date":"2025.07","source":"SWRB New Zealand","summary":"新西兰社工注册委员会（SWRB）认可部分海外社工学历，留学+注册可行。","detail":"新西兰社工注册要求：①受认可的社会工作学历（通常为本科或硕士） ②完成规定的实习时长 ③英语达到雅思7.0（各单项） ④通过品格审查。奥克兰大学、梅西大学社工硕士（MSW）项目接受跨专业申请，学制1.5-2年。与你的留学规划高度契合。"},
+];
+
+const SW_DAILY_FACTS = [
+    "你知道吗？中国社会工作教育协会有300+所高校会员，每年培养社工毕业生近4万人。",
+    "厦门大学社会工作专业属于社会与人类学院，MSW招收非全日制，上课时间集中在周末。",
+    "社会工作的「增能（Empowerment）」不只是给资源，更是让服务对象发现自己有能力。",
+    "全国已有14个省份出台社工人才薪酬保障文件，多地明确社工不低于当地平均工资。",
+    "深圳社工平均年薪已达12万，是全国社工薪资最高的城市之一。",
+    "「用生命影响生命」——社工界最广为流传的一句话，出自特蕾莎修女。",
+    "2024年起，多地社区工作者考试中明确社工硕士可免笔试直接进入面试。",
+    "社会工作 values 三要素：服务、社会公正、个人尊严与价值。这是考试必背。",
+    "中国社工发展速度世界第一，从2006年不到3万人到2025年90万人，20年增长30倍。",
+    "上海是全国最早建立社工职业制度的城市，2003年率先试点。",
+    "社工和心理咨询师最大的区别：社工看「人在环境中」，心理咨询更聚焦个体内部。",
+    "如果你将来做医务社工，你的空乘服务经验会非常有用——沟通、安抚、应急处理都是通用的。",
+    "新西兰的社工薪资折合人民币约25-35万/年，且享受完善的带薪休假制度。",
+    "「助人自助」是社会工作的核心理念——不是替服务对象解决问题，而是帮他们自己解决。",
+    "中国社工实务四大领域：儿童与青少年、老年、妇女与家庭、社区治理。这是考研高频考点。",
+];
+
+const ENCOURAGEMENTS = [
+    "你今天打开了这里，就已经比昨天的自己进步了。",
+    "偷偷努力的人，最后都会闪闪发光。",
+    "不需要告诉别人你在做什么，结果会替你说话。",
+    "22岁的你，有勇气考研，已经很了不起了。",
+    "今天背的每一个词，都是12月考场上的底气。",
+    "不自信没关系，自信是靠一天天做到的事情攒出来的。",
+    "你不需要很厉害才开始，你需要开始了才会很厉害。",
+    "睡好了再学，睡不够的学习是假性努力。",
+    "今天不想学？那就只做最低线。做了就比没做强。",
+    "你比你以为的聪明得多，只是还没看到自己的潜力。",
+    "巨蟹座的女孩，敏感是天赋，不是弱点。",
+    "飞完航班还能打开APP的人，已经赢了大部分人。",
+    "别看远处，就看今天。今天做到了，就够了。",
+    "你是做空乘的人，服务得了乘客，也服务得了自己的梦想。",
+    "150天后你会感谢现在这个偷偷打开APP的自己。",
+    "不着急，不焦虑，按照自己的节奏来。",
+    "考上了是惊喜，没考上你也没损失什么。你还有那么多后路。",
+    "今天种了一棵树，就是在告诉未来的自己：我没有放弃。",
+    "你的审美、你的共情力、你的敏感，都是做社工的优势。",
+    "慢慢来，比较快。",
+];
+
+const ANXIETY_MSGS = [
+    "你现在感受到的焦虑，是在提醒你很在乎这件事。在乎本身没有错。",
+    "深呼吸。这一刻的不舒服会过去的，就像之前的每一次一样。",
+    "你不需要现在就解决所有问题。只需要做好眼前这一件小事就够了。",
+    "别人看起来都很好的时候，其实大家都在偷偷焦虑。你不是一个人。",
+    "考不上天不会塌。你还有工作、有钢琴、有后路。考研只是锦上添花。",
+    "你的敏感不是弱点，是因为你对世界的感受比别人的深。这是天赋。",
+    "现在放下手机，去喝杯水，看看窗外。5分钟后回来，事情没有你想的那么糟。",
+    "今天做不到没关系。明天做不到也没关系。重要的是你没有放弃。",
+];
+
+const EXAM_DATE = '2026-12-19';
+
+// ============================================================
+// localStorage 数据管理层
+// ============================================================
+
+function LS(key, defaultVal) {
+    const v = localStorage.getItem(key);
+    if (v === null || v === undefined) return defaultVal;
+    try { return JSON.parse(v); } catch(e) { return defaultVal; }
+}
+function LSset(key, val) { localStorage.setItem(key, JSON.stringify(val)); }
+
+function today() {
+    const d = new Date();
+    return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+}
+
+function dateOrdinal(d) {
+    // Approximate day ordinal for knowledge rotation
+    const base = new Date(1970, 0, 1);
+    const target = new Date(d);
+    return Math.floor((target - base) / 86400000);
+}
+
+function nextId(arr) {
+    return arr.length > 0 ? Math.max(...arr.map(x => x.id || 0)) + 1 : 1;
+}
+
+// ============================================================
+// 排班解析（JS 重新实现 Python 的 parse_flight_text）
+// ============================================================
+
+function parseFlightText(text) {
+    const results = [];
+    const lines = text.trim().split('\n');
+    let currentDate = null;
+
+    for (const line of lines) {
+        const trimmed = line.trim();
+        if (!trimmed) continue;
+
+        const dateMatch = trimmed.match(/(\d{4}-\d{2}-\d{2})/);
+        const flightMatch = trimmed.match(/(MF\d+)/);
+        const timeMatch = trimmed.match(/(\d{2}:\d{2})\s*--\s*(\d{2}:\d{2})/);
+        // Match route like 厦并 etc (2+ Chinese chars from common city abbreviations)
+        const routeMatch = trimmed.match(/(厦|并|新|福|京|沪|广|深|成|昆|杭|宁|青|大|哈|长|沈|西|兰|郑|武|南|重|贵|拉|乌|呼|银|太|石|济|合|昌|海|三|珠|汕|湛|桂|烟|威|延|吉|敦|牡|佳|齐|满|塔|库|喀|伊|阿|日|林|鄂|湘|赣|闽|粤|琼|蜀|滇|黔|秦|陇|晋|冀|鲁|豫|皖|苏|浙|台){2,}/);
+
+        if (dateMatch && timeMatch) {
+            // Same line has date and time
+            const dateStr = dateMatch[1];
+            const depTime = timeMatch[1];
+            const arrTime = timeMatch[2];
+            const flightNo = flightMatch ? flightMatch[1] : '';
+            let route = '';
+            if (routeMatch) {
+                route = routeMatch[0];
+            } else if (flightMatch) {
+                const rest = trimmed.substring(flightMatch.index + flightMatch[0].length).trim();
+                const cleaned = rest.replace(/\d{2}:\d{2}.*/, '').trim();
+                route = cleaned.substring(0, 10) || '';
+            }
+            const info = (flightNo + ' ' + depTime + '-' + arrTime + ' ' + route).trim();
+            const existing = results.find(r => r.date === dateStr);
+            if (existing) {
+                existing.flight_info += ' | ' + info;
+            } else {
+                results.push({ id: 0, date: dateStr, day_type: 'flight', flight_info: info });
+            }
+            currentDate = dateStr;
+        } else if (dateMatch) {
+            currentDate = dateMatch[1];
+        } else if (flightMatch && currentDate) {
+            const flightNo = flightMatch[1];
+            const rest = trimmed.substring(flightMatch.index + flightMatch[0].length).trim();
+            let route = rest.substring(0, 10) || '';
+            let info;
+            if (timeMatch) {
+                info = (flightNo + ' ' + timeMatch[1] + '-' + timeMatch[2] + ' ' + route).trim();
+            } else {
+                info = (flightNo + ' ' + route).trim();
+            }
+            const existing = results.find(r => r.date === currentDate);
+            if (existing) {
+                existing.flight_info += ' | ' + info;
+            } else {
+                results.push({ id: 0, date: currentDate, day_type: 'flight', flight_info: info });
+            }
+        }
+    }
+
+    // Fill in rest days for gaps between flight dates
+    if (results.length > 0) {
+        results.sort((a, b) => a.date.localeCompare(b.date));
+        const firstDate = new Date(results[0].date);
+        const lastDate = new Date(results[results.length - 1].date);
+        const current = new Date(firstDate);
+        while (current <= lastDate) {
+            const dateStr = current.getFullYear() + '-' + String(current.getMonth()+1).padStart(2,'0') + '-' + String(current.getDate()).padStart(2,'0');
+            if (!results.find(r => r.date === dateStr)) {
+                results.push({ id: 0, date: dateStr, day_type: 'rest', flight_info: '' });
+            }
+            current.setDate(current.getDate() + 1);
+        }
+        results.sort((a, b) => a.date.localeCompare(b.date));
+    }
+
+    // Assign IDs
+    const schedules = LS('schedules', []);
+    let maxId = schedules.length > 0 ? Math.max(...schedules.map(s => s.id || 0)) : 0;
+    results.forEach(r => { maxId++; r.id = maxId; });
+    return results;
+}
+
+// ============================================================
+// 任务模板生成器（JS 重新实现 Python 的 generate_tasks_for_day）
+// ============================================================
+
+function generateTasksForDay(dayType, mode) {
+    if (mode === 'shell') {
+        return [
+            { task_type: 'word', task_name: '扇贝单词复习', task_detail: '打开扇贝，复习40个旧词，不学新词', is_core: 1, sort_order: 1 },
+            { task_type: 'anki', task_name: 'Anki刷10张卡', task_detail: '打开Anki，刷10张专业课题，只复习不学新内容', is_core: 1, sort_order: 2 },
+            { task_type: 'reflect', task_name: '给自己写一句话', task_detail: '手机备忘录写"今天很差，但我种了一棵树"', is_core: 0, sort_order: 3 },
+        ];
+    }
+    if (dayType === 'flight') {
+        return [
+            { task_type: 'word', task_name: '扇贝单词40个', task_detail: '起床化妆时打开扇贝，复习40个旧词', is_core: 1, sort_order: 1 },
+            { task_type: 'anki', task_name: 'Anki刷20张', task_detail: '过站/飞行中打开Anki，刷20张专业课记忆卡', is_core: 1, sort_order: 2 },
+            { task_type: 'dictation', task_name: '睡前默写1个知识点', task_detail: '落地回家后，白纸默写今天学的章节框架。比如：默写"社会工作的五大要素"', is_core: 1, sort_order: 3 },
+            { task_type: 'english', task_name: '黄皮书阅读1篇', task_detail: '飞行中平稳时，打开张剑黄皮书做1篇阅读真题（英语二2010-2020年），做完对答案+查生词', is_core: 0, sort_order: 4 },
+            { task_type: 'listen', task_name: '听专业课录音', task_detail: '化妆/出门路上听昨天口述的录音', is_core: 0, sort_order: 5 },
+        ];
+    } else {
+        return [
+            { task_type: 'word', task_name: '扇贝单词（新40+复习）', task_detail: '打开扇贝，每天新词40个+复习旧词，上限80个', is_core: 1, sort_order: 1 },
+            { task_type: 'major', task_name: '专业课：读1章→默写框架→做Anki卡', task_detail: '读一章教材→合书默写框架→背10个名词解释→做成Anki卡片。例：读第一章，默写"社会工作定义+五大要素+四大功能"的框架', is_core: 1, sort_order: 2 },
+            { task_type: 'english', task_name: '黄皮书阅读2篇精读', task_detail: '打开张剑黄皮书英语二真题，做2篇阅读+逐句翻译+标注错题原因（词汇不懂/逻辑混淆/粗心）', is_core: 1, sort_order: 3 },
+            { task_type: 'politics', task_name: '看徐涛政治视频1节', task_detail: '点击跳转B站徐涛强化班，看1节（约30分钟），看完做对应肖1000题', is_core: 1, sort_order: 4 },
+            { task_type: 'writing', task_name: '写1道论述题', task_detail: '限时20分钟写一道论述题。例题：试述社会工作的功能/试述马斯洛需求层次理论及其启示。写完发给老师改', is_core: 0, sort_order: 5 },
+            { task_type: 'review', task_name: '本周错题复盘', task_detail: '翻Anki里标记"不会"的卡片+黄皮书阅读错题，重新做一遍', is_core: 0, sort_order: 6 },
+        ];
+    }
+}
+
+// ============================================================
+// 每日时间规划（JS 重新实现 Python 的 generate_daily_plan）
+// ============================================================
+
+function generateDailyPlan() {
+    const todayStr = today();
+    const schedules = LS('schedules', []);
+    const sched = schedules.find(s => s.schedule_date === todayStr);
+
+    const dayType = sched ? sched.day_type : 'rest';
+    const flightInfo = sched ? sched.flight_info : '';
+
+    const times = [];
+    const re = /(\d{2}):(\d{2})\s*-\s*(\d{2}):(\d{2})/g;
+    let m;
+    while ((m = re.exec(flightInfo)) !== null) {
+        times.push([parseInt(m[1]), parseInt(m[2]), parseInt(m[3]), parseInt(m[4])]);
+    }
+
+    const plan = {
+        day_type: dayType,
+        flight_info: flightInfo,
+        sleep_target: '23:00前睡觉，保证7.5小时',
+        blocks: [],
+        advice: ''
+    };
+
+    if (dayType === 'flight' && times.length > 0) {
+        const firstDep = times[0][0] * 60 + times[0][1];
+        const lastArr = times[times.length - 1][2] * 60 + times[times.length - 1][3];
+        const prepStart = firstDep - 210;
+
+        const fmt = (mins) => String(Math.floor(mins / 60)).padStart(2, '0') + ':' + String(mins % 60).padStart(2, '0');
+
+        plan.blocks = [
+            { time: fmt(prepStart), label: '起床化妆', detail: '边化妆边听昨天口述录音', icon: '💄' },
+            { time: fmt(prepStart + 60), label: '出门去准备会', detail: '路上听录音/刷知识点', icon: '🚗' },
+            { time: fmt(firstDep - 90), label: '航前准备会', detail: '专注工作', icon: '✈️' },
+            { time: fmt2(times[0][0], times[0][1]), label: '航班起飞', detail: '飞行中过站时刷知识库/单词', icon: '🛫' },
+        ];
+
+        const landHour = times[times.length - 1][2];
+        const landMin = times[times.length - 1][3];
+        const homeTime = landHour * 60 + landMin + 60;
+
+        if (homeTime < 22 * 60) {
+            plan.blocks.push({ time: fmt(homeTime), label: '到家休息', detail: '先休息15分钟，换衣服吃东西', icon: '🏠' });
+            const studyStart = homeTime + 15;
+            plan.blocks.push({ time: fmt(studyStart), label: '专注学习25分钟', detail: '种一棵树：背5个知识点或刷单词', icon: '🌳' });
+            plan.blocks.push({ time: fmt(studyStart + 25), label: '默写+记日记', detail: '合书默写今天学的1个知识点，写日记', icon: '✍️' });
+            plan.blocks.push({ time: fmt(studyStart + 50), label: '洗漱睡觉', detail: '今天很棒了，安心睡', icon: '😴' });
+            plan.advice = '今天' + landHour + ':' + String(landMin).padStart(2, '0') + '落地，到家后学50分钟就够。不要贪多，保证睡眠。';
+        } else {
+            plan.blocks.push({ time: fmt(homeTime), label: '到家', detail: '太晚了，只背10个单词就睡', icon: '🏠' });
+            plan.blocks.push({ time: fmt(homeTime + 20), label: '洗漱睡觉', detail: '今天飞到很晚，辛苦了，快睡吧', icon: '😴' });
+            plan.advice = '今天' + landHour + ':' + String(landMin).padStart(2, '0') + '才落地，到家很晚了。只背10个单词就睡，明天补。睡眠第一！';
+        }
+    } else if (dayType === 'flight') {
+        plan.blocks = [
+            { time: '航前', label: '化妆时听录音', detail: '专业课口述录音', icon: '💄' },
+            { time: '过站', label: '刷知识库/单词', detail: '碎片时间利用', icon: '📖' },
+            { time: '落地后', label: '默写1个知识点', detail: '白纸默写框架', icon: '✍️' },
+            { time: '睡前', label: '23:00前睡', detail: '保证7.5小时', icon: '😴' },
+        ];
+        plan.advice = '飞行日碎片学习就好，不要给自己太大压力。';
+    } else {
+        plan.blocks = [
+            { time: '08:00', label: '起床（自然醒）', detail: '睡够了再起，不用逼自己早起', icon: '☀️' },
+            { time: '08:30', label: '扇贝单词25分钟', detail: '新词40个+复习', icon: '📖' },
+            { time: '09:30', label: '专业课50分钟', detail: '读1章→默写框架→知识库翻卡片', icon: '📚' },
+            { time: '10:30', label: '休息15分钟', detail: '喝水、走动、看窗外', icon: '☕' },
+            { time: '11:00', label: '英语阅读50分钟', detail: '黄皮书2篇精读', icon: '📝' },
+            { time: '12:00', label: '午休', detail: '吃饭+午睡30分钟', icon: '🍜' },
+            { time: '14:30', label: '政治学习30分钟', detail: '看政治知识点+肖1000题', icon: '🎬' },
+            { time: '15:30', label: '写1道论述题', detail: '限时20分钟，写完发老师', icon: '✍️' },
+            { time: '16:30', label: '自由时间', detail: '弹琴/拍照/刷手机都可以', icon: '🎹' },
+            { time: '20:00', label: '错题复盘25分钟', detail: '翻知识库里标"不会"的卡片', icon: '🌳' },
+            { time: '21:00', label: '写日记', detail: '记录今天的心情和收获', icon: '📔' },
+            { time: '22:30', label: '准备睡觉', detail: '放下手机，23:00前入睡', icon: '😴' },
+        ];
+        plan.sleep_target = '今晚23:00前睡，明早自然醒';
+        plan.advice = '休息日是主战场，但也要保证午休和自由时间。学6小时就够了，别贪多。';
+    }
+    return plan;
+}
+
+function fmt2(h, m) { return String(h).padStart(2, '0') + ':' + String(m).padStart(2, '0'); }
+
+// ============================================================
+// 图片压缩（Canvas 缩放到 200x200 后存 base64）
+// ============================================================
+
+function compressImage(dataUrl, maxSize) {
+    maxSize = maxSize || 200;
+    return new Promise((resolve) => {
+        const img = new Image();
+        img.onload = () => {
+            const canvas = document.createElement('canvas');
+            let w = img.width, h = img.height;
+            if (w > maxSize || h > maxSize) {
+                if (w > h) { h = Math.round(h * maxSize / w); w = maxSize; }
+                else { w = Math.round(w * maxSize / h); h = maxSize; }
+            }
+            canvas.width = w;
+            canvas.height = h;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, w, h);
+            resolve(canvas.toDataURL('image/jpeg', 0.7));
+        };
+        img.src = dataUrl;
+    });
+}
+
+// ============================================================
+// 状态变量
+// ============================================================
+
+let pomoInt = null, pomoSec = 25 * 60, pomoRun = false, pomoStartTime = null;
+let curMode = 'normal', selSQ = 'normal', curCh = '第一章';
+let ffRatings = {}, ffPhotos = {};
+let curSWFilter = 'all';
+
+// ============================================================
+// UI 工具函数
+// ============================================================
+
+function toast(m) { const t = document.getElementById('toast'); t.textContent = m; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2000); }
+
+function toggleTheme() {
+    const h = document.documentElement;
+    const c = h.getAttribute('data-theme');
+    const n = c === 'dark' ? 'light' : 'dark';
+    h.setAttribute('data-theme', n);
+    localStorage.setItem('theme', n);
+    document.getElementById('themeBtn').textContent = n === 'dark' ? '☀️' : '🌙';
+}
+
+function initTheme() {
+    const h = new Date().getHours();
+    const s = localStorage.getItem('theme');
+    let t = s || (h >= 18 || h < 7 ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', t);
+    document.getElementById('themeBtn').textContent = t === 'dark' ? '☀️' : '🌙';
+}
+
+// Canvas roundRect polyfill
+if (!CanvasRenderingContext2D.prototype.roundRect) {
+    CanvasRenderingContext2D.prototype.roundRect = function(x,y,w,h,r) {
+        if (typeof r === 'number') r = {tl:r,tr:r,br:r,bl:r};
+        this.beginPath();
+        this.moveTo(x+r.tl,y); this.lineTo(x+w-r.tr,y);
+        this.quadraticCurveTo(x+w,y,x+w,y+r.tr); this.lineTo(x+w,y+h-r.br);
+        this.quadraticCurveTo(x+w,y+h,x+w-r.br,y+h); this.lineTo(x+r.bl,y+h);
+        this.quadraticCurveTo(x,y+h,x,y+h-r.bl); this.lineTo(x,y+r.tl);
+        this.quadraticCurveTo(x,y,x+r.tl,y); this.closePath(); return this;
+    };
+}
+
+// ============================================================
+// 统计数据计算
+// ============================================================
+
+function calcStats() {
+    const todayStr = today();
+    const todayDate = new Date(todayStr);
+    const examDate = new Date(EXAM_DATE);
+    const daysLeft = Math.max(0, Math.floor((examDate - todayDate) / 86400000));
+    const startDate = new Date('2026-07-22');
+    const totalDays = Math.max(1, Math.floor((examDate - startDate) / 86400000));
+    const progress = Math.max(0, Math.min(100, Math.round((1 - daysLeft / totalDays) * 100 * 10) / 10));
+
+    // Week completion
+    const dayOfWeek = todayDate.getDay();
+    const weekStart = new Date(todayDate);
+    weekStart.setDate(weekStart.getDate() - (dayOfWeek === 0 ? 6 : dayOfWeek - 1));
+    const weekStartStr = weekStart.getFullYear() + '-' + String(weekStart.getMonth()+1).padStart(2,'0') + '-' + String(weekStart.getDate()).padStart(2,'0');
+
+    const tasks = LS('tasks', []);
+    const weekTasks = tasks.filter(t => t.task_date >= weekStartStr && t.task_date <= todayStr);
+    const weekCore = weekTasks.filter(t => t.is_core);
+    const weekCoreDone = weekCore.filter(t => t.is_done);
+    const weekCompletion = Math.round(weekCoreDone.length / Math.max(weekCore.length, 1) * 100 * 10) / 10;
+
+    // Today pomodoro
+    const pomos = LS('pomodoro', []);
+    const todayPomos = pomos.filter(p => p.start_time && p.start_time.substring(0, 10) === todayStr);
+    const todayPomoMinutes = todayPomos.reduce((s, p) => s + (p.duration || 25), 0);
+    const totalPomos = pomos.length;
+
+    // Streak
+    let streak = 0;
+    const checkDate = new Date(todayStr);
+    while (true) {
+        const ds = checkDate.getFullYear() + '-' + String(checkDate.getMonth()+1).padStart(2,'0') + '-' + String(checkDate.getDate()).padStart(2,'0');
+        const hasDone = tasks.filter(t => t.task_date === ds && t.is_done).length > 0;
+        if (hasDone) { streak++; checkDate.setDate(checkDate.getDate() - 1); }
+        else break;
+    }
+
+    return {
+        days_left: daysLeft,
+        progress: progress,
+        week_completion: weekCompletion,
+        week_core_total: weekCore.length,
+        week_core_done: weekCoreDone.length,
+        today_pomos: todayPomos.length,
+        today_pomo_minutes: todayPomoMinutes,
+        streak: streak,
+        total_pomos: totalPomos,
+        exam_date: EXAM_DATE
+    };
+}
+
+// ============================================================
+// 加载首页所有数据
+// ============================================================
+
+function loadAll() {
+    loadStats();
+    loadTasks();
+    loadMood();
+    loadPomoToday();
+    loadKnowledgeToday();
+    getEncourage();
+    loadTodayScheduleBadge();
+}
+
+function loadStats() {
+    const s = calcStats();
+    document.getElementById('dl').textContent = s.days_left;
+    document.getElementById('pbar').style.width = s.progress + '%';
+    document.getElementById('ptext').textContent = '进度 ' + s.progress + '%';
+    document.getElementById('stk').textContent = s.streak;
+    document.getElementById('tp').textContent = s.today_pomos;
+    document.getElementById('wc').textContent = s.week_completion + '%';
+    document.getElementById('ptc').textContent = s.today_pomos + ' 棵';
+    document.getElementById('ptm').textContent = s.today_pomo_minutes + ' 分钟专注';
+    document.getElementById('pStats').textContent = '累计种树 ' + s.total_pomos + ' 棵';
+}
+
+// ============================================================
+// 鼓励语
+// ============================================================
+
+function getEncourage() {
+    const msg = ENCOURAGEMENTS[Math.floor(Math.random() * ENCOURAGEMENTS.length)];
+    document.getElementById('encT').textContent = msg;
+}
+
+// ============================================================
+// 今日知识点
+// ============================================================
+
+function loadKnowledgeToday() {
+    const ord = dateOrdinal(today());
+    const idx = ord % KNOWLEDGE_BITS.length;
+    document.getElementById('kbitText').textContent = KNOWLEDGE_BITS[idx];
+}
+
+function loadPoliticsToday() {
+    const ord = dateOrdinal(today());
+    const idx = (ord + 100) % POLITICS_BITS.length;
+    document.getElementById('politicsToday').textContent = POLITICS_BITS[idx];
+}
+
+// ============================================================
+// 今日排班类型 badge
+// ============================================================
+
+function loadTodayScheduleBadge() {
+    const schedules = LS('schedules', []);
+    const sched = schedules.find(s => s.schedule_date === today());
+    const b = document.getElementById('dtBadge');
+    if (sched && sched.day_type === 'flight') {
+        b.textContent = '飞行日 ✈️';
+        b.className = 'dt-badge flight';
+    } else {
+        b.textContent = '休息日 🏠';
+        b.className = 'dt-badge rest';
+    }
+}
+
+// ============================================================
+// 任务
+// ============================================================
+
+const LINKS = {
+    word: { label: '去记单词', icon: '📖', cls: 'word' },
+    anki: { label: '去知识库', icon: '🎴', cls: 'anki' },
+    english: { label: '黄皮书', icon: '📝', cls: 'english' },
+    politics: { label: '去学政治', icon: '🎬', cls: 'politics' },
+    major: { label: '去知识库', icon: '📚', cls: 'major' },
+};
+
+function loadTasks() {
+    const todayStr = today();
+    let tasks = LS('tasks', []);
+    let todayTasks = tasks.filter(t => t.task_date === todayStr);
+
+    if (todayTasks.length === 0) {
+        // Auto-generate tasks for today
+        const schedules = LS('schedules', []);
+        const sched = schedules.find(s => s.schedule_date === todayStr);
+        const dayType = sched ? sched.day_type : 'rest';
+
+        const moods = LS('moods', []);
+        const todayMood = moods.find(m => m.log_date === todayStr);
+        const mode = todayMood ? todayMood.mode : 'normal';
+
+        const template = generateTasksForDay(dayType, mode);
+        let maxId = tasks.length > 0 ? Math.max(...tasks.map(t => t.id || 0)) : 0;
+        template.forEach(t => {
+            maxId++;
+            todayTasks.push({
+                id: maxId,
+                task_date: todayStr,
+                task_type: t.task_type,
+                task_name: t.task_name,
+                task_detail: t.task_detail,
+                is_core: t.is_core,
+                is_done: 0,
+                sort_order: t.sort_order
+            });
+        });
+        tasks = tasks.concat(todayTasks);
+        LSset('tasks', tasks);
+    }
+
+    const l = document.getElementById('taskList');
+    if (!todayTasks.length) {
+        l.innerHTML = '<div class="empty">今天没有任务，去排班页设置吧</div>';
+        return;
+    }
+
+    todayTasks.sort((a, b) => a.sort_order - b.sort_order);
+
+    l.innerHTML = todayTasks.map(x => {
+        const lk = LINKS[x.task_type];
+        let btn = '';
+        if (lk) {
+            if (x.task_type === 'politics')
+                btn = '<button class="tbtn politics" onclick="event.stopPropagation();switchPage(\'video\',document.querySelectorAll(\'.ni\')[6])">' + lk.icon + ' ' + lk.label + '</button>';
+            else if (x.task_type === 'anki' || x.task_type === 'major')
+                btn = '<button class="tbtn ' + lk.cls + '" onclick="event.stopPropagation();switchPage(\'knowledge\',document.querySelectorAll(\'.ni\')[2])">' + lk.icon + ' ' + lk.label + '</button>';
+            else if (x.task_type === 'word')
+                btn = '<button class="tbtn word" onclick="event.stopPropagation();switchPage(\'words\',document.querySelectorAll(\'.ni\')[3])">' + lk.icon + ' ' + lk.label + '</button>';
+            else
+                btn = '<span class="tag flex">' + lk.icon + ' ' + lk.label + '</span>';
+        }
+        return '<div class="tc ' + (x.is_done ? 'done' : '') + '" onclick="toggleTask(' + x.id + ')">' +
+            '<div class="tcb">' + (x.is_done ? '✓' : '') + '</div>' +
+            '<div class="ti"><div class="tn">' + x.task_name + '</div>' +
+            '<div class="td">' + x.task_detail + '</div>' +
+            '<div class="tbr"><span class="tag ' + (x.is_core ? 'core' : 'flex') + '">' + (x.is_core ? '核心' : '弹性') + '</span>' + btn + '</div></div></div>';
+    }).join('');
+}
+
+function toggleTask(id) {
+    let tasks = LS('tasks', []);
+    const task = tasks.find(t => t.id === id);
+    if (!task) return;
+    task.is_done = task.is_done ? 0 : 1;
+    if (task.is_done) task.done_at = new Date().toISOString().replace('T', ' ').substring(0, 19);
+    else task.done_at = null;
+    LSset('tasks', tasks);
+    loadTasks();
+    loadStats();
+}
+
+// ============================================================
+// 模式切换
+// ============================================================
+
+function loadMood() {
+    const moods = LS('moods', []);
+    const todayMood = moods.find(m => m.log_date === today());
+    curMode = todayMood ? todayMood.mode : 'normal';
+    updateModeUI();
+}
+
+function updateModeUI() {
+    const l = document.getElementById('ml'), d = document.getElementById('md'), b = document.getElementById('mbtn');
+    if (curMode === 'shell') {
+        l.textContent = '缩壳模式 🐚';
+        d.textContent = '只做最低线，今天不好也没关系';
+        b.textContent = '切正常模式';
+        b.className = 'mb shell';
+    } else {
+        l.textContent = '正常模式 💪';
+        d.textContent = '按计划执行全部任务';
+        b.textContent = '切缩壳模式';
+        b.className = 'mb';
+    }
+}
+
+function toggleMode() {
+    curMode = curMode === 'normal' ? 'shell' : 'normal';
+    const todayStr = today();
+    let moods = LS('moods', []);
+    const existing = moods.findIndex(m => m.log_date === todayStr);
+    const moodObj = { id: existing >= 0 ? moods[existing].id : nextId(moods), log_date: todayStr, mood: curMode, note: '', mode: curMode };
+    if (existing >= 0) moods[existing] = moodObj;
+    else moods.push(moodObj);
+    LSset('moods', moods);
+
+    // Regenerate tasks for today
+    let tasks = LS('tasks', []);
+    // Remove undone tasks for today
+    tasks = tasks.filter(t => t.task_date !== todayStr || t.is_done);
+    const schedules = LS('schedules', []);
+    const sched = schedules.find(s => s.schedule_date === todayStr);
+    const dayType = sched ? sched.day_type : 'rest';
+    const template = generateTasksForDay(dayType, curMode);
+    const doneTypes = tasks.filter(t => t.task_date === todayStr && t.is_done).map(t => t.task_type);
+    let maxId = tasks.length > 0 ? Math.max(...tasks.map(t => t.id || 0)) : 0;
+    template.forEach(t => {
+        if (!doneTypes.includes(t.task_type)) {
+            maxId++;
+            tasks.push({
+                id: maxId, task_date: todayStr, task_type: t.task_type,
+                task_name: t.task_name, task_detail: t.task_detail,
+                is_core: t.is_core, is_done: 0, sort_order: t.sort_order
+            });
+        }
+    });
+    LSset('tasks', tasks);
+    updateModeUI();
+    loadTasks();
+    toast(curMode === 'shell' ? '已切换缩壳模式 🐚' : '已切换正常模式 💪');
+}
+
+// ============================================================
+// 番茄钟
+// ============================================================
+
+function startPomo() {
+    if (pomoRun) { stopPomo(false); return; }
+    pomoRun = true;
+    pomoStartTime = new Date();
+    document.getElementById('pStart').textContent = '完成';
+    document.getElementById('pStart').className = 'pbtn stop';
+    document.getElementById('pTimer').classList.add('running');
+    pomoInt = setInterval(() => {
+        pomoSec--;
+        updatePomo();
+        if (pomoSec <= 0) stopPomo(true);
+    }, 1000);
+}
+
+function stopPomo(done) {
+    clearInterval(pomoInt);
+    pomoRun = false;
+    document.getElementById('pStart').textContent = '开始';
+    document.getElementById('pStart').className = 'pbtn start';
+    document.getElementById('pTimer').classList.remove('running');
+    if (done) {
+        const tn = document.getElementById('pomoTask').value.trim();
+        let pomos = LS('pomodoro', []);
+        pomos.push({
+            id: nextId(pomos),
+            start_time: pomoStartTime ? pomoStartTime.toISOString().replace('T', ' ').substring(0, 19) : '',
+            duration: 25,
+            task_name: tn
+        });
+        LSset('pomodoro', pomos);
+        toast('🌳 种了一棵树！休息5分钟吧');
+        loadStats();
+        loadPomoToday();
+        pomoSec = 25 * 60;
+        updatePomo();
+    } else {
+        toast('已暂停');
+    }
+}
+
+function resetPomo() {
+    clearInterval(pomoInt);
+    pomoRun = false;
+    pomoSec = 25 * 60;
+    updatePomo();
+    document.getElementById('pStart').textContent = '开始';
+    document.getElementById('pStart').className = 'pbtn start';
+    document.getElementById('pTimer').classList.remove('running');
+}
+
+function updatePomo() {
+    const m = Math.floor(pomoSec / 60), s = pomoSec % 60;
+    document.getElementById('pTimer').textContent = String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+}
+
+function loadPomoToday() {
+    const pomos = LS('pomodoro', []);
+    const todayStr = today();
+    const todayPomos = pomos.filter(p => p.start_time && p.start_time.substring(0, 10) === todayStr);
+    const totalMinutes = todayPomos.reduce((s, p) => s + (p.duration || 25), 0);
+    document.getElementById('ptc').textContent = todayPomos.length + ' 棵';
+    document.getElementById('ptm').textContent = totalMinutes + ' 分钟专注';
+}
+
+// ============================================================
+// 知识库
+// ============================================================
+
+function loadChapters() {
+    const chs = Object.keys(CHAPTER_KNOWLEDGE);
+    document.getElementById('chTabs').innerHTML = chs.map(ch =>
+        '<div class="ch-tab ' + (ch === curCh ? 'active' : '') + '" onclick="loadChapter(\'' + ch + '\')">' + ch + '</div>'
+    ).join('');
+    loadChapter(curCh);
+}
+
+function loadChapter(ch) {
+    curCh = ch;
+    document.querySelectorAll('.ch-tab').forEach(t => t.classList.toggle('active', t.textContent === ch));
+    const cards = CHAPTER_KNOWLEDGE[ch] || [];
+    document.getElementById('cardList').innerHTML = cards.map((c, i) =>
+        '<div class="flip-card" onclick="this.classList.toggle(\'open\')">' +
+        '<div class="flip-q">' + (i + 1) + '. ' + c.q + '</div>' +
+        '<div class="flip-a">' + c.a + '</div></div>'
+    ).join('');
+}
+
+// ============================================================
+// 单词小记
+// ============================================================
+
+function addWordNote() {
+    const w = document.getElementById('wnWord').value.trim();
+    const m = document.getElementById('wnMeaning').value.trim();
+    const n = document.getElementById('wnNote').value.trim();
+    if (!w) { toast('请输入单词'); return; }
+    let notes = LS('word_notes', []);
+    notes.push({ id: nextId(notes), log_date: today(), word: w, meaning: m, note: n });
+    LSset('word_notes', notes);
+    document.getElementById('wnWord').value = '';
+    document.getElementById('wnMeaning').value = '';
+    document.getElementById('wnNote').value = '';
+    toast('已记录 📖');
+    loadWN();
+}
+
+function loadWN() {
+    const notes = LS('word_notes', []);
+    const todayNotes = notes.filter(n => n.log_date === today());
+    const l = document.getElementById('wnList');
+    if (!todayNotes.length) { l.innerHTML = '<div class="empty">还没有记录</div>'; return; }
+    l.innerHTML = todayNotes.map(n =>
+        '<div class="list-item"><span class="topic">' + n.word + '</span> — ' + n.meaning +
+        '<button class="del-btn" onclick="delWN(' + n.id + ')">删除</button>' +
+        (n.note ? '<div style="margin-top:4px;color:var(--text2);font-size:12px">' + n.note + '</div>' : '') +
+        '</div>'
+    ).join('');
+}
+
+function delWN(id) {
+    let notes = LS('word_notes', []);
+    notes = notes.filter(n => n.id !== id);
+    LSset('word_notes', notes);
+    loadWN();
+}
+
+// ============================================================
+// 日记
+// ============================================================
+
+function selectMood(el) {
+    document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('active'));
+    el.classList.add('active');
+    document.getElementById('diaryMood').value = el.dataset.v;
+}
+
+function saveDiary() {
+    const diaryObj = {
+        id: 0,
+        log_date: today(),
+        mood: document.getElementById('diaryMood').value,
+        study_reflection: document.getElementById('diaryStudy').value,
+        self_talk: document.getElementById('diarySelfTalk').value,
+        fun_thing: document.getElementById('diaryFun').value,
+        tomorrow_goal: document.getElementById('diaryGoal').value
+    };
+    let diaries = LS('diaries', []);
+    const existing = diaries.findIndex(d => d.log_date === today());
+    if (existing >= 0) { diaryObj.id = diaries[existing].id; diaries[existing] = diaryObj; }
+    else { diaryObj.id = nextId(diaries); diaries.push(diaryObj); }
+    LSset('diaries', diaries);
+    toast('日记已保存 📔');
+}
+
+function loadDiary() {
+    const diaries = LS('diaries', []);
+    const d = diaries.find(d => d.log_date === today());
+    if (d && d.mood) {
+        document.getElementById('diaryMood').value = d.mood;
+        document.querySelectorAll('.mood-btn').forEach(b => {
+            if (b.dataset.v === d.mood) b.classList.add('active');
+        });
+    }
+    document.getElementById('diaryStudy').value = d ? (d.study_reflection || '') : '';
+    document.getElementById('diarySelfTalk').value = d ? (d.self_talk || '') : '';
+    document.getElementById('diaryFun').value = d ? (d.fun_thing || '') : '';
+    document.getElementById('diaryGoal').value = d ? (d.tomorrow_goal || '') : '';
+}
+
+// ============================================================
+// 睡眠
+// ============================================================
+
+function selectSQ(q, el) {
+    selSQ = q;
+    document.querySelectorAll('.sq-btn').forEach(b => b.classList.remove('active'));
+    el.classList.add('active');
+}
+
+function saveSleep() {
+    const h = parseFloat(document.getElementById('ssSlider').value);
+    const sleepObj = {
+        id: 0,
+        log_date: today(),
+        sleep_hours: h,
+        sleep_quality: selSQ,
+        note: ''
+    };
+    let sleeps = LS('sleep_logs', []);
+    const existing = sleeps.findIndex(s => s.log_date === today());
+    if (existing >= 0) { sleepObj.id = sleeps[existing].id; sleeps[existing] = sleepObj; }
+    else { sleepObj.id = nextId(sleeps); sleeps.push(sleepObj); }
+    LSset('sleep_logs', sleeps);
+
+    let advice = '';
+    if (h < 6) advice = '你今天睡眠不足6小时，建议先休息。飞行日睡不够会影响安全，别硬撑。';
+    else if (h < 7) advice = '睡眠不到7小时，今天可以只做最低线任务，别给自己太大压力。';
+    else if (h >= 8) advice = '睡得很好！今天状态应该不错，加油呀~';
+    else advice = '睡眠还可以，按正常节奏来吧。';
+
+    const a = document.getElementById('sAdvice');
+    a.textContent = advice;
+    a.style.display = 'block';
+    toast('已记录 😴');
+    loadSleep();
+}
+
+function loadSleep() {
+    const sleeps = LS('sleep_logs', []);
+    const todaySleep = sleeps.find(s => s.log_date === today());
+    if (todaySleep && todaySleep.sleep_hours > 0) {
+        document.getElementById('shDisplay').textContent = todaySleep.sleep_hours + ' 小时';
+    }
+
+    // Week data
+    const todayDate = new Date(today());
+    const weekStart = new Date(todayDate);
+    weekStart.setDate(weekStart.getDate() - 6);
+    const weekStartStr = weekStart.getFullYear() + '-' + String(weekStart.getMonth()+1).padStart(2,'0') + '-' + String(weekStart.getDate()).padStart(2,'0');
+    const weekSleeps = sleeps.filter(s => s.log_date >= weekStartStr).sort((a, b) => a.log_date.localeCompare(b.log_date));
+    const avgHours = weekSleeps.length > 0 ? Math.round(weekSleeps.reduce((s, l) => s + l.sleep_hours, 0) / weekSleeps.length * 10) / 10 : 0;
+    document.getElementById('saText').textContent = '本周平均 ' + avgHours + ' 小时';
+
+    const c = document.getElementById('sChart');
+    if (!weekSleeps.length) {
+        c.innerHTML = '<div style="font-size:13px;color:var(--text2);text-align:center;padding:20px">还没有睡眠数据</div>';
+    } else {
+        c.innerHTML = weekSleeps.map(l => {
+            const h = l.sleep_hours;
+            const p = Math.min(h / 12 * 100, 100);
+            let cls = 'good';
+            if (h < 6) cls = 'bad';
+            else if (h < 7) cls = 'warn';
+            return '<div class="sleep-col"><div class="sleep-bar ' + cls + '" style="height:' + p + '%"></div><div class="sleep-lbl">' + l.log_date.substring(5) + '</div></div>';
+        }).join('');
+    }
+}
+
+// ============================================================
+// 排班
+// ============================================================
+
+function parseSched() {
+    const t = document.getElementById('schedPaste').value.trim();
+    if (!t) { toast('请先粘贴航班信息'); return; }
+    const parsed = parseFlightText(t);
+    if (!parsed.length) { toast('未能识别航班信息，请确认格式包含日期和航班号（如MF8153）'); return; }
+
+    let schedules = LS('schedules', []);
+    // Merge parsed data into existing schedules (by date)
+    parsed.forEach(p => {
+        const existing = schedules.findIndex(s => s.schedule_date === p.date);
+        if (existing >= 0) {
+            schedules[existing].day_type = p.day_type;
+            schedules[existing].flight_info = p.flight_info;
+        } else {
+            schedules.push({ id: p.id, schedule_date: p.date, day_type: p.day_type, flight_info: p.flight_info });
+        }
+    });
+    LSset('schedules', schedules);
+
+    // Regenerate tasks for today based on new schedule
+    let tasks = LS('tasks', []);
+    const todayStr = today();
+    tasks = tasks.filter(t => t.task_date !== todayStr);
+    const sched = schedules.find(s => s.schedule_date === todayStr);
+    const dayType = sched ? sched.day_type : 'rest';
+    const template = generateTasksForDay(dayType, curMode);
+    let maxId = tasks.length > 0 ? Math.max(...tasks.map(t => t.id || 0)) : 0;
+    template.forEach(t => {
+        maxId++;
+        tasks.push({ id: maxId, task_date: todayStr, task_type: t.task_type, task_name: t.task_name, task_detail: t.task_detail, is_core: t.is_core, is_done: 0, sort_order: t.sort_order });
+    });
+    LSset('tasks', tasks);
+
+    toast('已识别' + parsed.length + '天排班');
+    document.getElementById('schedPaste').value = '';
+    loadSched();
+    loadTasks();
+    loadStats();
+    loadTodayScheduleBadge();
+}
+
+function loadSched() {
+    const schedules = LS('schedules', []);
+    const flightFeelings = LS('flight_feelings', []);
+
+    const l = document.getElementById('schedList');
+    if (!schedules.length) {
+        l.innerHTML = '<div class="empty">暂无排班，粘贴上方文本自动识别</div>';
+        return;
+    }
+    schedules.sort((a, b) => a.schedule_date.localeCompare(b.schedule_date));
+    l.innerHTML = schedules.map(s => renderSchedCard(s, flightFeelings)).join('');
+}
+
+function renderSchedCard(s, flightFeelings) {
+    const ff = flightFeelings.find(f => f.schedule_id === s.id);
+    const isFlight = s.day_type === 'flight';
+    const fInfo = s.flight_info || '';
+
+    let html = '<div class="ff-card"><div class="ff-header">' +
+        '<span class="ff-date">' + s.schedule_date + '</span>' +
+        '<span class="ff-type ' + s.day_type + '">' + (isFlight ? '✈️' : '🏠') + '</span>' +
+        '<span class="ff-info">' + fInfo + '</span>' +
+        '<button class="ff-del" onclick="delSched(' + s.id + ')">删除</button></div>';
+
+    if (ff) {
+        html += '<div class="ff-body">' +
+            '<div class="ff-rating-display">' + '⭐'.repeat(ff.rating) + '<span style="opacity:.3">⭐</span>'.repeat(Math.max(0, 5 - ff.rating)) + '</div>';
+        if (ff.tags) {
+            const tags = ff.tags.split('|').filter(Boolean);
+            if (tags.length) html += '<div class="ff-tags-display">' + tags.map(t => '<span class="ff-tag-display">' + t + '</span>').join('') + '</div>';
+        }
+        if (ff.note) html += '<div style="font-size:12px;color:var(--text2);margin-top:4px;line-height:1.5">' + ff.note + '</div>';
+        if (ff.photo) html += '<img src="' + ff.photo + '" class="ff-photo-preview" style="margin-top:6px">';
+        html += '<button class="ff-photo-btn" style="margin-top:6px" onclick="toggleFFEdit(' + s.id + ')">修改感受</button>';
+    } else {
+        html += '<div class="ff-body"><button class="ff-photo-btn" onclick="toggleFFEdit(' + s.id + ')">+ 记录航班感受</button></div>';
+    }
+
+    html += '<div id="ff-edit-' + s.id + '" style="display:none;padding:0 14px 12px">' +
+        '<div class="ff-stars" id="ff-stars-' + s.id + '">' +
+        [1,2,3,4,5].map(n => '<span class="ff-star ' + (ff && ff.rating >= n ? 'on' : '') + '" onclick="setFFStar(' + s.id + ',' + n + ')">⭐</span>').join('') +
+        '</div>' +
+        '<div class="ff-tags" id="ff-tags-' + s.id + '">' +
+        ['乘客事多','乘务组棒','航班正常','颠簸','延误','小插曲'].map(t =>
+            '<span class="ff-tag ' + (ff && ff.tags && ff.tags.split('|').includes(t) ? 'on' : '') + '" onclick="this.classList.toggle(\'on\')">' + t + '</span>'
+        ).join('') +
+        '</div>' +
+        '<div class="ff-photo-row">' +
+        '<input type="file" accept="image/*" class="ff-photo-btn" id="ff-photo-input-' + s.id + '" onchange="handleFFPhoto(' + s.id + ',this)" style="display:none">' +
+        '<button class="ff-photo-btn" onclick="document.getElementById(\'ff-photo-input-' + s.id + '\').click()">📷 加图片</button>' +
+        '<img id="ff-photo-preview-' + s.id + '" class="ff-photo-preview" style="display:none">' +
+        '</div>' +
+        '<textarea class="ff-note" id="ff-note-' + s.id + '" placeholder="备注（可选）">' + (ff ? ff.note || '' : '') + '</textarea>' +
+        '<button class="ff-save" onclick="saveFlightFeeling(' + s.id + ')">保存感受</button>' +
+        '<span class="ff-saved" id="ff-saved-' + s.id + '">已保存 ✓</span>' +
+        '</div>';
+
+    html += '</div>';
+    return html;
+}
+
+function toggleFFEdit(id) {
+    const el = document.getElementById('ff-edit-' + id);
+    el.style.display = el.style.display === 'none' ? 'block' : 'none';
+}
+
+function setFFStar(id, n) {
+    ffRatings[id] = n;
+    const stars = document.getElementById('ff-stars-' + id).children;
+    for (let i = 0; i < 5; i++) stars[i].classList.toggle('on', i < n);
+}
+
+async function handleFFPhoto(id, input) {
+    const file = input.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = async (e) => {
+        const compressed = await compressImage(e.target.result, 200);
+        ffPhotos[id] = compressed;
+        const img = document.getElementById('ff-photo-preview-' + id);
+        img.src = compressed;
+        img.style.display = 'block';
+    };
+    reader.readAsDataURL(file);
+}
+
+function saveFlightFeeling(id) {
+    const flightFeelings = LS('flight_feelings', []);
+    const rating = ffRatings[id] || (flightFeelings.find(f => f.schedule_id === id) ? flightFeelings.find(f => f.schedule_id === id).rating : 0);
+    const tagEls = document.getElementById('ff-tags-' + id).children;
+    const tags = Array.from(tagEls).filter(t => t.classList.contains('on')).map(t => t.textContent).join('|');
+    const note = document.getElementById('ff-note-' + id).value.trim();
+    const photo = ffPhotos[id] || (flightFeelings.find(f => f.schedule_id === id) ? flightFeelings.find(f => f.schedule_id === id).photo || '' : '');
+
+    const schedules = LS('schedules', []);
+    const sched = schedules.find(s => s.id === id);
+
+    const existing = flightFeelings.findIndex(f => f.schedule_id === id);
+    const ffObj = {
+        id: existing >= 0 ? flightFeelings[existing].id : nextId(flightFeelings),
+        schedule_id: id,
+        schedule_date: sched ? sched.schedule_date : '',
+        rating: rating,
+        tags: tags,
+        note: note,
+        photo: photo
+    };
+    if (existing >= 0) flightFeelings[existing] = ffObj;
+    else flightFeelings.push(ffObj);
+    LSset('flight_feelings', flightFeelings);
+
+    toast('航班感受已保存 ✈️');
+    loadSched();
+}
+
+function delSched(id) {
+    let schedules = LS('schedules', []);
+    schedules = schedules.filter(s => s.id !== id);
+    LSset('schedules', schedules);
+
+    let flightFeelings = LS('flight_feelings', []);
+    flightFeelings = flightFeelings.filter(f => f.schedule_id !== id);
+    LSset('flight_feelings', flightFeelings);
+
+    loadSched();
+    loadTasks();
+    loadStats();
+    loadTodayScheduleBadge();
+}
+
+function clearSched() {
+    if (!confirm('确定清空所有排班？')) return;
+    LSset('schedules', []);
+    LSset('flight_feelings', []);
+    toast('已清空');
+    loadSched();
+    loadTasks();
+    loadStats();
+    loadTodayScheduleBadge();
+}
+
+// ============================================================
+// 今日时间规划
+// ============================================================
+
+function loadPlan() {
+    const plan = generateDailyPlan();
+    const l = document.getElementById('planList');
+    if (!plan.blocks || !plan.blocks.length) {
+        l.innerHTML = '<div class="empty">先去排班页设置今天的排班</div>';
+        return;
+    }
+    l.innerHTML = plan.blocks.map(b =>
+        '<div class="tc" style="cursor:default">' +
+        '<div style="width:36px;height:36px;border-radius:50%;background:var(--priL);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">' + (b.icon || '⏰') + '</div>' +
+        '<div class="ti"><div class="tn" style="font-size:14px">' + b.time + ' ' + b.label + '</div>' +
+        '<div class="td">' + (b.detail || '') + '</div></div></div>'
+    ).join('');
+
+    const adv = document.getElementById('planAdvice');
+    if (plan.advice) {
+        adv.textContent = '💡 ' + plan.advice;
+        adv.style.display = 'block';
+    } else {
+        adv.style.display = 'none';
+    }
+}
+
+// ============================================================
+// 焦虑急救
+// ============================================================
+
+function showAnxiety() {
+    const m = document.getElementById('anxietyModal');
+    m.style.display = 'flex';
+    document.getElementById('anxietyMsg').textContent = ANXIETY_MSGS[Math.floor(Math.random() * ANXIETY_MSGS.length)];
+}
+
+function closeAnxiety() {
+    document.getElementById('anxietyModal').style.display = 'none';
+}
+
+// ============================================================
+// 社工资讯
+// ============================================================
+
+function loadSWNews() {
+    const ord = dateOrdinal(today());
+    const factIdx = ord % SW_DAILY_FACTS.length;
+    document.getElementById('swFactText').textContent = SW_DAILY_FACTS[factIdx];
+    document.getElementById('swFactIdx').textContent = (factIdx + 1) + '/' + SW_DAILY_FACTS.length;
+    renderSWNews();
+}
+
+function filterSW(type, el) {
+    curSWFilter = type;
+    document.querySelectorAll('.sw-ftag').forEach(t => {
+        t.classList.remove('active');
+        t.style.background = 'var(--bg)';
+        t.style.color = 'var(--text2)';
+        t.style.border = '1px solid var(--border)';
+    });
+    el.classList.add('active');
+    el.style.background = 'var(--pri)';
+    el.style.color = '#fff';
+    el.style.border = 'none';
+    renderSWNews();
+}
+
+function renderSWNews() {
+    const list = curSWFilter === 'all' ? SW_NEWS : SW_NEWS.filter(n => n.type === curSWFilter);
+    const c = document.getElementById('swNewsList');
+    if (!list.length) { c.innerHTML = '<div class="empty">暂无内容</div>'; return; }
+    c.innerHTML = list.map((n, i) =>
+        '<div class="sw-card" id="swc-' + i + '">' +
+        '<div class="sw-card-head">' +
+        '<div class="sw-card-tag ' + n.type + '">' + n.icon + ' ' + n.tag + '</div>' +
+        '<div class="sw-card-title">' + n.title + '</div>' +
+        '<div class="sw-card-meta"><span>📅 ' + n.date + '</span><span>来源：' + n.source + '</span></div>' +
+        '</div>' +
+        '<div class="sw-card-summary">' + n.summary + '</div>' +
+        '<div class="sw-card-detail">' + n.detail.replace(/\n/g, '<br>') + '</div>' +
+        '<div class="sw-card-toggle" onclick="document.getElementById(\'swc-' + i + '\').classList.toggle(\'open\')">展开详情 ▾</div>' +
+        '</div>'
+    ).join('');
+}
+
+// ============================================================
+// 打卡图生成
+// ============================================================
+
+function openSharePicker() {
+    document.getElementById('sharePicker').style.display = 'flex';
+}
+
+async function generateShareImage() {
+    const showTasks = document.getElementById('opt_tasks').checked;
+    const showStats = document.getElementById('opt_stats').checked;
+    const showWords = document.getElementById('opt_words').checked;
+    const showKnowledge = document.getElementById('opt_knowledge').checked;
+    const showDiary = document.getElementById('opt_diary').checked;
+    if (!showTasks && !showStats && !showWords && !showKnowledge && !showDiary) { toast('至少选择一个板块'); return; }
+
+    const s = calcStats();
+    const tasks = LS('tasks', []);
+    const todayTasks = tasks.filter(t => t.task_date === today());
+    const pomos = LS('pomodoro', []);
+    const todayPomos = pomos.filter(p => p.start_time && p.start_time.substring(0, 10) === today());
+    const wordNotes = LS('word_notes', []);
+    const todayWords = wordNotes.filter(w => w.log_date === today());
+    const ord = dateOrdinal(today());
+    const kContent = KNOWLEDGE_BITS[ord % KNOWLEDGE_BITS.length];
+    const diaries = LS('diaries', []);
+    const diaryData = diaries.find(d => d.log_date === today());
+
+    const todayDate = new Date();
+    const dateStr = (todayDate.getMonth() + 1) + '月' + todayDate.getDate() + '日';
+    const done = todayTasks.filter(x => x.is_done);
+    const coreDone = done.filter(x => x.is_core);
+
+    let height = 200;
+    const sections = [showTasks, showStats, showWords, showKnowledge, showDiary];
+    const count = sections.filter(x => x).length;
+    height += count * 30;
+    if (showTasks) height += Math.min(done.length, 8) * 28 + 30;
+    if (showStats) height += 5 * 32 + 40;
+    if (showWords) height += Math.min(todayWords.length, 5) * 30 + 30;
+    if (showKnowledge) height += 80;
+    if (showDiary) height += 60;
+    height = Math.max(height, 400);
+
+    const canvas = document.createElement('canvas');
+    canvas.width = 750;
+    canvas.height = height;
+    const ctx = canvas.getContext('2d');
+
+    // Background
+    const grad = ctx.createLinearGradient(0, 0, 0, height);
+    grad.addColorStop(0, '#667eea');
+    grad.addColorStop(1, '#764ba2');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, 750, height);
+
+    // White card
+    ctx.fillStyle = '#fff';
+    ctx.roundRect(40, 40, 670, height - 80, 24);
+    ctx.fill();
+
+    // Title
+    ctx.fillStyle = '#667eea';
+    ctx.font = 'bold 32px PingFang SC';
+    ctx.textAlign = 'center';
+    ctx.fillText('学习打卡', 375, 100);
+    ctx.fillStyle = '#999';
+    ctx.font = '18px PingFang SC';
+    ctx.fillText(dateStr + ' · 距考研' + s.days_left + '天', 375, 130);
+    ctx.textAlign = 'left';
+
+    // Divider
+    ctx.strokeStyle = '#eee';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(80, 160);
+    ctx.lineTo(670, 160);
+    ctx.stroke();
+
+    let y = 195;
+
+    if (showTasks) {
+        ctx.fillStyle = '#333';
+        ctx.font = 'bold 22px PingFang SC';
+        ctx.fillText('✅ 今日完成', 80, y);
+        y += 30;
+        ctx.font = '16px PingFang SC';
+        if (done.length === 0) {
+            ctx.fillStyle = '#999';
+            ctx.fillText('还没有完成的任务', 80, y);
+            y += 28;
+        } else {
+            done.forEach((task, i) => {
+                if (i < 8) {
+                    ctx.fillStyle = task.is_core ? '#667eea' : '#999';
+                    ctx.fillText((task.is_core ? '★ ' : '○ ') + task.task_name, 80, y);
+                    y += 28;
+                }
+            });
+            if (done.length > 8) {
+                ctx.fillStyle = '#999';
+                ctx.fillText('...等' + done.length + '项', 80, y);
+                y += 28;
+            }
+        }
+        y += 15;
+        ctx.strokeStyle = '#eee';
+        ctx.beginPath();
+        ctx.moveTo(80, y - 5);
+        ctx.lineTo(670, y - 5);
+        ctx.stroke();
+        y += 10;
+    }
+
+    if (showStats) {
+        ctx.fillStyle = '#333';
+        ctx.font = 'bold 22px PingFang SC';
+        ctx.fillText('📊 学习数据', 80, y);
+        y += 35;
+        const statsArr = [
+            ['⏰ 专注时间', s.today_pomo_minutes + '分钟'],
+            ['🌳 番茄钟', s.today_pomos + '个'],
+            ['📖 新单词', todayWords.length + '个'],
+            ['✅ 核心任务', coreDone.length + '/' + todayTasks.filter(x => x.is_core).length + '完成'],
+            ['🔥 连续打卡', s.streak + '天']
+        ];
+        statsArr.forEach(s2 => {
+            ctx.fillStyle = '#999';
+            ctx.font = '15px PingFang SC';
+            ctx.fillText(s2[0], 80, y);
+            ctx.fillStyle = '#667eea';
+            ctx.font = 'bold 18px PingFang SC';
+            ctx.textAlign = 'right';
+            ctx.fillText(s2[1], 670, y);
+            ctx.textAlign = 'left';
+            y += 30;
+        });
+        y += 15;
+        ctx.strokeStyle = '#eee';
+        ctx.beginPath();
+        ctx.moveTo(80, y - 5);
+        ctx.lineTo(670, y - 5);
+        ctx.stroke();
+        y += 10;
+    }
+
+    if (showWords && todayWords.length > 0) {
+        ctx.fillStyle = '#333';
+        ctx.font = 'bold 22px PingFang SC';
+        ctx.fillText('📖 今日单词', 80, y);
+        y += 30;
+        ctx.font = '15px PingFang SC';
+        todayWords.forEach((n, i) => {
+            if (i < 5) {
+                ctx.fillStyle = '#667eea';
+                ctx.fillText(n.word, 80, y);
+                ctx.fillStyle = '#999';
+                ctx.fillText(n.meaning || '', 200, y);
+                y += 28;
+            }
+        });
+        if (todayWords.length > 5) {
+            ctx.fillStyle = '#999';
+            ctx.fillText('...等' + todayWords.length + '个', 80, y);
+            y += 28;
+        }
+        y += 15;
+        ctx.strokeStyle = '#eee';
+        ctx.beginPath();
+        ctx.moveTo(80, y - 5);
+        ctx.lineTo(670, y - 5);
+        ctx.stroke();
+        y += 10;
+    }
+
+    if (showKnowledge) {
+        ctx.fillStyle = '#333';
+        ctx.font = 'bold 22px PingFang SC';
+        ctx.fillText('📚 今日知识点', 80, y);
+        y += 30;
+        ctx.fillStyle = '#666';
+        ctx.font = '14px PingFang SC';
+        const text = kContent;
+        const maxWidth = 590;
+        let line = '';
+        for (let i = 0; i < text.length; i++) {
+            const test = line + text[i];
+            if (ctx.measureText(test).width > maxWidth) {
+                ctx.fillText(line, 80, y);
+                y += 22;
+                line = text[i];
+            } else {
+                line = test;
+            }
+        }
+        if (line) { ctx.fillText(line, 80, y); y += 22; }
+        y += 15;
+        ctx.strokeStyle = '#eee';
+        ctx.beginPath();
+        ctx.moveTo(80, y - 5);
+        ctx.lineTo(670, y - 5);
+        ctx.stroke();
+        y += 10;
+    }
+
+    if (showDiary) {
+        ctx.fillStyle = '#333';
+        ctx.font = 'bold 22px PingFang SC';
+        ctx.fillText('📔 今日心情', 80, y);
+        y += 30;
+        ctx.font = '15px PingFang SC';
+        ctx.fillStyle = '#666';
+        if (diaryData && diaryData.mood) {
+            ctx.fillText('心情：' + diaryData.mood, 80, y);
+            y += 28;
+        }
+        if (diaryData && diaryData.study_reflection) {
+            const text = '学习：' + diaryData.study_reflection;
+            const maxWidth = 590;
+            let line = '';
+            for (let i = 0; i < text.length; i++) {
+                const test = line + text[i];
+                if (ctx.measureText(test).width > maxWidth) {
+                    ctx.fillText(line, 80, y);
+                    y += 22;
+                    line = text[i];
+                } else { line = test; }
+            }
+            if (line) { ctx.fillText(line, 80, y); y += 22; }
+        }
+        if (diaryData && diaryData.tomorrow_goal) {
+            const text = '明天目标：' + diaryData.tomorrow_goal;
+            const maxWidth = 590;
+            let line = '';
+            for (let i = 0; i < text.length; i++) {
+                const test = line + text[i];
+                if (ctx.measureText(test).width > maxWidth) {
+                    ctx.fillText(line, 80, y);
+                    y += 22;
+                    line = text[i];
+                } else { line = test; }
+            }
+            if (line) { ctx.fillText(line, 80, y); y += 22; }
+        }
+        if (diaryData && diaryData.fun_thing) {
+            const text = '趣事：' + diaryData.fun_thing;
+            const maxWidth = 590;
+            let line = '';
+            for (let i = 0; i < text.length; i++) {
+                const test = line + text[i];
+                if (ctx.measureText(test).width > maxWidth) {
+                    ctx.fillText(line, 80, y);
+                    y += 22;
+                    line = text[i];
+                } else { line = test; }
+            }
+            if (line) { ctx.fillText(line, 80, y); y += 22; }
+        } else if (!diaryData || !diaryData.mood) {
+            ctx.fillStyle = '#999';
+            ctx.fillText('今天还没写日记', 80, y);
+            y += 28;
+        }
+        y += 10;
+    }
+
+    // Footer
+    ctx.fillStyle = '#ccc';
+    ctx.font = '13px PingFang SC';
+    ctx.textAlign = 'center';
+    ctx.fillText('学习打卡 · 偷偷努力的人最后都会闪闪发光', 375, height - 55);
+    ctx.textAlign = 'left';
+
+    const dataUrl = canvas.toDataURL('image/png');
+    document.getElementById('sharePicker').style.display = 'none';
+    document.getElementById('checkinImg').src = dataUrl;
+    document.getElementById('downloadLink').href = dataUrl;
+    document.getElementById('downloadLink').download = '学习打卡_' + dateStr + '.png';
+    document.getElementById('checkinModal').style.display = 'block';
+    toast('打卡图已生成！长按图片可保存');
+}
+
+// ============================================================
+// 数据导出/导入
+// ============================================================
+
+function exportData() {
+    const keys = ['schedules', 'tasks', 'pomodoro', 'moods', 'sleep_logs', 'diaries', 'word_notes', 'flight_feelings'];
+    const data = {};
+    keys.forEach(k => { data[k] = LS(k, []); });
+    data.exam_date = EXAM_DATE;
+    data.export_time = new Date().toISOString();
+
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = '学习打卡备份_' + today() + '.json';
+    a.click();
+    URL.revokeObjectURL(url);
+    toast('备份已导出');
+}
+
+function importData() {
+    document.getElementById('importFile').click();
+}
+
+function handleImport(input) {
+    const file = input.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        try {
+            const data = JSON.parse(e.target.result);
+            const keys = ['schedules', 'tasks', 'pomodoro', 'moods', 'sleep_logs', 'diaries', 'word_notes', 'flight_feelings'];
+            keys.forEach(k => {
+                if (data[k]) LSset(k, data[k]);
+            });
+            toast('数据已导入！正在刷新...');
+            loadAll();
+            loadSched();
+        } catch(err) {
+            toast('导入失败：文件格式不正确');
+        }
+    };
+    reader.readAsText(file);
+    input.value = '';
+}
+
+// ============================================================
+// 页面切换
+// ============================================================
+
+function switchPage(name, el) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('p-' + name).classList.add('active');
+    document.querySelectorAll('.ni').forEach(n => n.classList.remove('active'));
+    el.classList.add('active');
+    if (name === 'knowledge') loadChapters();
+    if (name === 'words') loadWN();
+    if (name === 'diary') loadDiary();
+    if (name === 'sleep') loadSleep();
+    if (name === 'sched') loadSched();
+    if (name === 'pomo') loadPlan();
+    if (name === 'video') loadPoliticsToday();
+    if (name === 'news') loadSWNews();
+}
+
+// ============================================================
+// 初始化 - 直接进入主界面，无需登录
+// ============================================================
+
+initTheme();
+loadAll();
+</script>
+</body>
+</html>

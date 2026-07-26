@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>佳蓓的清冷木系穿搭指南</title>
+<style>
+:root {
+  --bg: #f5f3f0;
+  --card: #fffefb;
+  --text: #2a2825;
+  --text-light: #9a958a;
+  --accent: #7a7268;
+  --accent-dark: #5a5248;
+  --green: #6b7c5e;
+  --border: #e8e3db;
+  --shadow: 0 1px 6px rgba(122,114,104,0.04);
+  --tag: #ede9e3;
+}
+[data-theme="dark"] {
+  --bg: #131210;
+  --card: #1e1c1a;
+  --text: #ddd8d0;
+  --text-light: #6a655a;
+  --accent: #b5ac9e;
+  --accent-dark: #958a7a;
+  --green: #8a9a7a;
+  --border: #2c2926;
+  --shadow: 0 1px 6px rgba(0,0,0,0.3);
+  --tag: #282523;
+}
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+body {
+  font-family: -apple-system, "PingFang SC", serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.8;
+  font-size: 15px;
+  transition: background 0.3s, color 0.3s;
+}
+.theme-btn {
+  position: fixed; top: 14px; right: 14px;
+  width: 32px; height: 32px; border-radius: 50%;
+  background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15);
+  color: #f0ece6; font-size: 15px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; z-index: 100; backdrop-filter: blur(8px);
+}
+.hero {
+  background: linear-gradient(165deg, #5a5248, #3a3530 50%, #1a1816);
+  color: #f0ece6;
+  padding: 55px 28px 44px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -10%; left: -10%;
+  width: 50%; height: 60%;
+  background: radial-gradient(ellipse, rgba(107,124,94,0.12) 0%, transparent 70%);
+}
+.hero::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+  height: 30px; background: linear-gradient(180deg, transparent, var(--bg));
+}
+.hero h1 { font-size: 22px; font-weight: 300; letter-spacing: 10px; position: relative; }
+.hero .line { width: 24px; height: 1px; background: rgba(240,236,230,0.25); margin: 14px auto; position: relative; }
+.hero .sub { font-size: 12px; opacity: 0.55; letter-spacing: 5px; position: relative; }
+.hero .desc { font-size: 13px; opacity: 0.6; line-height: 2; margin-top: 16px; position: relative; }
+.hero .tags { margin-top: 18px; display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; position: relative; }
+.hero .tag { font-size: 10px; padding: 3px 11px; border: 1px solid rgba(240,236,230,0.12); border-radius: 16px; opacity: 0.6; letter-spacing: 1px; }
+
+.section { background: var(--card); margin: 10px 14px; border-radius: 16px; padding: 24px 20px; box-shadow: var(--shadow); }
+.section-title { font-size: 12px; color: var(--accent); letter-spacing: 4px; text-transform: uppercase; margin-bottom: 4px; }
+.section-h { font-size: 19px; font-weight: 700; margin-bottom: 16px; color: var(--text); letter-spacing: 2px; }
+.section-h .emoji { margin-right: 6px; }
+
+.analyze-box { padding: 16px; background: var(--tag); border-radius: 12px; margin-bottom: 12px; border-left: 3px solid var(--green); }
+.analyze-box:last-child { margin-bottom: 0; }
+.analyze-label { font-size: 13px; font-weight: 600; color: var(--green); margin-bottom: 6px; }
+.analyze-text { font-size: 13px; color: var(--text); line-height: 1.9; }
+.analyze-text strong { color: var(--accent); }
+
+.color-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 12px; }
+.color-item { text-align: center; }
+.color-swatch { width: 100%; aspect-ratio: 1; border-radius: 10px; margin-bottom: 5px; }
+.color-name { font-size: 10px; color: var(--text-light); }
+
+.formula { padding: 16px; background: var(--tag); border-radius: 12px; margin-bottom: 10px; }
+.formula:last-child { margin-bottom: 0; }
+.formula-head { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+.formula-num { width: 24px; height: 24px; border-radius: 50%; background: var(--green); color: #fff; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.formula-title { font-size: 14px; font-weight: 600; color: var(--text); }
+.formula-detail { font-size: 13px; color: var(--text); line-height: 1.8; }
+.formula-detail strong { color: var(--green); }
+.formula-tip { font-size: 11px; color: var(--text-light); margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border); }
+
+.kw-group { margin-bottom: 14px; }
+.kw-group:last-child { margin-bottom: 0; }
+.kw-cat { font-size: 13px; font-weight: 600; color: var(--accent); margin-bottom: 8px; padding-left: 10px; border-left: 3px solid var(--green); }
+.kw-list { display: flex; flex-wrap: wrap; gap: 6px; }
+.kw { font-size: 12px; padding: 6px 12px; background: var(--tag); border-radius: 8px; color: var(--text); cursor: pointer; transition: all 0.15s; }
+.kw:active { transform: scale(0.93); background: var(--green); color: #fff; }
+.kw.copied { background: var(--green); color: #fff; }
+
+.compare { display: flex; gap: 10px; margin-bottom: 10px; }
+.compare-box { flex: 1; padding: 14px; border-radius: 12px; }
+.compare-yes { background: rgba(107,124,94,0.08); border: 1px solid rgba(107,124,94,0.2); }
+.compare-no { background: rgba(180,80,80,0.06); border: 1px solid rgba(180,80,80,0.15); }
+.compare-label { font-size: 11px; font-weight: 700; margin-bottom: 8px; letter-spacing: 1px; }
+.compare-yes .compare-label { color: var(--green); }
+.compare-no .compare-label { color: #b45050; }
+.compare-list { font-size: 12px; line-height: 1.9; color: var(--text); }
+
+.blogger { padding: 14px; background: var(--tag); border-radius: 12px; margin-bottom: 8px; display: flex; gap: 10px; align-items: flex-start; }
+.blogger-emoji { font-size: 20px; flex-shrink: 0; margin-top: 2px; }
+.blogger-info { flex: 1; }
+.blogger-name { font-size: 14px; font-weight: 600; color: var(--text); }
+.blogger-desc { font-size: 12px; color: var(--text-light); margin-top: 3px; line-height: 1.6; }
+.blogger-kw { display: inline-block; margin-top: 6px; font-size: 11px; color: var(--green); padding: 3px 9px; background: var(--card); border-radius: 6px; cursor: pointer; }
+
+.habit { padding: 14px; background: var(--tag); border-radius: 12px; margin-bottom: 8px; }
+.habit-time { font-size: 12px; font-weight: 700; color: var(--green); margin-bottom: 4px; }
+.habit-desc { font-size: 13px; color: var(--text); line-height: 1.7; }
+
+.quote { text-align: center; padding: 36px 28px; font-size: 15px; color: var(--accent); line-height: 2; letter-spacing: 2px; }
+.toast { position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.8); color: #fff; padding: 10px 22px; border-radius: 24px; font-size: 12px; z-index: 999; opacity: 0; transition: opacity 0.3s; pointer-events: none; }
+.toast.show { opacity: 1; }
+.footer { text-align: center; padding: 20px; font-size: 10px; color: var(--text-light); letter-spacing: 2px; }
+</style>
+</head>
+<body>
+<button class="theme-btn" onclick="toggleTheme()">🌓</button>
+
+<div class="hero">
+  <h1>清冷木系</h1>
+  <div class="line"></div>
+  <div class="sub">RELAXED · CLEAN · NATURAL</div>
+  <div class="desc">
+    白开水穿搭 · 草木系日常<br>
+    松弛 · 干净 · 不费力<br>
+    像李锦华一样穿
+  </div>
+  <div class="tags">
+    <span class="tag">170cm</span>
+    <span class="tag">梨形</span>
+    <span class="tag">冷白调</span>
+    <span class="tag">窄肩圆脸</span>
+  </div>
+</div>
+
+<!-- 风格解读 -->
+<div class="section">
+  <div class="section-title">PART 01</div>
+  <div class="section-h"><span class="emoji">🌿</span>你要的是什么感觉</div>
+
+  <div class="analyze-box">
+    <div class="analyze-label">李锦华 jeehinlwa 的风格核心</div>
+    <div class="analyze-text">
+      她的穿搭叫<strong>"白开水穿搭的木系日常"</strong>——不是时尚大片，是手机随手拍的街头日常。像白开水一样清爽耐看，没有浓墨重彩，不靠夸张设计，只用低饱和色+基础款就穿出高级感。<br><br>
+      关键词：<strong>松弛、干净、草木系、少年感、不刻意</strong>。像住在隔壁的文艺少女，不是在拍lookbook，是真的出门买咖啡。
+    </div>
+  </div>
+
+  <div class="analyze-box">
+    <div class="analyze-label">"木系"是什么</div>
+    <div class="analyze-text">
+      木系 = 像树木草木一样自然生长的感觉。颜色是<strong>大地色、草木色</strong>——米白、浅灰、燕麦、浅卡其、棕咖、墨绿。面料是<strong>有呼吸感的天然材质</strong>——亚麻、棉麻、水洗棉、针织。不是丝绸缎面的华丽，是棉麻的质朴和舒服。<br><br>
+      穿上感觉是：<strong>不需要整理就很自在，皱了也好看，松松垮垮但有型</strong>。
+    </div>
+  </div>
+
+  <div class="analyze-box">
+    <div class="analyze-label">和"时尚博主"的区别</div>
+    <div class="analyze-text">
+      时尚博主：影棚拍摄、精心摆pose、全身搭配完美、像杂志封面。<br>
+      李锦华：<strong>街头抓拍、随手一拍、衣服有点松、头发有点乱、但整个人很自在</strong>。这种"不完美"才是松弛感的来源。<br><br>
+      所以别去搜"时尚穿搭"——那出来的全是影棚图。要搜<strong>"日常穿搭""松弛感穿搭""韩系淡人风"</strong>，才是你要的感觉。
+    </div>
+  </div>
+</div>
+
+<!-- 色彩体系 -->
+<div class="section">
+  <div class="section-title">PART 02</div>
+  <div class="section-h"><span class="emoji">🎨</span>草木系色彩</div>
+  <p style="font-size:13px;color:var(--text-light);margin-bottom:8px;">全身不超过3个颜色，低饱和度，像植物一样安静</p>
+
+  <div class="color-grid">
+    <div class="color-item"><div class="color-swatch" style="background:#f5f0e8;"></div><div class="color-name">米白</div></div>
+    <div class="color-item"><div class="color-swatch" style="background:#d4cfc5;"></div><div class="color-name">浅灰</div></div>
+    <div class="color-item"><div class="color-swatch" style="background:#e8dcc8;"></div><div class="color-name">燕麦</div></div>
+    <div class="color-item"><div class="color-swatch" style="background:#c4b49a;"></div><div class="color-name">浅卡其</div></div>
+    <div class="color-item"><div class="color-swatch" style="background:#9a8b7a;"></div><div class="color-name">棕咖</div></div>
+    <div class="color-item"><div class="color-swatch" style="background:#6b7c5e;"></div><div class="color-name">草木绿</div></div>
+    <div class="color-item"><div class="color-swatch" style="background:#7a8a7a;"></div><div class="color-name">灰绿</div></div>
+    <div class="color-item"><div class="color-swatch" style="background:#4a5a4a;"></div><div class="color-name">墨绿</div></div>
+  </div>
+
+  <div style="margin-top:16px;padding:14px;background:var(--tag);border-radius:12px;">
+    <div style="font-size:13px;font-weight:600;color:var(--green);margin-bottom:8px;">✅ 你的配色公式</div>
+    <div style="font-size:13px;line-height:1.9;color:var(--text);">
+      • 米白 + 浅卡其 + 棕咖（最经典木系）<br>
+      • 浅灰 + 燕麦 + 白（干净清冷）<br>
+      • 草木绿 + 米白 + 浅卡其（草木感）<br>
+      • 全身同色系不同深浅（最高级）<br>
+      • 黑白灰 + 一点棕咖点缀
+    </div>
+  </div>
+  <div style="margin-top:10px;padding:14px;background:rgba(180,80,80,0.06);border-radius:12px;">
+    <div style="font-size:13px;font-weight:600;color:#b45050;margin-bottom:8px;">❌ 避雷</div>
+    <div style="font-size:13px;line-height:1.9;color:var(--text);">
+      荧光色 · 亮黄 · 玫红 · 橙色 · 纯黑上衣(显沉) · 大面积印花 · 撞色拼接
+    </div>
+  </div>
+</div>
+
+<!-- 穿搭公式 -->
+<div class="section">
+  <div class="section-title">PART 03</div>
+  <div class="section-h"><span class="emoji">✏️</span>6套木系穿搭公式</div>
+  <p style="font-size:13px;color:var(--text-light);margin-bottom:14px;">直接照搬，每套都是李锦华风格的核心搭配</p>
+
+  <div class="formula">
+    <div class="formula-head"><div class="formula-num">1</div><div class="formula-title">🌿 亚麻衬衫 + 灯芯绒/棉裤</div></div>
+    <div class="formula-detail">
+      <strong>米白/浅卡其亚麻衬衫</strong>，搭配<strong>棕色灯芯绒裤</strong>或棉麻阔腿裤。衬衫扣子解开1-2颗，下摆随意塞一角，袖子挽到小臂。脚踩帆布鞋或乐福鞋。<br><br>
+      这是李锦华的招牌搭配。亚麻的皱褶感是灵魂——别熨，皱了才对。
+    </div>
+    <div class="formula-tip">💡 适合：日常、咖啡店、书店、飞行通勤</div>
+  </div>
+
+  <div class="formula">
+    <div class="formula-head"><div class="formula-num">2</div><div class="formula-title">📖 白衬衫 + 针织马甲</div></div>
+    <div class="formula-detail">
+      <strong>宽松水洗棉白衬衫</strong>做底，叠穿<strong>燕麦色/灰绿色针织马甲</strong>。搭配水洗牛仔裤或卡其裤。戴细框眼镜。<br><br>
+      知识分子三件套：衬衫+马甲+眼镜。马甲选落肩宽松款，别选紧身的。
+    </div>
+    <div class="formula-tip">💡 适合：约会、看展、正式一点的场合</div>
+  </div>
+
+  <div class="formula">
+    <div class="formula-head"><div class="formula-num">3</div><div class="formula-title">☕ 素色针织 + 阔腿裤</div></div>
+    <div class="formula-detail">
+      <strong>米色/燕麦色高领或圆领针织衫</strong>，搭配<strong>同色系阔腿裤</strong>。全身一个色系，靠面料质感区分层次。针织要软、阔腿裤要垂。<br><br>
+      极简一色穿搭，最显"不费力的高级"。170cm穿阔腿裤气场全开。
+    </div>
+    <div class="formula-tip">💡 适合：通勤、秋冬日常、梨形遮胯</div>
+  </div>
+
+  <div class="formula">
+    <div class="formula-head"><div class="formula-num">4</div><div class="formula-title">🧥 长大衣 + 素色内搭</div></div>
+    <div class="formula-detail">
+      <strong>驼色/燕麦色/灰绿色羊毛长大衣</strong>，内搭白色针织+米色阔腿裤。大衣长度到小腿肚，敞开穿。全身不超过3色。<br><br>
+      170cm穿长大衣是天生优势，这种清冷感拉满。
+    </div>
+    <div class="formula-tip">💡 适合：秋冬通勤、出差、正式场合</div>
+  </div>
+
+  <div class="formula">
+    <div class="formula-head"><div class="formula-num">5</div><div class="formula-title">📜 水洗感衬衫 + 直筒裤</div></div>
+    <div class="formula-detail">
+      <strong>水洗做旧感的复古纽扣衬衫</strong>（浅蓝/米白/灰绿），搭配<strong>卡其直筒裤或牛仔裤</strong>。衬衫半塞半拉，V领拉长圆脸。<br><br>
+      有少年感的搭配，既干净又有一点点不羁。
+    </div>
+    <div class="formula-tip">💡 适合：周末、约会、出门逛街</div>
+  </div>
+
+  <div class="formula">
+    <div class="formula-head"><div class="formula-num">6</div><div class="formula-title">🍃 灰调全色系叠穿</div></div>
+    <div class="formula-detail">
+      <strong>浅灰衬衫+中灰针织+深灰阔腿裤</strong>。同色系不同深浅营造层次。加一条棕色腰带或棕色包做点缀。<br><br>
+      灰色系是最显清冷高级的颜色。冷白调穿灰色特别好看。
+    </div>
+    <div class="formula-tip">💡 适合：任何场合，最不会出错的公式</div>
+  </div>
+</div>
+
+<!-- 做对 vs 做错 -->
+<div class="section">
+  <div class="section-title">PART 04</div>
+  <div class="section-h"><span class="emoji">⚖️</span>做对 vs 做错</div>
+
+  <div class="compare">
+    <div class="compare-box compare-yes">
+      <div class="compare-label">✅ 木系松弛感</div>
+      <div class="compare-list">
+        • 亚麻/棉麻/针织面料<br>
+        • 衣服有点松，不紧绷<br>
+        • 颜色低饱和，全身3色内<br>
+        • 皱了也穿，自然感<br>
+        • 随意塞衣角/挽袖子<br>
+        • 头发松松的，不精修<br>
+        • 帆布鞋/乐福鞋/平底<br>
+        • 细框眼镜/无配饰
+      </div>
+    </div>
+    <div class="compare-box compare-no">
+      <div class="compare-label">❌ 土味/用力感</div>
+      <div class="compare-list">
+        • 丝绸缎面/亮面面料<br>
+        • 衣服太紧/太修身<br>
+        • 高饱和撞色/全身花色<br>
+        • 熨烫太平整/太正式<br>
+        • 全塞衣角/扣子扣满<br>
+        • 头发吹得太蓬松精致<br>
+        • 细高跟/亮面皮鞋<br>
+        • 大logo/夸张配饰
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 搜索关键词 -->
+<div class="section">
+  <div class="section-title">PART 05</div>
+  <div class="section-h"><span class="emoji">🔍</span>小红书搜索关键词</div>
+  <p style="font-size:13px;color:var(--text-light);margin-bottom:14px;">点击复制 → 粘贴到小红书搜索框，看真实的穿搭图</p>
+
+  <div class="kw-group">
+    <div class="kw-cat">🌿 搜博主</div>
+    <div class="kw-list">
+      <span class="kw" onclick="copy(this)">jeehinlwa 穿搭</span>
+      <span class="kw" onclick="copy(this)">李锦华 穿搭</span>
+      <span class="kw" onclick="copy(this)">jeehinlwa 同款</span>
+      <span class="kw" onclick="copy(this)">韩系淡人风 博主</span>
+      <span class="kw" onclick="copy(this)">松弛感穿搭 博主</span>
+      <span class="kw" onclick="copy(this)">木系穿搭 博主</span>
+    </div>
+  </div>
+
+  <div class="kw-group">
+    <div class="kw-cat">📖 搜风格</div>
+    <div class="kw-list">
+      <span class="kw" onclick="copy(this)">白开水穿搭</span>
+      <span class="kw" onclick="copy(this)">韩系淡人风穿搭</span>
+      <span class="kw" onclick="copy(this)">松弛感穿搭</span>
+      <span class="kw" onclick="copy(this)">木系日常穿搭</span>
+      <span class="kw" onclick="copy(this)">清冷感穿搭</span>
+      <span class="kw" onclick="copy(this)">少年感穿搭女</span>
+      <span class="kw" onclick="copy(this)">韩系休闲穿搭</span>
+      <span class="kw" onclick="copy(this)">不费力穿搭</span>
+    </div>
+  </div>
+
+  <div class="kw-group">
+    <div class="kw-cat">👕 搜单品</div>
+    <div class="kw-list">
+      <span class="kw" onclick="copy(this)">亚麻衬衫穿搭</span>
+      <span class="kw" onclick="copy(this)">灯芯绒裤穿搭</span>
+      <span class="kw" onclick="copy(this)">针织马甲穿搭</span>
+      <span class="kw" onclick="copy(this)">宽松白衬衫穿搭</span>
+      <span class="kw" onclick="copy(this)">阔腿裤穿搭 170</span>
+      <span class="kw" onclick="copy(this)">水洗衬衫穿搭</span>
+      <span class="kw" onclick="copy(this)">高领针织穿搭</span>
+      <span class="kw" onclick="copy(this)">长大衣穿搭 170</span>
+    </div>
+  </div>
+
+  <div class="kw-group">
+    <div class="kw-cat">🎨 搜配色</div>
+    <div class="kw-list">
+      <span class="kw" onclick="copy(this)">低饱和度穿搭</span>
+      <span class="kw" onclick="copy(this)">大地色系穿搭</span>
+      <span class="kw" onclick="copy(this)">同色系穿搭</span>
+      <span class="kw" onclick="copy(this)">米色系穿搭</span>
+      <span class="kw" onclick="copy(this)">灰调穿搭</span>
+      <span class="kw" onclick="copy(this)">草木色穿搭</span>
+      <span class="kw" onclick="copy(this)">燕麦色穿搭</span>
+      <span class="kw" onclick="copy(this)">浅卡其穿搭</span>
+    </div>
+  </div>
+
+  <div class="kw-group">
+    <div class="kw-cat">🍐 搜身材适配</div>
+    <div class="kw-list">
+      <span class="kw" onclick="copy(this)">梨形身材穿搭 170</span>
+      <span class="kw" onclick="copy(this)">窄肩穿搭</span>
+      <span class="kw" onclick="copy(this)">圆脸发型</span>
+      <span class="kw" onclick="copy(this)">冷白皮穿搭</span>
+      <span class="kw" onclick="copy(this)">高个子穿搭</span>
+    </div>
+  </div>
+</div>
+
+<!-- 博主推荐 -->
+<div class="section">
+  <div class="section-title">PART 06</div>
+  <div class="section-h"><span class="emoji">👤</span>同类风格博主</div>
+  <p style="font-size:13px;color:var(--text-light);margin-bottom:14px;">在小红书搜这些关键词，找到更多木系松弛感博主</p>
+
+  <div class="blogger">
+    <div class="blogger-emoji">🌿</div>
+    <div class="blogger-info">
+      <div class="blogger-name">jeehinlwa 李锦华</div>
+      <div class="blogger-desc">韩系淡人风天花板 · 160cm · 低饱和呼吸感 · 亚麻+灯芯绒 · 松弛感满分</div>
+      <div class="blogger-kw" onclick="copy(this,'jeehinlwa')">📋 搜索：jeehinlwa</div>
+    </div>
+  </div>
+  <div class="blogger">
+    <div class="blogger-emoji">📖</div>
+    <div class="blogger-info">
+      <div class="blogger-name">gxlxae</div>
+      <div class="blogger-desc">清冷盐系穿搭天花板 · 165cm · 极简清冷 · 照着穿直接贵气感拉满</div>
+      <div class="blogger-kw" onclick="copy(this,'gxlxae 穿搭')">📋 搜索：gxlxae 穿搭</div>
+    </div>
+  </div>
+  <div class="blogger">
+    <div class="blogger-emoji">🤍</div>
+    <div class="blogger-info">
+      <div class="blogger-name">imjoo</div>
+      <div class="blogger-desc">"白月光"穿搭 · 162cm · 干净清透 · 韩系简约</div>
+      <div class="blogger-kw" onclick="copy(this,'imjoo 穿搭')">📋 搜索：imjoo 穿搭</div>
+    </div>
+  </div>
+  <div class="blogger">
+    <div class="blogger-emoji">🍂</div>
+    <div class="blogger-info">
+      <div class="blogger-name">搜关键词找更多</div>
+      <div class="blogger-desc">韩系松弛感穿搭 · 木系日常 · 白开水穿搭 · 清冷感穿搭</div>
+      <div class="blogger-kw" onclick="copy(this,'韩系松弛感穿搭 博主')">📋 搜索：韩系松弛感穿搭 博主</div>
+    </div>
+  </div>
+</div>
+
+<!-- 每日习惯 -->
+<div class="section">
+  <div class="section-title">PART 07</div>
+  <div class="section-h"><span class="emoji">📅</span>每日5分钟审美习惯</div>
+
+  <div class="habit">
+    <div class="habit-time">🌅 早间 · 1分钟</div>
+    <div class="habit-desc">小红书搜「jeehinlwa」或「松弛感穿搭」，刷3条，收藏喜欢的</div>
+  </div>
+  <div class="habit">
+    <div class="habit-time">☀️ 午间 · 2分钟</div>
+    <div class="habit-desc">搜一个当天场景（如「通勤穿搭」「亚麻衬衫」），收藏1-2套</div>
+  </div>
+  <div class="habit">
+    <div class="habit-time">🌙 晚间 · 2分钟</div>
+    <div class="habit-desc">从关键词库选一个新词搜，收藏灵感图</div>
+  </div>
+  <div class="habit">
+    <div class="habit-time">📅 周日 · 10分钟</div>
+    <div class="habit-desc">整理收藏夹，删掉不喜欢的，只留真正想模仿的</div>
+  </div>
+
+  <div style="margin-top:14px;padding:14px;background:var(--tag);border-radius:12px;font-size:13px;color:var(--text-light);line-height:1.8;">
+    💡 重点不在看多少，在<strong style="color:var(--green);">收藏什么</strong>。每次收藏都是一次审美判断训练。坚持21天，你的审美会有质的提升。看真实的博主街拍，不要看影棚大片。
+  </div>
+</div>
+
+<div class="quote">
+  好的穿搭从不是跟风追爆款，<br>
+  而是找到适合自己的节奏。<br><br>
+  穿得舒服，人也自在。
+</div>
+<div class="footer">佳蓓的清冷木系穿搭指南 · 2026</div>
+
+<div class="toast" id="toast">已复制 ✓</div>
+
+<script>
+function copy(el, text) {
+  var t = text || el.textContent;
+  var ta = document.createElement('textarea');
+  ta.value = t;
+  document.body.appendChild(ta);
+  ta.select();
+  try {
+    document.execCommand('copy');
+    var toast = document.getElementById('toast');
+    toast.textContent = '已复制：' + t;
+    toast.classList.add('show');
+    setTimeout(function(){ toast.classList.remove('show'); }, 2000);
+    el.classList.add('copied');
+    setTimeout(function(){ el.classList.remove('copied'); }, 1000);
+  } catch(e){}
+  document.body.removeChild(ta);
+}
+function toggleTheme() {
+  var cur = document.documentElement.getAttribute('data-theme');
+  if (cur === 'dark') {
+    document.documentElement.removeAttribute('data-theme');
+    localStorage.setItem('theme','light');
+  } else {
+    document.documentElement.setAttribute('data-theme','dark');
+    localStorage.setItem('theme','dark');
+  }
+}
+var saved = localStorage.getItem('theme');
+if (saved === 'dark') document.documentElement.setAttribute('data-theme','dark');
+else if (!saved) { var h = new Date().getHours(); if (h>=18||h<7) document.documentElement.setAttribute('data-theme','dark'); }
+</script>
+</body>
+</html>

@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>清冷书卷气 · 佳蓓的审美图鉴</title>
+<style>
+:root {
+  --bg: #f4f2ef;
+  --card: #ffffff;
+  --text: #2a2825;
+  --text-light: #9a958a;
+  --accent: #7a7268;
+  --accent-dark: #5a5248;
+  --border: #e5e0d8;
+  --shadow: 0 1px 8px rgba(122,114,104,0.05);
+  --tag-bg: #ede9e3;
+}
+[data-theme="dark"] {
+  --bg: #141312;
+  --card: #1f1d1b;
+  --text: #ddd8d0;
+  --text-light: #6a655a;
+  --accent: #b5ac9e;
+  --accent-dark: #958a7a;
+  --border: #2e2b28;
+  --shadow: 0 1px 8px rgba(0,0,0,0.3);
+  --tag-bg: #282523;
+}
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+body {
+  font-family: -apple-system, "PingFang SC", "Noto Serif SC", serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  font-size: 14px;
+  transition: background 0.3s, color 0.3s;
+}
+.hero {
+  background: linear-gradient(160deg, #5a5248 0%, #3a3530 60%, #1f1d1b 100%);
+  color: #f0ece6;
+  padding: 55px 24px 40px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 20%; right: -20%;
+  width: 60%; height: 80%;
+  background: radial-gradient(ellipse, rgba(180,170,155,0.08) 0%, transparent 70%);
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 30px;
+  background: linear-gradient(180deg, transparent, var(--bg));
+}
+.hero h1 {
+  font-size: 24px;
+  font-weight: 300;
+  letter-spacing: 8px;
+  margin-bottom: 8px;
+  position: relative;
+  font-family: "Noto Serif SC", "Songti SC", serif;
+}
+.hero .sub {
+  font-size: 12px;
+  opacity: 0.6;
+  letter-spacing: 4px;
+  position: relative;
+}
+.hero .divider {
+  width: 30px; height: 1px;
+  background: rgba(240,236,230,0.3);
+  margin: 16px auto;
+  position: relative;
+}
+.hero .desc {
+  font-size: 13px;
+  opacity: 0.65;
+  line-height: 1.8;
+  position: relative;
+  max-width: 280px;
+  margin: 0 auto;
+}
+.hero .tags {
+  margin-top: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+  position: relative;
+}
+.hero .tag {
+  font-size: 11px;
+  padding: 3px 12px;
+  border: 1px solid rgba(240,236,230,0.15);
+  border-radius: 16px;
+  letter-spacing: 1px;
+  opacity: 0.7;
+}
+.theme-btn {
+  position: fixed;
+  top: 14px; right: 14px;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: #f0ece6;
+  font-size: 15px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  z-index: 100;
+  backdrop-filter: blur(8px);
+}
+/* Intro section */
+.intro {
+  background: var(--card);
+  margin: 12px;
+  border-radius: 14px;
+  padding: 24px 20px;
+  box-shadow: var(--shadow);
+}
+.intro h2 {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 2px;
+  margin-bottom: 12px;
+}
+.intro p {
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.9;
+  margin-bottom: 8px;
+}
+.intro .highlight {
+  color: var(--accent);
+  font-weight: 500;
+}
+/* Tab bar */
+.tab-bar {
+  display: flex;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  background: var(--card);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  border-bottom: 1px solid var(--border);
+  scrollbar-width: none;
+}
+.tab-bar::-webkit-scrollbar { display: none; }
+.tab {
+  flex-shrink: 0;
+  padding: 13px 14px;
+  font-size: 12px;
+  color: var(--text-light);
+  cursor: pointer;
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+  letter-spacing: 1px;
+}
+.tab.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+  font-weight: 600;
+}
+/* Scene */
+.scene {
+  display: none;
+  padding: 12px;
+  animation: fadeIn 0.3s;
+}
+.scene.active { display: block; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.scene-header {
+  text-align: center;
+  margin: 10px 0 18px;
+}
+.scene-header h2 {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: 3px;
+}
+.scene-header p {
+  font-size: 11px;
+  color: var(--text-light);
+  margin-top: 4px;
+  letter-spacing: 1px;
+}
+/* Grid */
+.grid {
+  column-count: 2;
+  column-gap: 8px;
+}
+.card {
+  break-inside: avoid;
+  margin-bottom: 8px;
+  background: var(--card);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  position: relative;
+}
+.card img {
+  width: 100%;
+  display: block;
+  transition: opacity 0.4s;
+  background: var(--tag-bg);
+}
+.card img.loading { opacity: 0; }
+.card img.loaded { opacity: 1; }
+.card .desc {
+  padding: 7px 11px;
+  font-size: 11px;
+  color: var(--text-light);
+  line-height: 1.4;
+}
+.card .placeholder {
+  width: 100%;
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  background: linear-gradient(135deg, var(--tag-bg), var(--card));
+}
+/* Keywords */
+.kw-section {
+  background: var(--card);
+  margin: 12px;
+  border-radius: 14px;
+  padding: 20px 16px;
+  box-shadow: var(--shadow);
+}
+.kw-title {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: var(--text);
+  padding-left: 10px;
+  border-left: 3px solid var(--accent);
+  letter-spacing: 1px;
+}
+.kw-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.kw {
+  font-size: 11px;
+  padding: 5px 10px;
+  background: var(--tag-bg);
+  border-radius: 7px;
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.15s;
+  letter-spacing: 0.5px;
+}
+.kw:active { transform: scale(0.93); background: var(--accent); color: #fff; }
+.kw.copied { background: var(--accent); color: #fff; }
+/* Style guide */
+.guide-section {
+  background: var(--card);
+  margin: 12px;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+.guide-header {
+  background: linear-gradient(135deg, var(--accent-dark), var(--accent));
+  color: #f0ece6;
+  padding: 18px;
+  text-align: center;
+}
+.guide-header h3 {
+  font-size: 15px;
+  letter-spacing: 4px;
+  font-weight: 300;
+  font-family: "Noto Serif SC", serif;
+}
+.guide-body { padding: 18px 16px; }
+.guide-row {
+  display: flex;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  gap: 10px;
+}
+.guide-row:last-child { border-bottom: none; }
+.guide-label {
+  flex-shrink: 0;
+  width: 65px;
+  font-size: 11px;
+  color: var(--text-light);
+  letter-spacing: 1px;
+}
+.guide-value {
+  flex: 1;
+  font-size: 12px;
+  color: var(--text);
+  font-weight: 500;
+  line-height: 1.6;
+}
+/* Formula cards */
+.formula-card {
+  background: var(--card);
+  margin: 8px 12px;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: var(--shadow);
+}
+.formula-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+.formula-desc {
+  font-size: 12px;
+  color: var(--text);
+  line-height: 1.7;
+}
+.formula-tip {
+  font-size: 11px;
+  color: var(--text-light);
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 1px solid var(--border);
+}
+/* Blogger card */
+.blogger-card {
+  background: var(--card);
+  margin: 8px 12px;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: var(--shadow);
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+.blogger-avatar {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+.blogger-info { flex: 1; }
+.blogger-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+}
+.blogger-style {
+  font-size: 11px;
+  color: var(--text-light);
+  margin-top: 3px;
+  line-height: 1.5;
+}
+.blogger-search {
+  display: inline-block;
+  margin-top: 6px;
+  font-size: 11px;
+  color: var(--accent);
+  padding: 3px 8px;
+  background: var(--tag-bg);
+  border-radius: 6px;
+  cursor: pointer;
+}
+.quote {
+  text-align: center;
+  padding: 36px 24px;
+  font-size: 14px;
+  color: var(--accent);
+  font-style: italic;
+  line-height: 1.9;
+  font-family: "Noto Serif SC", serif;
+  letter-spacing: 2px;
+}
+.toast {
+  position: fixed;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.8);
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 24px;
+  font-size: 12px;
+  z-index: 999;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+.toast.show { opacity: 1; }
+.footer {
+  text-align: center;
+  padding: 20px;
+  font-size: 10px;
+  color: var(--text-light);
+  letter-spacing: 2px;
+}
+</style>
+</head>
+<body>
+
+<button class="theme-btn" onclick="toggleTheme()">🌓</button>
+
+<div class="hero">
+  <h1>清冷书卷气</h1>
+  <div class="sub">QUIET · CLEAN · INTELLECTUAL</div>
+  <div class="divider"></div>
+  <div class="desc">
+    书卷气 · 高级 · 低调 · 质感<br>
+    干干净净 · 清清冷冷<br>
+    不刻意 · 不张扬 · 耐看
+  </div>
+  <div class="tags">
+    <span class="tag">170cm</span>
+    <span class="tag">梨形</span>
+    <span class="tag">冷白调</span>
+    <span class="tag">窄肩圆脸</span>
+  </div>
+</div>
+
+<!-- 风格解读 -->
+<div class="intro">
+  <h2>📖 你要的风格</h2>
+  <p>参考博主 <span class="highlight">jeehinlwa</span>（李锦华）的韩系淡人风——低饱和度"呼吸感色系"，灰调、棕咖、米白，亚麻衬衫+灯芯绒裤+水洗牛仔，用面料和层次营造不刻意的高级感。</p>
+  <p>结合你的<span class="highlight">书卷气</span>需求——知识分子风的精髓在于：利落线条+柔和弧度，柔软面料（亚麻/针织/水洗棉），低饱和中性色+大地色，松弛不拘的穿法。不是用力打扮，而是"穿得舒服，人也自在"。</p>
+  <p>你的身高170cm是天然优势，这种清冷素色风格上身会非常有气场。梨形身材穿阔腿裤/灯芯绒裤刚好遮胯，上半身宽松衬衫+马甲叠穿转移视线，冷白调穿灰棕米色系特别显高级。</p>
+</div>
+
+<!-- Tab bar -->
+<div class="tab-bar" id="tabBar"></div>
+<div id="content"></div>
+
+<div class="quote">
+  穿得舒服，人也自在。<br>
+  不是抢眼，是耐看。
+</div>
+<div class="footer">佳蓓的清冷书卷气图鉴 · 2026</div>
+
+<div class="toast" id="toast">已复制 ✓</div>
+
+<script>
+var scenes = [{"name": "亚麻素色穿搭", "emoji": "🌿", "images": [{"url": "https://images.unsplash.com/photo-1572853566605-af9816b0a77a?w=400&q=80", "desc": "米色亚麻衬衫松弛感搭配"}, {"url": "https://images.unsplash.com/photo-1691053318576-4bf08315e877?w=400&q=80", "desc": "素色亚麻套装清冷造型"}, {"url": "https://images.unsplash.com/photo-1627130697816-4d71dbfe6a5b?w=400&q=80", "desc": "浅卡其亚麻穿搭文艺风"}, {"url": "https://images.unsplash.com/photo-1578747522731-9e5a179b02f7?w=400&q=80", "desc": "米白亚麻衬衫知识分子风"}, {"url": "https://images.unsplash.com/photo-1769107805528-964f4de0e342?w=400&q=80", "desc": "灰调亚麻穿搭极简造型"}, {"url": "https://images.unsplash.com/photo-1752074212249-d1c5e28d1efb?w=400&q=80", "desc": "低饱和度亚麻素色搭配"}]}, {"name": "知识分子风", "emoji": "📖", "images": [{"url": "https://images.unsplash.com/photo-1763444186177-ab572d1301f7?w=400&q=80", "desc": "知识分子风素色穿搭"}, {"url": "https://images.unsplash.com/photo-1763444186194-8ff6cff305c6?w=400&q=80", "desc": "书卷气衬衫马甲搭配"}, {"url": "https://images.unsplash.com/photo-1543693087-639a38025487?w=400&q=80", "desc": "知性风素色穿搭"}, {"url": "https://images.unsplash.com/photo-1653159057664-3823f35568f5?w=400&q=80", "desc": "低调高级知识分子风"}, {"url": "https://images.unsplash.com/photo-1652473291442-7a2e034a00d1?w=400&q=80", "desc": "书卷气清冷穿搭造型"}]}, {"name": "安静奢华米色", "emoji": "🤍", "images": [{"url": "https://images.unsplash.com/photo-1621341103818-01dada8c6ef8?w=400&q=80", "desc": "米色安静奢华极简穿搭"}, {"url": "https://images.unsplash.com/photo-1759229874914-c1ffdb3ebd0c?w=400&q=80", "desc": "米白质感单品搭配"}, {"url": "https://images.unsplash.com/photo-1625899845678-3fad6a4a1846?w=400&q=80", "desc": "驼色系安静奢华造型"}, {"url": "https://images.unsplash.com/photo-1690085028725-481caf2f27db?w=400&q=80", "desc": "米色针织质感穿搭"}, {"url": "https://images.unsplash.com/photo-1743764252757-6d62eaa6fefc?w=400&q=80", "desc": "低饱和度米色极简风"}, {"url": "https://images.unsplash.com/photo-1743764252758-3935c61bcdbd?w=400&q=80", "desc": "安静奢华素色搭配"}]}, {"name": "书卷气穿搭", "emoji": "📚", "images": [{"url": "https://images.unsplash.com/photo-1618244972963-dbee1a7edc95?w=400&q=80", "desc": "书卷气文艺素色穿搭"}, {"url": "https://images.unsplash.com/photo-1578632292335-df3abbb0d586?w=400&q=80", "desc": "清冷书卷气造型"}, {"url": "https://images.unsplash.com/photo-1578102718171-ec1f91680562?w=400&q=80", "desc": "知识分子风书卷气搭配"}, {"url": "https://images.unsplash.com/photo-1651828855150-ba40f6870a53?w=400&q=80", "desc": "素色衬衫书卷气造型"}, {"url": "https://images.unsplash.com/photo-1619086303291-0ef7699e4b31?w=400&q=80", "desc": "文艺书卷风穿搭"}, {"url": "https://images.unsplash.com/photo-1618333452884-5c8d211ed2ad?w=400&q=80", "desc": "低调书卷气素色搭配"}]}, {"name": "宽松衬衫素色", "emoji": "👔", "images": [{"url": "https://images.unsplash.com/photo-1625899845678-3fad6a4a1846?w=400&q=80", "desc": "宽松白衬衫素色搭配"}, {"url": "https://images.unsplash.com/photo-1650338524623-9ab273e07853?w=400&q=80", "desc": "水洗棉宽松衬衫造型"}, {"url": "https://images.unsplash.com/photo-1647551848739-e573bf76190b?w=400&q=80", "desc": "米色宽松衬衫穿搭"}, {"url": "https://images.unsplash.com/photo-1641839227948-0a1033b7e85e?w=400&q=80", "desc": "灰调宽松衬衫搭配"}, {"url": "https://images.unsplash.com/photo-1666526292490-a357e7492c63?w=400&q=80", "desc": "素色宽松衬衫清冷风"}, {"url": "https://images.unsplash.com/photo-1665990886219-183d3c156c60?w=400&q=80", "desc": "低饱和度宽松衬衫造型"}]}, {"name": "针织马甲叠穿", "emoji": "🧶", "images": [{"url": "https://images.unsplash.com/photo-1621341103818-01dada8c6ef8?w=400&q=80", "desc": "针织马甲叠穿素色造型"}, {"url": "https://images.unsplash.com/photo-1627130697816-4d71dbfe6a5b?w=400&q=80", "desc": "米色针织马甲搭配"}, {"url": "https://images.unsplash.com/photo-1645819133607-cd84092bee6f?w=400&q=80", "desc": "西装马甲叠穿知识分子风"}, {"url": "https://images.unsplash.com/photo-1618333453067-769b06a8a9a9?w=400&q=80", "desc": "针织马甲文艺穿搭"}, {"url": "https://images.unsplash.com/photo-1618333452884-5c8d211ed2ad?w=400&q=80", "desc": "素色马甲叠穿造型"}, {"url": "https://images.unsplash.com/photo-1559840303-5c65daa0821a?w=400&q=80", "desc": "低调针织马甲搭配"}]}, {"name": "灯芯绒裤穿搭", "emoji": "🍂", "images": [{"url": "https://images.unsplash.com/photo-1614676471928-2ed0ad1061a4?w=400&q=80", "desc": "灯芯绒裤文艺穿搭"}, {"url": "https://images.unsplash.com/photo-1779870668916-f26bf1dd26cb?w=400&q=80", "desc": "棕色灯芯绒裤素色搭配"}, {"url": "https://images.unsplash.com/photo-1760013529817-f50db943ffe2?w=400&q=80", "desc": "灯芯绒裤清冷造型"}, {"url": "https://images.unsplash.com/photo-1764697908240-715428ea91cf?w=400&q=80", "desc": "卡其灯芯绒裤穿搭"}, {"url": "https://images.unsplash.com/photo-1770366927363-129518efaaac?w=400&q=80", "desc": "灯芯绒裤书卷气搭配"}, {"url": "https://images.unsplash.com/photo-1764697907425-62696b280b31?w=400&q=80", "desc": "复古灯芯绒裤造型"}]}, {"name": "低饱和度配色", "emoji": "🎨", "images": [{"url": "https://images.unsplash.com/photo-1578102718171-ec1f91680562?w=400&q=80", "desc": "低饱和度灰调穿搭"}, {"url": "https://images.unsplash.com/photo-1621341103818-01dada8c6ef8?w=400&q=80", "desc": "米灰呼吸感配色搭配"}, {"url": "https://images.unsplash.com/photo-1653875842174-429c1b467548?w=400&q=80", "desc": "清冷淡雅素色穿搭"}, {"url": "https://images.unsplash.com/photo-1627130697816-4d71dbfe6a5b?w=400&q=80", "desc": "棕咖色系低调穿搭"}, {"url": "https://images.unsplash.com/photo-1625899845678-3fad6a4a1846?w=400&q=80", "desc": "低饱和度米白搭配"}, {"url": "https://images.unsplash.com/photo-1618333452884-5c8d211ed2ad?w=400&q=80", "desc": "灰调素色极简造型"}]}, {"name": "慵懒随性素色", "emoji": "🍃", "images": [{"url": "https://images.unsplash.com/photo-1718278866959-e593161c5280?w=400&q=80", "desc": "慵懒随性素色穿搭"}, {"url": "https://images.unsplash.com/photo-1691432019453-964f290021a8?w=400&q=80", "desc": "松弛感素色造型"}, {"url": "https://images.unsplash.com/photo-1647886001443-6b88caf039a4?w=400&q=80", "desc": "不刻意素色搭配"}, {"url": "https://images.unsplash.com/photo-1654343290190-26ab1129f3e9?w=400&q=80", "desc": "慵懒清冷穿搭造型"}, {"url": "https://images.unsplash.com/photo-1764018543587-d41a1fab4eb3?w=400&q=80", "desc": "随性米色穿搭"}, {"url": "https://images.unsplash.com/photo-1696451203476-7ee3bbfc882e?w=400&q=80", "desc": "低调慵懒风素色搭配"}]}, {"name": "暗色学院风", "emoji": "🕯️", "images": [{"url": "https://images.unsplash.com/photo-1539533018447-63fcce2678e3?w=400&q=80", "desc": "暗色学院风穿搭"}, {"url": "https://images.unsplash.com/photo-1594748504715-2e715b1034bf?w=400&q=80", "desc": "棕咖色学院风搭配"}, {"url": "https://images.unsplash.com/photo-1608635680046-aebf91c1a9c8?w=400&q=80", "desc": "暗色书卷气穿搭"}, {"url": "https://images.unsplash.com/photo-1521402966881-852a3b2551fc?w=400&q=80", "desc": "深色知识分子风造型"}, {"url": "https://images.unsplash.com/photo-1619603364937-8d7af41ef206?w=400&q=80", "desc": "低调暗色学院风搭配"}]}, {"name": "羊毛大衣极简", "emoji": "🧥", "images": [{"url": "https://images.unsplash.com/photo-1574201635302-388dd92a4c3f?w=400&q=80", "desc": "羊毛大衣极简穿搭"}, {"url": "https://images.unsplash.com/photo-1634901581982-6b408cf4226a?w=400&q=80", "desc": "驼色大衣低调造型"}, {"url": "https://images.unsplash.com/photo-1687275161342-8699c61e4364?w=400&q=80", "desc": "灰调大衣极简搭配"}, {"url": "https://images.unsplash.com/photo-1779378106780-3016bc3c7915?w=400&q=80", "desc": "米色大衣清冷穿搭"}, {"url": "https://images.unsplash.com/photo-1704918968076-cc20b900508f?w=400&q=80", "desc": "素色大衣知识分子风"}, {"url": "https://images.unsplash.com/photo-1692529487714-4e938cc6322f?w=400&q=80", "desc": "极简大衣素色造型"}]}, {"name": "高领毛衣秋季", "emoji": "☕", "images": [{"url": "https://images.unsplash.com/photo-1574201635302-388dd92a4c3f?w=400&q=80", "desc": "米色高领毛衣造型"}, {"url": "https://images.unsplash.com/photo-1610901157620-340856d0a50f?w=400&q=80", "desc": "素色高领毛衣搭配"}, {"url": "https://images.unsplash.com/photo-1578795024466-26f49b4d23f6?w=400&q=80", "desc": "棕咖色高领毛衣穿搭"}, {"url": "https://images.unsplash.com/photo-1716004354593-95e48f5e9187?w=400&q=80", "desc": "灰调高领毛衣极简风"}]}, {"name": "复古纽扣衬衫", "emoji": "📜", "images": [{"url": "https://images.unsplash.com/photo-1517445312882-bc9910d016b7?w=400&q=80", "desc": "复古纽扣衬衫穿搭"}, {"url": "https://images.unsplash.com/photo-1762777777722-3242a1f1c575?w=400&q=80", "desc": "水洗棉纽扣衬衫造型"}, {"url": "https://images.unsplash.com/photo-1653661015140-bc41b9cadfe1?w=400&q=80", "desc": "复古衬衫素色搭配"}, {"url": "https://images.unsplash.com/photo-1650612546797-4b8cf3625a11?w=400&q=80", "desc": "低调复古衬衫穿搭"}, {"url": "https://images.unsplash.com/photo-1645063935270-ff6308114012?w=400&q=80", "desc": "清冷风纽扣衬衫造型"}, {"url": "https://images.unsplash.com/photo-1751399566443-a07d07344bdf?w=400&q=80", "desc": "复古衬衫知识分子风"}]}, {"name": "阔腿裤米色穿搭", "emoji": "👖", "images": [{"url": "https://images.unsplash.com/photo-1602706294170-1fed8eecd9f9?w=400&q=80", "desc": "阔腿裤米色极简穿搭"}, {"url": "https://images.unsplash.com/photo-1759229874786-6d0cc75d95be?w=400&q=80", "desc": "米色阔腿裤造型"}, {"url": "https://images.unsplash.com/photo-1759229874709-a8d0de083b91?w=400&q=80", "desc": "素色阔腿裤搭配"}, {"url": "https://images.unsplash.com/photo-1759229874681-39fb36b01e32?w=400&q=80", "desc": "宽松阔腿裤清冷风"}, {"url": "https://images.unsplash.com/photo-1770294759055-2fddfc606537?w=400&q=80", "desc": "米色阔腿裤书卷气"}, {"url": "https://images.unsplash.com/photo-1670766167104-f8c0d4561708?w=400&q=80", "desc": "低调阔腿裤穿搭造型"}]}, {"name": "柔软质感面料", "emoji": "🧣", "images": [{"url": "https://images.unsplash.com/photo-1602706294170-1fed8eecd9f9?w=400&q=80", "desc": "柔软针织质感穿搭"}, {"url": "https://images.unsplash.com/photo-1759229874786-6d0cc75d95be?w=400&q=80", "desc": "水洗棉质感造型"}, {"url": "https://images.unsplash.com/photo-1670766167104-f8c0d4561708?w=400&q=80", "desc": "柔软面料素色搭配"}, {"url": "https://images.unsplash.com/photo-1703282581360-a3685b2d52ac?w=400&q=80", "desc": "针织质感清冷穿搭"}, {"url": "https://images.unsplash.com/photo-1646270968349-dafd9f758e93?w=400&q=80", "desc": "柔软面料松弛感造型"}]}];
+
+var styleGuide = {
+  "色彩体系": "黑白灰 · 米灰 · 浅卡其 · 棕咖 · 燕麦色",
+  "避雷色彩": "荧光色 · 亮黄 · 玫红 · 纯黑上衣(显沉)",
+  "面料偏好": "亚麻 · 针织 · 水洗棉 · 灯芯绒 · 哑光丝质",
+  "版型要点": "宽松但有线条感 · 肩头领口柔和弧形 · 不硬朗不塌软",
+  "穿法技巧": "解开下摆几颗扣 · 挽袖子 · 半拖塞衣角 · 自然随性",
+  "妆容": "伪素颜 · 均匀肤色+眉毛+棕色系口红",
+  "配饰": "细框金丝/玳瑁眼镜 · 皮质手表 · 珍珠耳钉",
+  "你的优势": "170cm气场 · 冷白调穿灰棕米显高级 · 腰细可塞衣角"
+};
+
+var formulas = [
+  {title: "🌿 亚麻衬衫 + 灯芯绒裤", desc: "米白/浅卡其亚麻衬衫，搭配棕色/卡其灯芯绒阔腿裤。衬衫下摆随意塞一角，袖子挽起。", tip: "jeehinlwa招牌搭配，书店咖啡馆通用"},
+  {title: "📖 白衬衫 + 针织马甲", desc: "宽松水洗棉白衬衫做底，叠穿米灰/燕麦色针织马甲。搭配水洗牛仔裤或阔腿裤。", tip: "知识分子风三件套：衬衫+马甲+眼镜"},
+  {title: "🧥 驼色大衣 + 素色内搭", desc: "驼色/燕麦色羊毛大衣，内搭白色高领针织+米色阔腿裤。全身不超过3个颜色。", tip: "秋冬通勤利器，170cm穿长大衣气场全开"},
+  {title: "☕ 高领针织 + 阔腿裤", desc: "米色/灰棕高领针织衫，搭配同色系阔腿裤。面料要有质感，羊绒或细针织。", tip: "极简一色穿搭，靠面料质感取胜"},
+  {title: "📜 复古衬衫 + 半裙/直筒裤", desc: "水洗感复古纽扣衬衫，搭配A字半裙或直筒裤。V领拉长圆脸脸型。", tip: "约会也能穿的书卷气造型"},
+  {title: "👖 灰调叠穿", desc: "灰色系层次叠穿：浅灰衬衫+深灰针织+灰调阔腿裤。同色系不同深浅营造层次。", tip: "灰色系是最显清冷高级的颜色"}
+];
+
+var bloggers = [
+  {name: "jeehinlwa 李锦华", emoji: "🌿", style: "韩系淡人风 · 低饱和呼吸感色系 · 亚麻+灯芯绒 · 松弛感天花板", search: "jeehinlwa"},
+  {name: "类似风格博主", emoji: "📖", style: "搜索以下关键词找到更多同类博主", search: "清冷感穿搭 博主"},
+  {name: "知识分子风博主", emoji: "📚", style: "书卷气 · 衬衫马甲 · 文艺清冷", search: "知识分子风穿搭 博主"},
+  {name: "韩系极简博主", emoji: "🤍", style: "素色极简 · 质感面料 · 低调高级", search: "韩系极简穿搭 博主"},
+  {name: "安静奢华风", emoji: "🕯️", style: "Quiet Luxury · 中性色 · 哑光质感", search: "安静奢华穿搭 quiet luxury"},
+  {name: "法式清冷博主", emoji: "🍂", style: "法式清冷 · 低饱和 · 文艺疏离", search: "法式清冷穿搭 博主"}
+];
+
+var keywords = {
+  "书卷气搜索": ["jeehinlwa 穿搭","韩系淡人风穿搭","知识分子风穿搭","书卷气穿搭","清冷感穿搭","安静奢华穿搭","quiet luxury穿搭","松弛感穿搭","亚麻衬衫穿搭","灯芯绒裤穿搭"],
+  "单品搜索": ["亚麻衬衫推荐女","灯芯绒裤推荐女","针织马甲推荐","宽松白衬衫推荐","高领针织衫推荐","阔腿裤推荐女","羊毛大衣推荐女","复古纽扣衬衫","水洗牛仔裤推荐","细框眼镜推荐"],
+  "配色搜索": ["低饱和度穿搭","米灰穿搭","棕咖色穿搭","燕麦色穿搭","浅卡其穿搭","灰调穿搭","同色系穿搭","大地色系穿搭","中性色穿搭","莫兰迪色穿搭"],
+  "发型搜索": ["法式低马尾","低盘发教程","长发披肩造型","碎发修饰脸型","圆脸发型","下巴短发型","慵懒低马尾","法式编发教程"]
+};
+
+function imgFallback(img) {
+  var emoji = img.dataset.emoji || '🌿';
+  var div = document.createElement('div');
+  div.className = 'placeholder';
+  div.textContent = emoji;
+  img.parentNode.replaceChild(div, img);
+}
+
+function createCard(img, emoji) {
+  var card = document.createElement('div');
+  card.className = 'card';
+  var im = document.createElement('img');
+  im.src = img.url;
+  im.loading = 'lazy';
+  im.dataset.emoji = emoji;
+  im.className = 'loading';
+  im.onload = function() { this.classList.remove('loading'); this.classList.add('loaded'); };
+  im.onerror = function() { imgFallback(this); };
+  card.appendChild(im);
+  var desc = document.createElement('div');
+  desc.className = 'desc';
+  desc.textContent = img.desc;
+  card.appendChild(desc);
+  return card;
+}
+
+function renderScene(scene, index) {
+  var container = document.createElement('div');
+  container.className = 'scene' + (index === 0 ? ' active' : '');
+  container.dataset.index = index;
+  var header = document.createElement('div');
+  header.className = 'scene-header';
+  header.innerHTML = '<h2>' + scene.emoji + ' ' + scene.name + '</h2><p>长按图片可保存</p>';
+  container.appendChild(header);
+  var grid = document.createElement('div');
+  grid.className = 'grid';
+  scene.images.forEach(function(img) {
+    grid.appendChild(createCard(img, scene.emoji));
+  });
+  container.appendChild(grid);
+  return container;
+}
+
+function renderKeywords() {
+  var container = document.createElement('div');
+  container.className = 'scene active';
+  container.dataset.index = 'keywords';
+  var header = document.createElement('div');
+  header.className = 'scene-header';
+  header.innerHTML = '<h2>🔍 搜索关键词</h2><p>点击复制 · 粘贴到小红书搜索</p>';
+  container.appendChild(header);
+  for (var cat in keywords) {
+    var section = document.createElement('div');
+    section.className = 'kw-section';
+    var title = document.createElement('div');
+    title.className = 'kw-title';
+    title.textContent = cat;
+    section.appendChild(title);
+    var grid = document.createElement('div');
+    grid.className = 'kw-grid';
+    keywords[cat].forEach(function(k) {
+      var span = document.createElement('span');
+      span.className = 'kw';
+      span.textContent = k;
+      span.onclick = function() { copyText(this, k); };
+      grid.appendChild(span);
+    });
+    section.appendChild(grid);
+    container.appendChild(section);
+  }
+  return container;
+}
+
+function renderFormulas() {
+  var container = document.createElement('div');
+  container.className = 'scene';
+  container.dataset.index = 'formulas';
+  var header = document.createElement('div');
+  header.className = 'scene-header';
+  header.innerHTML = '<h2>✏️ 穿搭公式</h2><p>直接照搬 · 适合你的清冷书卷气</p>';
+  container.appendChild(header);
+  formulas.forEach(function(f) {
+    var card = document.createElement('div');
+    card.className = 'formula-card';
+    card.innerHTML = '<div class="formula-title">' + f.title + '</div><div class="formula-desc">' + f.desc + '</div><div class="formula-tip">💡 ' + f.tip + '</div>';
+    container.appendChild(card);
+  });
+  return container;
+}
+
+function renderBloggers() {
+  var container = document.createElement('div');
+  container.className = 'scene';
+  container.dataset.index = 'bloggers';
+  var header = document.createElement('div');
+  header.className = 'scene-header';
+  header.innerHTML = '<h2>👤 博主推荐</h2><p>在小红书搜索这些关键词找同类博主</p>';
+  container.appendChild(header);
+  bloggers.forEach(function(b) {
+    var card = document.createElement('div');
+    card.className = 'blogger-card';
+    card.innerHTML = '<div class="blogger-avatar">' + b.emoji + '</div><div class="blogger-info"><div class="blogger-name">' + b.name + '</div><div class="blogger-style">' + b.style + '</div><div class="blogger-search" onclick="copyText(this,\''+ b.search +'\')">📋 复制搜索：' + b.search + '</div></div>';
+    container.appendChild(card);
+  });
+  return container;
+}
+
+function renderGuide() {
+  var container = document.createElement('div');
+  container.className = 'scene';
+  container.dataset.index = 'guide';
+  var header = document.createElement('div');
+  header.className = 'scene-header';
+  header.innerHTML = '<h2>🪪 风格指南</h2><p>你的清冷书卷气穿搭名片</p>';
+  container.appendChild(header);
+  var section = document.createElement('div');
+  section.className = 'guide-section';
+  var gh = document.createElement('div');
+  gh.className = 'guide-header';
+  gh.innerHTML = '<h3>佳蓓的清冷名片</h3>';
+  section.appendChild(gh);
+  var body = document.createElement('div');
+  body.className = 'guide-body';
+  for (var key in styleGuide) {
+    var row = document.createElement('div');
+    row.className = 'guide-row';
+    row.innerHTML = '<div class="guide-label">' + key + '</div><div class="guide-value">' + styleGuide[key] + '</div>';
+    body.appendChild(row);
+  }
+  section.appendChild(body);
+  container.appendChild(section);
+  return container;
+}
+
+// Build tabs
+var tabBar = document.getElementById('tabBar');
+var content = document.getElementById('content');
+
+var tabs = [
+  {label: '🔍 关键词', target: 'keywords'},
+  {label: '✏️ 公式', target: 'formulas'},
+  {label: '👤 博主', target: 'bloggers'},
+  {label: '🪪 指南', target: 'guide'}
+];
+
+tabs.forEach(function(t, i) {
+  var tab = document.createElement('div');
+  tab.className = 'tab' + (i === 0 ? ' active' : '');
+  tab.textContent = t.label;
+  tab.onclick = function() { switchTab(this, t.target); };
+  tabBar.appendChild(tab);
+});
+
+scenes.forEach(function(scene, i) {
+  var tab = document.createElement('div');
+  tab.className = 'tab';
+  tab.textContent = scene.emoji + ' ' + scene.name;
+  tab.onclick = function() { switchTab(this, i); };
+  tabBar.appendChild(tab);
+});
+
+// Render
+content.appendChild(renderKeywords());
+content.appendChild(renderFormulas());
+content.appendChild(renderBloggers());
+content.appendChild(renderGuide());
+scenes.forEach(function(scene, i) {
+  content.appendChild(renderScene(scene, i));
+});
+
+function switchTab(el, target) {
+  document.querySelectorAll('.tab').forEach(function(t) { t.classList.remove('active'); });
+  el.classList.add('active');
+  document.querySelectorAll('.scene').forEach(function(s) { s.classList.remove('active'); });
+  document.querySelector('.scene[data-index="' + target + '"]').classList.add('active');
+  el.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+  window.scrollTo(0, 0);
+}
+
+function copyText(el, text) {
+  var ta = document.createElement('textarea');
+  ta.value = text;
+  document.body.appendChild(ta);
+  ta.select();
+  try {
+    document.execCommand('copy');
+    var toast = document.getElementById('toast');
+    toast.textContent = '已复制：' + text;
+    toast.classList.add('show');
+    setTimeout(function() { toast.classList.remove('show'); }, 2000);
+    el.classList.add('copied');
+    setTimeout(function() { el.classList.remove('copied'); }, 1000);
+  } catch(e) {}
+  document.body.removeChild(ta);
+}
+
+function toggleTheme() {
+  var cur = document.documentElement.getAttribute('data-theme');
+  if (cur === 'dark') {
+    document.documentElement.removeAttribute('data-theme');
+    localStorage.setItem('theme', 'light');
+  } else {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    localStorage.setItem('theme', 'dark');
+  }
+}
+
+var saved = localStorage.getItem('theme');
+if (saved === 'dark') {
+  document.documentElement.setAttribute('data-theme', 'dark');
+} else if (!saved) {
+  var h = new Date().getHours();
+  if (h >= 18 || h < 7) document.documentElement.setAttribute('data-theme', 'dark');
+}
+</script>
+</body>
+</html>

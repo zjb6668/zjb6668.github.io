@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<title>STYLE · 佳蓓的审美日记</title>
+<style>
+:root{
+  --bg:#f5f0eb;
+  --card:#ffffff;
+  --text:#2a2624;
+  --sub:#7a7068;
+  --primary:#9c8a7e;
+  --secondary:#d4c4b0;
+  --accent:#b8a599;
+  --border:#e8e0d8;
+  --shadow:0 2px 12px rgba(156,138,126,.08);
+  --radius:16px;
+  --radius-sm:10px;
+}
+[data-theme="dark"]{
+  --bg:#1a1816;
+  --card:#2a2624;
+  --text:#e8e0d8;
+  --sub:#9a8e84;
+  --primary:#b8a599;
+  --secondary:#6b5d52;
+  --accent:#d4c4b0;
+  --border:#3a3430;
+  --shadow:0 2px 12px rgba(0,0,0,.3);
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang SC","Helvetica Neue",sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  font-size:14px;
+  line-height:1.6;
+  transition:background .3s,color .3s;
+  overflow-x:hidden;
+  padding-bottom:70px;
+}
+img{display:block;max-width:100%}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+input,textarea,select{font-family:inherit;font-size:14px}
+
+.app-header{
+  position:sticky;top:0;z-index:20;
+  background:var(--bg);
+  padding:12px 18px 10px;
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.app-title{font-size:17px;font-weight:700;letter-spacing:1px;color:var(--primary)}
+.theme-toggle{font-size:18px;line-height:1;padding:6px;opacity:.7}
+.theme-toggle:active{opacity:1}
+
+.page{display:none;padding:16px 14px 30px;animation:fade .25s ease}
+.page.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+.card{
+  background:var(--card);
+  border-radius:var(--radius);
+  padding:16px;
+  margin-bottom:14px;
+  box-shadow:var(--shadow);
+  border:1px solid var(--border);
+}
+.card-title{font-size:15px;font-weight:700;margin-bottom:10px;color:var(--primary)}
+.card-sub{font-size:12px;color:var(--sub);margin-bottom:8px}
+
+.section-title{font-size:16px;font-weight:700;margin:6px 0 12px;color:var(--primary)}
+
+/* tabs */
+.tabs{display:flex;gap:6px;overflow-x:auto;padding:4px 0 10px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{
+  flex-shrink:0;
+  padding:6px 14px;
+  border-radius:20px;
+  background:var(--card);
+  border:1px solid var(--border);
+  font-size:12px;color:var(--sub);
+  white-space:nowrap;
+}
+.tab.active{background:var(--primary);color:#fff;border-color:var(--primary)}
+
+/* grid */
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+
+/* item card */
+.item-card{background:var(--card);border-radius:var(--radius-sm);overflow:hidden;border:1px solid var(--border);box-shadow:var(--shadow)}
+.item-img{width:100%;aspect-ratio:1;background:var(--bg);object-fit:cover}
+.item-img-placeholder{width:100%;aspect-ratio:1;background:linear-gradient(135deg,var(--secondary),var(--accent));display:flex;align-items:center;justify-content:center;font-size:28px;color:#fff}
+.item-info{padding:10px}
+.item-name{font-size:13px;font-weight:600;margin-bottom:3px}
+.item-meta{font-size:11px;color:var(--sub);display:flex;justify-content:space-between}
+
+/* buttons */
+.btn{
+  display:inline-block;
+  padding:10px 18px;
+  background:var(--primary);
+  color:#fff;
+  border-radius:var(--radius-sm);
+  font-size:14px;font-weight:600;
+  text-align:center;
+  border:none;
+}
+.btn:active{opacity:.85}
+.btn-outline{background:transparent;color:var(--primary);border:1px solid var(--primary)}
+.btn-block{display:block;width:100%}
+.btn-sm{padding:6px 12px;font-size:12px}
+
+/* chips */
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:8px}
+.chip{
+  padding:5px 12px;
+  border-radius:16px;
+  background:var(--card);
+  border:1px solid var(--border);
+  font-size:12px;color:var(--sub);
+}
+.chip.active{background:var(--primary);color:#fff;border-color:var(--primary)}
+.chip-warn{background:#e8d4d0;color:#9c5a4e;border-color:#d4b8b2}
+
+/* color swatches */
+.color-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:8px}
+.color-item{text-align:center}
+.color-circle{width:48px;height:48px;border-radius:50%;margin:0 auto 5px;border:2px solid var(--card);box-shadow:0 1px 4px rgba(0,0,0,.1)}
+.color-name{font-size:11px;color:var(--sub)}
+
+/* formula card */
+.formula-card{margin-bottom:14px}
+.formula-badge{display:inline-block;padding:3px 10px;border-radius:12px;font-size:11px;margin-bottom:8px}
+.badge-flight{background:#d8e4f0;color:#4a6b8a}
+.badge-rest{background:#e8e0d8;color:#7a6a5a}
+.badge-date{background:#f0d8e4;color:#8a4a6b}
+.badge-formal{background:#d8d0e4;color:#5a4a8a}
+.badge-travel{background:#d4e8d8;color:#4a7a5a}
+.badge-vacation{background:#f0e8d0;color:#8a7a4a}
+
+.formula-tip{font-size:12px;color:var(--sub);margin:6px 0}
+.formula-tip strong{color:var(--text)}
+
+/* star */
+.stars{color:#d4a850;font-size:14px;letter-spacing:1px}
+
+/* stats */
+.stats-row{display:flex;gap:10px;margin-bottom:14px}
+.stat-box{flex:1;background:var(--card);border-radius:var(--radius-sm);padding:12px;text-align:center;border:1px solid var(--border)}
+.stat-num{font-size:22px;font-weight:700;color:var(--primary)}
+.stat-label{font-size:11px;color:var(--sub);margin-top:3px}
+
+/* body data */
+.body-data{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:14px}
+.body-tag{background:var(--card);padding:10px;border-radius:var(--radius-sm);border:1px solid var(--border)}
+.body-tag-label{font-size:11px;color:var(--sub)}
+.body-tag-val{font-size:14px;font-weight:600;color:var(--text)}
+
+.advice-list{list-style:none;padding:0}
+.advice-list li{padding:6px 0;font-size:13px;border-bottom:1px solid var(--border);display:flex;gap:8px;align-items:flex-start}
+.advice-list li:last-child{border:none}
+.advice-list .ok{color:#5a8a5a}
+.advice-list .no{color:#9c5a4e}
+
+/* news card */
+.news-card{background:var(--card);border-radius:var(--radius);padding:16px;margin-bottom:12px;border:1px solid var(--border);position:relative;overflow:hidden}
+.news-card::before{content:"";position:absolute;top:0;left:0;width:4px;height:100%;background:var(--primary)}
+.news-tag{display:inline-block;font-size:10px;padding:2px 8px;border-radius:4px;background:var(--secondary);color:var(--text);margin-bottom:6px;font-weight:600}
+.news-title{font-size:14px;font-weight:700;margin-bottom:5px}
+.news-desc{font-size:12px;color:var(--sub);line-height:1.6}
+
+/* masonry */
+.masonry{column-count:2;column-gap:10px}
+.masonry-item{break-inside:avoid;margin-bottom:10px;position:relative}
+.masonry-item img{width:100%;border-radius:var(--radius-sm);border:1px solid var(--border)}
+.masonry-note{font-size:11px;color:var(--sub);padding:6px 4px}
+.masonry-del{position:absolute;top:6px;right:6px;background:rgba(0,0,0,.5);color:#fff;border-radius:50%;width:22px;height:22px;font-size:12px;display:flex;align-items:center;justify-content:center}
+
+/* diary entry */
+.diary-entry{background:var(--card);border-radius:var(--radius);padding:14px;margin-bottom:12px;border:1px solid var(--border)}
+.diary-date{font-size:11px;color:var(--sub);margin-bottom:6px}
+.diary-scene{font-size:12px;color:var(--primary);font-weight:600;margin-bottom:6px}
+.diary-rating{font-size:12px;margin:4px 0}
+
+/* modal */
+.modal-mask{
+  position:fixed;inset:0;background:rgba(0,0,0,.45);
+  z-index:100;display:none;align-items:flex-end;justify-content:center;
+}
+.modal-mask.show{display:flex;animation:fade .2s}
+.modal{
+  background:var(--card);
+  width:100%;max-width:500px;
+  border-radius:20px 20px 0 0;
+  padding:20px 16px 30px;
+  max-height:88vh;overflow-y:auto;
+  animation:slideUp .25s ease;
+}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:none}}
+.modal-title{font-size:16px;font-weight:700;margin-bottom:14px;text-align:center;color:var(--primary)}
+.modal-close{position:absolute;top:12px;right:16px;font-size:22px;color:var(--sub);line-height:1}
+
+.form-group{margin-bottom:12px}
+.form-label{font-size:12px;color:var(--sub);margin-bottom:4px;display:block}
+.form-input,.form-textarea,.form-select{
+  width:100%;padding:10px;border-radius:var(--radius-sm);
+  border:1px solid var(--border);background:var(--bg);color:var(--text);
+}
+.form-textarea{min-height:70px;resize:vertical}
+.form-row{display:flex;gap:10px}
+.form-row>*{flex:1}
+
+.img-preview{width:80px;height:80px;border-radius:var(--radius-sm);object-fit:cover;border:1px solid var(--border);margin-top:6px}
+
+/* bottom nav */
+.bottom-nav{
+  position:fixed;bottom:0;left:0;right:0;z-index:50;
+  background:var(--card);
+  border-top:1px solid var(--border);
+  display:flex;
+  padding:6px 0 calc(6px + env(safe-area-inset-bottom));
+}
+.nav-item{
+  flex:1;text-align:center;padding:4px 0;
+  font-size:10px;color:var(--sub);
+  display:flex;flex-direction:column;align-items:center;gap:2px;
+}
+.nav-item .icon{font-size:18px;line-height:1}
+.nav-item.active{color:var(--primary);font-weight:600}
+
+/* quick entries */
+.quick-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:8px}
+.quick-btn{
+  background:var(--card);border-radius:var(--radius-sm);padding:14px 6px;
+  text-align:center;border:1px solid var(--border);font-size:11px;color:var(--sub);
+}
+.quick-btn .icon{font-size:22px;display:block;margin-bottom:4px}
+
+/* toast */
+.toast{
+  position:fixed;bottom:90px;left:50%;transform:translateX(-50%);
+  background:rgba(0,0,0,.75);color:#fff;
+  padding:8px 18px;border-radius:20px;font-size:13px;
+  z-index:200;opacity:0;transition:opacity .25s;pointer-events:none;
+}
+.toast.show{opacity:1}
+
+/* empty */
+.empty{text-align:center;padding:40px 20px;color:var(--sub);font-size:13px}
+
+/* star input */
+.star-input{font-size:24px;letter-spacing:4px;color:var(--border)}
+.star-input span{cursor:pointer}
+.star-input span.on{color:#d4a850}
+
+/* good item */
+.good-card{background:var(--card);border-radius:var(--radius-sm);overflow:hidden;border:1px solid var(--border);margin-bottom:12px}
+.good-header{padding:12px 14px}
+.good-name{font-size:14px;font-weight:600}
+.good-brand{font-size:12px;color:var(--sub);margin-top:2px}
+.good-meta{display:flex;justify-content:space-between;align-items:center;margin-top:8px;font-size:12px}
+.good-price{color:var(--primary);font-weight:600}
+.good-actions{display:flex;gap:8px;padding:0 14px 12px}
+.good-status{font-size:10px;padding:2px 8px;border-radius:10px}
+.status-want{background:#f0e8d8;color:#8a7a4a}
+.status-bought{background:#d8e8d4;color:#4a7a4a}
+.status-have{background:#d4e0ec;color:#4a6b8a}
+
+.like-btn{font-size:16px;color:var(--border)}
+.like-btn.liked{color:#c44a5a}
+
+.flex-between{display:flex;justify-content:space-between;align-items:center}
+.muted{color:var(--sub)}
+.small{font-size:12px}
+.mt8{margin-top:8px}
+.mb8{margin-bottom:8px}
+.hide{display:none!important}
+
+.inspiration-quote{
+  font-size:14px;line-height:1.8;color:var(--text);
+  font-style:italic;
+  border-left:3px solid var(--primary);
+  padding-left:12px;margin:10px 0;
+}
+</style>
+</head>
+<body>
+
+<div class="app-header">
+  <div class="app-title">STYLE · 佳蓓的审美日记</div>
+  <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">🌙</button>
+</div>
+
+<!-- ============ PAGE 1: 首页 ============ -->
+<div class="page active" id="page-home">
+  <div class="card">
+    <div class="card-sub" id="todayDate"></div>
+    <div class="section-title">今日穿搭推荐</div>
+    <div id="todayOutfit"></div>
+  </div>
+
+  <div class="card">
+    <div class="section-title">✨ 每日审美灵感</div>
+    <div class="inspiration-quote" id="dailyQuote"></div>
+  </div>
+
+  <div class="card">
+    <div class="section-title">🎨 今日色彩推荐</div>
+    <div class="color-grid" id="todayColors"></div>
+  </div>
+
+  <div class="card">
+    <div class="section-title">⚡ 快速入口</div>
+    <div class="quick-grid">
+      <div class="quick-btn" onclick="switchPage('closet')"><span class="icon">👗</span>衣橱</div>
+      <div class="quick-btn" onclick="switchPage('inspire')"><span class="icon">✨</span>灵感板</div>
+      <div class="quick-btn" onclick="switchPage('body')"><span class="icon">📐</span>身材</div>
+      <div class="quick-btn" onclick="switchPage('diary')"><span class="icon">🎯</span>日记</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ PAGE 2: 电子衣橱 ============ -->
+<div class="page" id="page-closet">
+  <div class="section-title">👗 电子衣橱</div>
+  <div class="tabs" id="closetTabs">
+    <div class="tab active" data-cat="全部" onclick="filterCloset('全部')">全部</div>
+    <div class="tab" data-cat="上衣" onclick="filterCloset('上衣')">上衣</div>
+    <div class="tab" data-cat="下装" onclick="filterCloset('下装')">下装</div>
+    <div class="tab" data-cat="连衣裙" onclick="filterCloset('连衣裙')">连衣裙</div>
+    <div class="tab" data-cat="外套" onclick="filterCloset('外套')">外套</div>
+    <div class="tab" data-cat="鞋" onclick="filterCloset('鞋')">鞋</div>
+    <div class="tab" data-cat="配饰" onclick="filterCloset('配饰')">配饰</div>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat-box"><div class="stat-num" id="closetTotal">0</div><div class="stat-label">单品总数</div></div>
+    <div class="stat-box"><div class="stat-num" id="closetCats">0</div><div class="stat-label">分类数</div></div>
+    <div class="stat-box"><div class="stat-num" id="closetNever">0</div><div class="stat-label">从未穿</div></div>
+  </div>
+
+  <div class="card" id="closetTop3" style="display:none">
+    <div class="section-title">🏆 最常穿 Top3</div>
+    <div id="closetTop3List"></div>
+  </div>
+
+  <button class="btn btn-block" onclick="openModal('closetModal')">+ 添加单品</button>
+  <div style="height:12px"></div>
+  <div class="grid" id="closetGrid"></div>
+</div>
+
+<!-- ============ PAGE 3: 穿搭灵感板 ============ -->
+<div class="page" id="page-inspire">
+  <div class="section-title">✨ 穿搭灵感板</div>
+  <div class="tabs" id="formulaTabs">
+    <div class="tab active" data-scene="全部" onclick="filterFormula('全部')">全部</div>
+    <div class="tab" data-scene="飞行通勤" onclick="filterFormula('飞行通勤')">飞行通勤</div>
+    <div class="tab" data-scene="休息日常" onclick="filterFormula('休息日常')">休息日常</div>
+    <div class="tab" data-scene="约会" onclick="filterFormula('约会')">约会</div>
+    <div class="tab" data-scene="正式" onclick="filterFormula('正式')">正式</div>
+    <div class="tab" data-scene="旅行" onclick="filterFormula('旅行')">旅行</div>
+    <div class="tab" data-scene="度假" onclick="filterFormula('度假')">度假</div>
+  </div>
+  <div id="formulaList"></div>
+</div>
+
+<!-- ============ PAGE 4: 身材分析 ============ -->
+<div class="page" id="page-body">
+  <div class="section-title">📐 身材分析</div>
+
+  <div class="card">
+    <div class="section-title">个人数据</div>
+    <div class="body-data">
+      <div class="body-tag"><div class="body-tag-label">身高</div><div class="body-tag-val">170cm</div></div>
+      <div class="body-tag"><div class="body-tag-label">体重</div><div class="body-tag-val">50kg</div></div>
+      <div class="body-tag"><div class="body-tag-label">腰围</div><div class="body-tag-val">59-62cm</div></div>
+      <div class="body-tag"><div class="body-tag-label">脚码</div><div class="body-tag-val">38-39</div></div>
+      <div class="body-tag"><div class="body-tag-label">肩型</div><div class="body-tag-val">窄肩</div></div>
+      <div class="body-tag"><div class="body-tag-label">身材</div><div class="body-tag-val">梨形</div></div>
+    </div>
+    <div class="small muted">长发到腰 · 圆脸 · 五官小巧 · 下巴短 · 肤色冷白调</div>
+  </div>
+
+  <div class="card">
+    <div class="section-title">身材优劣势</div>
+    <div class="small" style="margin-bottom:6px"><strong style="color:#5a8a5a">✅ 优势</strong></div>
+    <div class="small muted" style="margin-bottom:10px">高挑、腰细、上半身瘦、锁骨明显、腿长、气质清冷</div>
+    <div class="small" style="margin-bottom:6px"><strong style="color:#9c5a4e">⚠️ 劣势</strong></div>
+    <div class="small muted">屁股大、腿粗、肩窄撑不起上衣、圆脸下巴短</div>
+  </div>
+
+  <div class="card">
+    <div class="section-title">🍐 梨形身材穿搭法则</div>
+    <div class="small" style="margin-bottom:6px"><strong style="color:#5a8a5a">✅ 该穿</strong></div>
+    <ul class="advice-list">
+      <li><span class="ok">✓</span>A字裙（修饰胯臀）</li>
+      <li><span class="ok">✓</span>高腰裤（不显胯）</li>
+      <li><span class="ok">✓</span>V领/方领上衣</li>
+      <li><span class="ok">✓</span>垂感面料</li>
+      <li><span class="ok">✓</span>深色下装</li>
+      <li><span class="ok">✓</span>高腰线拉长比例</li>
+    </ul>
+    <div class="small" style="margin:10px 0 6px"><strong style="color:#9c5a4e">❌ 不该穿</strong></div>
+    <ul class="advice-list">
+      <li><span class="no">✗</span>低腰紧身裤</li>
+      <li><span class="no">✗</span>蓬蓬裙</li>
+      <li><span class="no">✗</span>圆领/高领</li>
+      <li><span class="no">✗</span>亮色下装</li>
+      <li><span class="no">✗</span>横条纹裤子</li>
+      <li><span class="no">✗</span>铅笔裙</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="section-title">💪 窄肩解决方案</div>
+    <ul class="advice-list">
+      <li><span class="ok">✓</span>垫肩西装</li>
+      <li><span class="ok">✓</span>泡泡袖上衣</li>
+      <li><span class="ok">✓</span>一字肩设计</li>
+      <li><span class="ok">✓</span>横条纹上衣</li>
+      <li><span class="ok">✓</span>宽肩带上衣</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="section-title">😊 圆脸/短下巴建议</div>
+    <ul class="advice-list">
+      <li><span class="ok">✓</span>V领拉长脸型</li>
+      <li><span class="ok">✓</span>长项链延伸线条</li>
+      <li><span class="ok">✓</span>高马尾提升</li>
+      <li><span class="ok">✓</span>侧分大卷</li>
+      <li><span class="no">✗</span>避免圆耳环</li>
+      <li><span class="no">✗</span>避免齐刘海</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="section-title">🎨 冷白皮配色指南</div>
+    <div class="small" style="margin-bottom:6px"><strong style="color:#5a8a5a">✅ 适合</strong></div>
+    <div class="chips" style="margin-bottom:10px">
+      <span class="chip">雾霾蓝</span><span class="chip">藕粉</span><span class="chip">燕麦色</span>
+      <span class="chip">酒红</span><span class="chip">墨绿</span><span class="chip">米白</span>
+      <span class="chip">驼色</span><span class="chip">灰粉色</span><span class="chip">淡紫</span>
+    </div>
+    <div class="small" style="margin-bottom:6px"><strong style="color:#9c5a4e">❌ 避免</strong></div>
+    <div class="chips">
+      <span class="chip chip-warn">荧光色</span><span class="chip chip-warn">亮黄</span>
+      <span class="chip chip-warn">橙色</span><span class="chip chip-warn">玫红</span><span class="chip chip-warn">土黄</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="section-title">💇 发型建议（长发到腰）</div>
+    <div class="chips">
+      <span class="chip">高马尾</span><span class="chip">法式低马尾</span>
+      <span class="chip">侧分大波浪</span><span class="chip">半扎发</span><span class="chip">法式盘发</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============ PAGE 5: 好物清单 ============ -->
+<div class="page" id="page-good">
+  <div class="section-title">🛍️ 好物清单</div>
+  <div class="tabs" id="goodTabs">
+    <div class="tab active" data-cat="全部" onclick="filterGoods('全部')">全部</div>
+    <div class="tab" data-cat="上衣" onclick="filterGoods('上衣')">上衣</div>
+    <div class="tab" data-cat="下装" onclick="filterGoods('下装')">下装</div>
+    <div class="tab" data-cat="裙装" onclick="filterGoods('裙装')">裙装</div>
+    <div class="tab" data-cat="外套" onclick="filterGoods('外套')">外套</div>
+    <div class="tab" data-cat="鞋" onclick="filterGoods('鞋')">鞋</div>
+    <div class="tab" data-cat="配饰" onclick="filterGoods('配饰')">配饰</div>
+  </div>
+  <button class="btn btn-block" onclick="openModal('goodModal')">+ 添加好物</button>
+  <div style="height:12px"></div>
+  <div id="goodList"></div>
+</div>
+
+<!-- ============ PAGE 6: 时尚资讯 ============ -->
+<div class="page" id="page-news">
+  <div class="section-title">📰 时尚资讯</div>
+  <div class="tabs" id="newsTabs">
+    <div class="tab active" data-cat="全部" onclick="filterNews('全部')">全部</div>
+    <div class="tab" data-cat="趋势" onclick="filterNews('趋势')">趋势</div>
+    <div class="tab" data-cat="技巧" onclick="filterNews('技巧')">技巧</div>
+    <div class="tab" data-cat="品牌" onclick="filterNews('品牌')">品牌</div>
+    <div class="tab" data-cat="灵感" onclick="filterNews('灵感')">灵感</div>
+  </div>
+  <div class="card">
+    <div class="section-title">💡 每日时尚小知识</div>
+    <div class="inspiration-quote" id="dailyFashionTip"></div>
+  </div>
+  <div id="newsList"></div>
+</div>
+
+<!-- ============ PAGE 7: 审美积累 ============ -->
+<div class="page" id="page-gallery">
+  <div class="section-title">📷 审美积累</div>
+  <div class="tabs" id="galleryTabs">
+    <div class="tab active" data-cat="全部" onclick="filterGallery('全部')">全部</div>
+    <div class="tab" data-cat="穿搭" onclick="filterGallery('穿搭')">穿搭</div>
+    <div class="tab" data-cat="配色" onclick="filterGallery('配色')">配色</div>
+    <div class="tab" data-cat="单品" onclick="filterGallery('单品')">单品</div>
+    <div class="tab" data-cat="场景" onclick="filterGallery('场景')">场景</div>
+    <div class="tab" data-cat="发型" onclick="filterGallery('发型')">发型</div>
+    <div class="tab" data-cat="妆容" onclick="filterGallery('妆容')">妆容</div>
+  </div>
+  <button class="btn btn-block" onclick="openModal('galleryModal')">+ 上传灵感图</button>
+  <div style="height:12px"></div>
+  <div class="masonry" id="galleryMasonry"></div>
+</div>
+
+<!-- ============ PAGE 8: 风格日记 ============ -->
+<div class="page" id="page-diary">
+  <div class="section-title">🎯 风格日记</div>
+  <button class="btn btn-block" onclick="openModal('diaryModal')">+ 记录今日穿搭</button>
+  <div style="height:14px"></div>
+
+  <div class="stats-row" id="diaryStats" style="display:none">
+    <div class="stat-box"><div class="stat-num" id="diaryAvgSat">0</div><div class="stat-label">平均满意度</div></div>
+    <div class="stat-box"><div class="stat-num" id="diaryAvgConf">0</div><div class="stat-label">平均自信度</div></div>
+    <div class="stat-box"><div class="stat-num" id="diaryCount">0</div><div class="stat-label">记录天数</div></div>
+  </div>
+
+  <div id="diaryList"></div>
+</div>
+
+<!-- ============ BOTTOM NAV ============ -->
+<div class="bottom-nav" id="bottomNav">
+  <div class="nav-item active" data-page="home" onclick="switchPage('home')"><span class="icon">🏠</span>首页</div>
+  <div class="nav-item" data-page="closet" onclick="switchPage('closet')"><span class="icon">👗</span>衣橱</div>
+  <div class="nav-item" data-page="inspire" onclick="switchPage('inspire')"><span class="icon">✨</span>灵感</div>
+  <div class="nav-item" data-page="body" onclick="switchPage('body')"><span class="icon">📐</span>身材</div>
+  <div class="nav-item" data-page="good" onclick="switchPage('good')"><span class="icon">🛍️</span>好物</div>
+  <div class="nav-item" data-page="news" onclick="switchPage('news')"><span class="icon">📰</span>资讯</div>
+  <div class="nav-item" data-page="gallery" onclick="switchPage('gallery')"><span class="icon">📷</span>审美</div>
+  <div class="nav-item" data-page="diary" onclick="switchPage('diary')"><span class="icon">🎯</span>日记</div>
+</div>
+
+<!-- ============ MODALS ============ -->
+<div class="modal-mask" id="closetModal">
+  <div class="modal" style="position:relative">
+    <button class="modal-close" onclick="closeModal('closetModal')">×</button>
+    <div class="modal-title">添加单品</div>
+    <div class="form-group"><label class="form-label">名称</label><input class="form-input" id="cName" placeholder="如：白色法式衬衫"></div>
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">品牌</label><input class="form-input" id="cBrand" placeholder="COS"></div>
+      <div class="form-group"><label class="form-label">价格</label><input class="form-input" id="cPrice" type="number" placeholder="499"></div>
+    </div>
+    <div class="form-group"><label class="form-label">分类</label>
+      <select class="form-select" id="cCat"><option>上衣</option><option>下装</option><option>连衣裙</option><option>外套</option><option>鞋</option><option>配饰</option></select>
+    </div>
+    <div class="form-group"><label class="form-label">图片</label><input type="file" id="cImg" accept="image/*" onchange="compressImg(event,'cImgPrev',200)"><img class="img-preview hide" id="cImgPrev"></div>
+    <button class="btn btn-block" onclick="addClosetItem()">保存</button>
+  </div>
+</div>
+
+<div class="modal-mask" id="goodModal">
+  <div class="modal" style="position:relative">
+    <button class="modal-close" onclick="closeModal('goodModal')">×</button>
+    <div class="modal-title">添加好物</div>
+    <div class="form-group"><label class="form-label">名称</label><input class="form-input" id="gName" placeholder="单品名称"></div>
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">品牌</label><input class="form-input" id="gBrand" placeholder="品牌"></div>
+      <div class="form-group"><label class="form-label">价格</label><input class="form-input" id="gPrice" type="number" placeholder="价格"></div>
+    </div>
+    <div class="form-group"><label class="form-label">分类</label>
+      <select class="form-select" id="gCat"><option>上衣</option><option>下装</option><option>裙装</option><option>外套</option><option>鞋</option><option>配饰</option></select>
+    </div>
+    <div class="form-group"><label class="form-label">购买渠道</label><input class="form-input" id="gChannel" placeholder="天猫/代购"></div>
+    <div class="form-group"><label class="form-label">适合场合</label><input class="form-input" id="gScene" placeholder="日常/通勤"></div>
+    <div class="form-group"><label class="form-label">性价比评分</label>
+      <div class="star-input" id="gStarInput" data-val="5">
+        <span class="on" data-v="1">★</span><span class="on" data-v="2">★</span><span class="on" data-v="3">★</span><span class="on" data-v="4">★</span><span class="on" data-v="5">★</span>
+      </div>
+    </div>
+    <div class="form-group"><label class="form-label">状态</label>
+      <select class="form-select" id="gStatus"><option value="want">想买</option><option value="bought">已买</option><option value="have">已拥有</option></select>
+    </div>
+    <button class="btn btn-block" onclick="addGoodItem()">保存</button>
+  </div>
+</div>
+
+<div class="modal-mask" id="galleryModal">
+  <div class="modal" style="position:relative">
+    <button class="modal-close" onclick="closeModal('galleryModal')">×</button>
+    <div class="modal-title">上传灵感图</div>
+    <div class="form-group"><label class="form-label">图片</label><input type="file" id="galImg" accept="image/*" onchange="compressImg(event,'galImgPrev',300)"><img class="img-preview hide" id="galImgPrev"></div>
+    <div class="form-group"><label class="form-label">分类</label>
+      <select class="form-select" id="galCat"><option>穿搭</option><option>配色</option><option>单品</option><option>场景</option><option>发型</option><option>妆容</option></select>
+    </div>
+    <div class="form-group"><label class="form-label">备注</label><textarea class="form-textarea" id="galNote" placeholder="写下你的灵感想法..."></textarea></div>
+    <div class="form-group"><label class="form-label">标签（逗号分隔）</label><input class="form-input" id="galTags" placeholder="法式, 清冷, 秋日"></div>
+    <button class="btn btn-block" onclick="addGalleryItem()">保存</button>
+  </div>
+</div>
+
+<div class="modal-mask" id="diaryModal">
+  <div class="modal" style="position:relative">
+    <button class="modal-close" onclick="closeModal('diaryModal')">×</button>
+    <div class="modal-title">记录今日穿搭</div>
+    <div class="form-group"><label class="form-label">日期</label><input class="form-input" id="dDate" type="date"></div>
+    <div class="form-group"><label class="form-label">穿搭描述</label><textarea class="form-textarea" id="dDesc" placeholder="今天穿了什么..."></textarea></div>
+    <div class="form-group"><label class="form-label">照片（可选）</label><input type="file" id="dImg" accept="image/*" onchange="compressImg(event,'dImgPrev',300)"><img class="img-preview hide" id="dImgPrev"></div>
+    <div class="form-group"><label class="form-label">场合</label>
+      <select class="form-select" id="dScene"><option>飞行通勤</option><option>休息日常</option><option>约会</option><option>正式</option><option>旅行</option><option>度假</option></select>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">满意度</label><div class="star-input" id="dSat" data-val="0"><span data-v="1">★</span><span data-v="2">★</span><span data-v="3">★</span><span data-v="4">★</span><span data-v="5">★</span></div></div>
+      <div class="form-group"><label class="form-label">自信度</label><div class="star-input" id="dConf" data-val="0"><span data-v="1">★</span><span data-v="2">★</span><span data-v="3">★</span><span data-v="4">★</span><span data-v="5">★</span></div></div>
+    </div>
+    <div class="form-group"><label class="form-label">搭配心得</label><textarea class="form-textarea" id="dNote" placeholder="今天搭配的心得..."></textarea></div>
+    <div class="form-group"><label class="form-label">心情标签（逗号分隔）</label><input class="form-input" id="dMood" placeholder="开心, 自信, 清冷"></div>
+    <button class="btn btn-block" onclick="addDiaryEntry()">保存</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ============ DATA ============ */
+const QUOTES = [
+  "简约不是少，而是没有多余。精致不是繁，而是没有粗糙。",
+  "法式的精髓在于不经意的优雅——仿佛刚从床上起来就很美。",
+  "清冷感来自克制：少一点装饰，多一分留白。",
+  "穿衣服是为了取悦自己，而不是为了被看见。",
+  "高级感是沉默的颜色、是安静的剪裁、是从容的姿态。",
+  "真正会穿衣的人，让人记住的是她，而不是衣服。",
+  "少即是多，但少不等于无聊——细节决定品味。",
+  "法式风格的核心：白衬衫、阔腿裤、一双低跟鞋，足矣。",
+  "优雅是拒绝的艺术——知道什么不该穿，比知道该穿什么更重要。",
+  "颜色越少越高级，黑白灰驼永远是朋友。",
+  "审美是一种积累，多看、多想、少跟风。",
+  "合身比品牌重要，剪裁比logo珍贵。",
+  "一双好鞋能带你去好的地方，一件好衣能让你成为好的自己。",
+  "衣橱如人生，做减法比做加法难，但也更值得。",
+  "气质是最好的装饰，自信是最美的妆容。",
+  "法式女孩从不刻意，但每一处都恰到好处。",
+  "暗调美学的秘密：在灰暗中寻找光影的诗意。",
+  "梨形身材的智慧：藏起缺点，放大腰线和锁骨。",
+  "清冷不是冷漠，是一种有温度的距离感。",
+  "穿对衣服的瞬间，你会觉得整个世界都在对你微笑。"
+];
+
+const FASHION_TIPS = [
+  "法式穿搭三要素：白衬衫、阔腿裤、玛丽珍鞋，永远不会出错。",
+  "梨形身材选裤装，高腰直筒比紧身更显瘦。",
+  "冷白皮最适合的口红颜色：豆沙色、玫瑰色、浆果色。",
+  "窄肩女生选上衣，垫肩和泡泡袖是最好朋友。",
+  "高个子女生穿长裙，注意腰线位置在肚脐上方最显高。",
+  "配色法则：全身上下不超过三个主色调。",
+  "法式低马尾的关键：松散、随性、留几缕碎发。",
+  "珍珠耳钉是最百搭的配饰，正式休闲皆宜。",
+  "秋冬叠穿公式：高领打底 + 衬衫 + 针织开衫。",
+  "V领比圆领更显脸小、更显锁骨，圆脸必选。",
+  "一条好丝巾能提升整套穿搭的高级感。",
+  "深色下装比浅色更显瘦，梨形身材记住这一点。",
+  "乐福鞋是通勤最舒服的低跟鞋，百搭又优雅。",
+  "裸色高跟鞋视觉延伸腿长，比黑色更显高。",
+  "风衣的腰带要系出X型，才显腰身不显胖。"
+];
+
+const COLORS = [
+  {name:"雾霾蓝",hex:"#7a9aa8"},
+  {name:"藕粉",hex:"#d4a8a0"},
+  {name:"燕麦",hex:"#d4c4a8"},
+  {name:"酒红",hex:"#7a3a3a"},
+  {name:"墨绿",hex:"#3a5a4a"},
+  {name:"米白",hex:"#f0e8d8"},
+  {name:"驼色",hex:"#9c8a6e"},
+  {name:"灰粉",hex:"#c4a8a0"}
+];
+
+const OUTFITS = {
+  "飞行日":{name:"燕麦色风衣 × 白T × 直筒牛仔 × 乐福鞋",tip:"飞行通勤必备，风衣系腰带显腰线，舒适又有型。配低马尾利落清爽。"},
+  "休息日":{name:"雾霾蓝针织开衫 × 白内搭 × 高腰牛仔半裙 × 白短靴",tip:"休息日也要美，温柔文艺又不失少女感。"},
+  "约会":{name:"法式白衬衫 × 高腰微喇牛仔 × 裸色尖头高跟",tip:"经典法式约会穿搭，长发披散，清冷又迷人。"},
+  "通勤":{name:"黑色V领针织 × 高腰阔腿裤 × 玛丽珍鞋",tip:"通勤简约高级，低马尾干练利落。"}
+};
+
+const FORMULAS = [
+  {id:1,name:"法式白衬衫 + 高腰微喇牛仔裤",scene:"约会",badge:"badge-date",items:["法式白衬衫","高腰微喇牛仔裤","裸色尖头高跟鞋"],tip:"长发披散，清冷中带一丝慵懒",notice:"衬衫扎进裤腰，露出腰线"},
+  {id:2,name:"黑色V领针织 + 高腰阔腿裤",scene:"正式",badge:"badge-formal",items:["黑色V领针织衫","高腰阔腿裤","玛丽珍鞋"],tip:"低马尾，干练利落",notice:"V领露出锁骨更显脸小"},
+  {id:3,name:"酒红色法式连衣裙",scene:"正式",badge:"badge-formal",items:["酒红色连衣裙","裸色高跟鞋","珍珠耳环"],tip:"晚宴正式场合，优雅大气",notice:"收腰款式，A字下摆遮胯"},
+  {id:4,name:"米白方领 + A字长裙 + 草编包",scene:"度假",badge:"badge-vacation",items:["米白色方领上衣","高腰A字长裙","草编包","草帽"],tip:"度假日常，清新文艺",notice:"方领露出锁骨，显脸小"},
+  {id:5,name:"燕麦色风衣 + 白T + 直筒牛仔",scene:"飞行通勤",badge:"badge-flight",items:["燕麦色风衣","白色T恤","直筒牛仔裤","乐福鞋"],tip:"飞行通勤秋冬日常首选",notice:"风衣系腰带显腰身"},
+  {id:6,name:"黑色小高领 + 灰西装 + 阔腿裤",scene:"正式",badge:"badge-formal",items:["黑色小高领","灰色西装外套","阔腿裤","尖头高跟鞋"],tip:"职场会议气场全开",notice:"西装选垫肩款弥补窄肩"},
+  {id:7,name:"雾霾蓝开衫 + 白内搭 + 牛仔半裙",scene:"约会",badge:"badge-date",items:["雾霾蓝针织开衫","白色内搭","高腰牛仔半裙","白色短靴"],tip:"秋日约会温柔又文艺",notice:"半裙长度过膝最显高"},
+  {id:8,name:"黑色缎面吊带 + 阔腿裤 + 猫跟",scene:"正式",badge:"badge-formal",items:["黑色缎面吊带","高腰阔腿裤","猫跟鞋","珍珠项链"],tip:"晚宴精致场合，性感高级",notice:"外搭一件薄开衫更稳重"}
+];
+
+const PRESET_GOODS = [
+  {name:"V领针织开衫",brand:"COS",price:599,channel:"天猫COS官方旗舰店",star:5,scene:"日常/通勤",cat:"上衣",status:"want"},
+  {name:"高腰直筒牛仔裤",brand:"Massimo Dutti",price:450,channel:"天猫",star:5,scene:"万能单品",cat:"下装",status:"want"},
+  {name:"法式白衬衫",brand:"COS",price:499,channel:"天猫",star:5,scene:"百搭基础款",cat:"上衣",status:"want"},
+  {name:"玛丽珍鞋",brand:"73Hours",price:480,channel:"天猫",star:4,scene:"约会必备",cat:"鞋",status:"want"},
+  {name:"酒红色连衣裙",brand:"Massimo Dutti",price:550,channel:"天猫",star:5,scene:"正式场合",cat:"裙装",status:"want"},
+  {name:"米色风衣",brand:"& Other Stories",price:1280,channel:"代购/官网",star:5,scene:"秋冬通勤",cat:"外套",status:"want"},
+  {name:"黑色缎面吊带",brand:"MO&Co.",price:399,channel:"天猫MO&Co.旗舰店",star:4,scene:"精致场合",cat:"上衣",status:"want"},
+  {name:"阔腿裤",brand:"ZARA",price:329,channel:"天猫",star:5,scene:"通勤百搭",cat:"下装",status:"want"},
+  {name:"高腰A字长裙",brand:"ONLY",price:299,channel:"天猫",star:5,scene:"约会日常",cat:"裙装",status:"want"},
+  {name:"裸色尖头高跟鞋",brand:"73Hours",price:580,channel:"天猫",star:5,scene:"正式百搭",cat:"鞋",status:"want"},
+  {name:"燕麦色针织衫",brand:"COS",price:599,channel:"天猫",star:5,scene:"秋冬日常",cat:"上衣",status:"want"},
+  {name:"乐福鞋",brand:"tata",price:369,channel:"天猫",star:4,scene:"通勤",cat:"鞋",status:"want"},
+  {name:"珍珠耳钉",brand:"APM Monaco",price:650,channel:"天猫/官网",star:5,scene:"基础配饰",cat:"配饰",status:"want"},
+  {name:"灰色西装外套",brand:"Massimo Dutti",price:790,channel:"天猫",star:5,scene:"职场必备",cat:"外套",status:"want"},
+  {name:"雾霾蓝针织开衫",brand:"& Other Stories",price:650,channel:"代购",star:5,scene:"秋日约会",cat:"上衣",status:"want"},
+  {name:"草编包",brand:"ZARA",price:259,channel:"天猫",star:4,scene:"度假",cat:"配饰",status:"want"},
+  {name:"草帽",brand:"UR",price:149,channel:"天猫",star:4,scene:"度假",cat:"配饰",status:"want"},
+  {name:"白色短靴",brand:"tata",price:499,channel:"天猫",star:4,scene:"秋冬",cat:"鞋",status:"want"},
+  {name:"黑色高领打底衫",brand:"UNIQLO",price:149,channel:"天猫",star:5,scene:"万能基础",cat:"上衣",status:"want"},
+  {name:"细带项链",brand:"APM Monaco",price:550,channel:"天猫/官网",star:4,scene:"细节感",cat:"配饰",status:"want"}
+];
+
+const NEWS = [
+  {cat:"趋势",title:"2026秋冬流行趋势：低饱和度静奢风",desc:"低饱和度配色、质感面料、简约剪裁回归，静奢风（Quiet Luxury）持续流行，强调质感与克制。"},
+  {cat:"趋势",title:"法式穿搭经典三要素",desc:"白衬衫、阔腿裤、玛丽珍鞋——法式风格的核心单品，简约却永不过时。"},
+  {cat:"灵感",title:"梨形身材博主推荐",desc:"关注@jeannedamas、@sylviemusy等法式博主，学习梨形身材的高级穿搭方式。"},
+  {cat:"品牌",title:"极简高级感品牌盘点",desc:"COS、Massimo Dutti、& Other Stories、Lemaire——高质感极简风代表品牌。"},
+  {cat:"技巧",title:"高个子女生穿搭技巧",desc:"170+身高优势：长裙、阔腿裤、长风衣都是你的专利，注意腰线位置在肚脐上方最显比例。"},
+  {cat:"技巧",title:"窄肩女生穿衣指南",desc:"垫肩西装、泡泡袖、一字肩、横条纹上衣——窄肩星人的四大法宝。"},
+  {cat:"技巧",title:"冷白皮配色大全",desc:"雾霾蓝、藕粉、酒红、墨绿、米白、驼色——冷白皮的安全色清单。"},
+  {cat:"灵感",title:"空乘私服穿搭灵感",desc:"飞行通勤讲究舒适与得体：风衣+白T+直筒牛仔+乐福鞋，是经典不出错的组合。"},
+  {cat:"技巧",title:"长发造型100种",desc:"高马尾、法式低马尾、侧分大波浪、半扎发、法式盘发——长发女孩的五种日常造型。"},
+  {cat:"技巧",title:"胶囊衣橱构建法",desc:"30件单品法则：10件上衣+8件下装+5件外套+5双鞋+2件配饰，打造精简衣橱。"},
+  {cat:"趋势",title:"2026必备单品清单",desc:"白衬衫、高腰阔腿裤、风衣、玛丽珍鞋、珍珠耳钉——年度五大投资单品。"},
+  {cat:"技巧",title:"显瘦穿搭公式",desc:"高腰线+深色下装+V领/方领上衣=梨形身材万能显瘦公式。"}
+];
+
+/* ============ STATE ============ */
+let closetItems = JSON.parse(localStorage.getItem('style_closet')||'[]');
+let goods = JSON.parse(localStorage.getItem('style_goods')||'null') || JSON.parse(JSON.stringify(PRESET_GOODS));
+let galleryItems = JSON.parse(localStorage.getItem('style_gallery')||'[]');
+let diaryEntries = JSON.parse(localStorage.getItem('style_diary')||'[]');
+let likedFormulas = JSON.parse(localStorage.getItem('style_liked')||'[]');
+let closetFilter='全部', formulaFilter='全部', goodFilter='全部', newsFilter='全部', galleryFilter='全部';
+
+if(!localStorage.getItem('style_goods')) localStorage.setItem('style_goods',JSON.stringify(goods));
+
+/* ============ THEME ============ */
+function getTheme(){
+  const saved = localStorage.getItem('style_theme');
+  if(saved) return saved;
+  const hour = new Date().getHours();
+  return (hour>=18||hour<7)?'dark':'light';
+}
+function applyTheme(t){
+  document.documentElement.setAttribute('data-theme',t);
+  document.getElementById('themeBtn').textContent = t==='dark'?'☀️':'🌙';
+  localStorage.setItem('style_theme',t);
+}
+function toggleTheme(){
+  const cur = document.documentElement.getAttribute('data-theme')||'light';
+  applyTheme(cur==='dark'?'light':'dark');
+}
+
+/* ============ NAV ============ */
+function switchPage(name){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+name).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.toggle('active',n.dataset.page===name));
+  window.scrollTo(0,0);
+}
+
+/* ============ MODAL ============ */
+function openModal(id){document.getElementById(id).classList.add('show')}
+function closeModal(id){
+  document.getElementById(id).classList.remove('show');
+  // reset closet modal
+  if(id==='closetModal'){['cName','cBrand','cPrice'].forEach(x=>document.getElementById(x).value='');document.getElementById('cImgPrev').classList.add('hide');document.getElementById('cImgPrev').src='';document.getElementById('cImg').value='';}
+  if(id==='goodModal'){['gName','gBrand','gPrice','gChannel','gScene'].forEach(x=>document.getElementById(x).value='');resetStarInput('gStarInput',5);}
+  if(id==='galleryModal'){document.getElementById('galNote').value='';document.getElementById('galTags').value='';document.getElementById('galImgPrev').classList.add('hide');document.getElementById('galImgPrev').src='';document.getElementById('galImg').value='';}
+  if(id==='diaryModal'){document.getElementById('dDesc').value='';document.getElementById('dNote').value='';document.getElementById('dMood').value='';document.getElementById('dImgPrev').classList.add('hide');document.getElementById('dImgPrev').src='';document.getElementById('dImg').value='';resetStarInput('dSat',0);resetStarInput('dConf',0);}
+}
+
+/* ============ TOAST ============ */
+function toast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  clearTimeout(t._timer);
+  t._timer=setTimeout(()=>t.classList.remove('show'),1800);
+}
+
+/* ============ IMG COMPRESS ============ */
+function compressImg(event,previewId,size){
+  const file = event.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e){
+    const img = new Image();
+    img.onload = function(){
+      const canvas = document.createElement('canvas');
+      canvas.width = size; canvas.height = size;
+      const ctx = canvas.getContext('2d');
+      // cover crop
+      const minDim = Math.min(img.width,img.height);
+      const sx = (img.width-minDim)/2;
+      const sy = (img.height-minDim)/2;
+      ctx.drawImage(img,sx,sy,minDim,minDim,0,0,size,size);
+      const dataUrl = canvas.toDataURL('image/jpeg',0.8);
+      const prev = document.getElementById(previewId);
+      prev.src = dataUrl;
+      prev.classList.remove('hide');
+      prev.dataset.data = dataUrl;
+    };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+/* ============ STAR INPUT ============ */
+function setupStarInput(id){
+  const el = document.getElementById(id);
+  el.querySelectorAll('span').forEach(s=>{
+    s.onclick = function(){
+      const v = parseInt(s.dataset.v);
+      el.dataset.val = v;
+      el.querySelectorAll('span').forEach((x,i)=>x.classList.toggle('on',i<v));
+    };
+  });
+}
+function resetStarInput(id,val){
+  const el = document.getElementById(id);
+  el.dataset.val = val;
+  el.querySelectorAll('span').forEach((x,i)=>x.classList.toggle('on',i<val));
+}
+
+/* ============ HOME ============ */
+function renderHome(){
+  const now = new Date();
+  const days = ['周日','周一','周二','周三','周四','周五','周六'];
+  document.getElementById('todayDate').textContent = `${now.getFullYear()}年${now.getMonth()+1}月${now.getDate()}日 ${days[now.getDay()]}`;
+  
+  // daily quote
+  const qIdx = Math.floor(Date.now()/86400000) % QUOTES.length;
+  document.getElementById('dailyQuote').textContent = '"'+QUOTES[qIdx]+'"';
+  
+  // today colors - pick 3 random
+  const shuffled = [...COLORS].sort(()=>Math.random()-0.5).slice(0,3);
+  document.getElementById('todayColors').innerHTML = shuffled.map(c=>
+    `<div class="color-item"><div class="color-circle" style="background:${c.hex}"></div><div class="color-name">${c.name}</div></div>`
+  ).join('');
+  
+  // today outfit
+  let scene = '休息日';
+  const hour = now.getHours();
+  const dow = now.getDay();
+  if(dow>=1&&dow<=5 && hour>=6 && hour<20) scene='飞行日';
+  else if(hour>=18) scene='约会';
+  else scene='休息日';
+  const outfit = OUTFITS[scene];
+  document.getElementById('todayOutfit').innerHTML = `
+    <div style="font-size:11px;color:var(--sub);margin-bottom:4px">推荐场景：${scene}</div>
+    <div style="font-size:15px;font-weight:600;margin-bottom:8px">${outfit.name}</div>
+    <div class="small muted" style="margin-bottom:10px">${outfit.tip}</div>
+    <button class="btn btn-sm" onclick="switchPage('inspire')">查看更多灵感 →</button>
+  `;
+}
+
+/* ============ CLOSET ============ */
+function saveCloset(){localStorage.setItem('style_closet',JSON.stringify(closetItems))}
+function renderCloset(){
+  const filtered = closetFilter==='全部'?closetItems:closetItems.filter(x=>x.cat===closetFilter);
+  const grid = document.getElementById('closetGrid');
+  if(filtered.length===0){
+    grid.innerHTML = '<div class="empty" style="grid-column:span 2">还没有单品，点击上方按钮添加吧～</div>';
+  } else {
+    grid.innerHTML = filtered.map((x,i)=>{
+      const realIdx = closetItems.indexOf(x);
+      return `<div class="item-card">
+        ${x.img?`<img class="item-img" src="${x.img}">`:`<div class="item-img-placeholder">${x.cat==='鞋'?'👟':x.cat==='配饰'?'💍':x.cat==='连衣裙'?'👗':x.cat==='外套'?'🧥':x.cat==='下装'?'👖':'👕'}</div>`}
+        <div class="item-info">
+          <div class="item-name">${esc(x.name)}</div>
+          <div class="item-meta"><span>${esc(x.brand)||'-'}</span><span>¥${x.price||0}</span></div>
+          <div class="item-meta" style="margin-top:4px">
+            <span class="small muted">穿过 ${x.wear||0}次</span>
+            <span>
+              <button class="btn-sm" style="padding:2px 8px;font-size:11px" onclick="wearItem(${realIdx})">+1</button>
+              <button class="btn-sm" style="padding:2px 8px;font-size:11px;color:#9c5a4e" onclick="delClosetItem(${realIdx})">删</button>
+            </span>
+          </div>
+        </div>
+      </div>`;
+    }).join('');
+  }
+  // stats
+  document.getElementById('closetTotal').textContent = closetItems.length;
+  const cats = [...new Set(closetItems.map(x=>x.cat))];
+  document.getElementById('closetCats').textContent = cats.length;
+  document.getElementById('closetNever').textContent = closetItems.filter(x=>!x.wear||x.wear===0).length;
+  // top3
+  const top3 = [...closetItems].sort((a,b)=>(b.wear||0)-(a.wear||0)).filter(x=>x.wear>0).slice(0,3);
+  const t3 = document.getElementById('closetTop3');
+  if(top3.length>0){
+    t3.style.display='block';
+    document.getElementById('closetTop3List').innerHTML = top3.map((x,i)=>
+      `<div class="flex-between" style="padding:8px 0;border-bottom:1px solid var(--border)">
+        <span class="small"><strong>${i+1}.</strong> ${esc(x.name)} <span class="muted">(${esc(x.brand)})</span></span>
+        <span class="small" style="color:var(--primary);font-weight:600">${x.wear}次</span>
+      </div>`
+    ).join('');
+  } else { t3.style.display='none'; }
+}
+function filterCloset(cat){
+  closetFilter=cat;
+  document.querySelectorAll('#closetTabs .tab').forEach(t=>t.classList.toggle('active',t.dataset.cat===cat));
+  renderCloset();
+}
+function addClosetItem(){
+  const name = document.getElementById('cName').value.trim();
+  if(!name){toast('请输入名称');return;}
+  const item = {
+    name,
+    brand: document.getElementById('cBrand').value.trim(),
+    price: parseFloat(document.getElementById('cPrice').value)||0,
+    cat: document.getElementById('cCat').value,
+    img: document.getElementById('cImgPrev').dataset.data||'',
+    wear: 0,
+    created: Date.now()
+  };
+  closetItems.unshift(item);
+  saveCloset(); renderCloset();
+  closeModal('closetModal');
+  toast('已添加到衣橱');
+}
+function wearItem(idx){
+  closetItems[idx].wear = (closetItems[idx].wear||0)+1;
+  saveCloset(); renderCloset();
+  toast('穿着次数+1');
+}
+function delClosetItem(idx){
+  if(!confirm('删除这件单品？')) return;
+  closetItems.splice(idx,1);
+  saveCloset(); renderCloset();
+  toast('已删除');
+}
+
+/* ============ FORMULAS ============ */
+function renderFormulas(){
+  const filtered = formulaFilter==='全部'?FORMULAS:FORMULAS.filter(x=>x.scene===formulaFilter);
+  document.getElementById('formulaList').innerHTML = filtered.map(f=>{
+    const liked = likedFormulas.includes(f.id);
+    return `<div class="card formula-card">
+      <div class="flex-between">
+        <span class="formula-badge ${f.badge}">${f.scene}</span>
+        <button class="like-btn ${liked?'liked':''}" onclick="toggleLike(${f.id})">${liked?'♥':'♡'}</button>
+      </div>
+      <div class="card-title" style="margin-top:6px">${f.name}</div>
+      <div class="formula-tip"><strong>关键单品：</strong>${f.items.join('、')}</div>
+      <div class="formula-tip"><strong>搭配技巧：</strong>${f.tip}</div>
+      <div class="formula-tip"><strong>注意事项：</strong>${f.notice}</div>
+    </div>`;
+  }).join('');
+}
+function filterFormula(scene){
+  formulaFilter=scene;
+  document.querySelectorAll('#formulaTabs .tab').forEach(t=>t.classList.toggle('active',t.dataset.scene===scene));
+  renderFormulas();
+}
+function toggleLike(id){
+  const i = likedFormulas.indexOf(id);
+  if(i>=0){likedFormulas.splice(i,1);toast('已取消收藏');}
+  else {likedFormulas.push(id);toast('已收藏');}
+  localStorage.setItem('style_liked',JSON.stringify(likedFormulas));
+  renderFormulas();
+}
+
+/* ============ GOODS ============ */
+function saveGoods(){localStorage.setItem('style_goods',JSON.stringify(goods))}
+function renderGoods(){
+  const filtered = goodFilter==='全部'?goods:goods.filter(x=>x.cat===goodFilter);
+  const list = document.getElementById('goodList');
+  if(filtered.length===0){
+    list.innerHTML='<div class="empty">暂无好物</div>';return;
+  }
+  const statusMap = {want:{label:'想买',cls:'status-want'},bought:{label:'已买',cls:'status-bought'},have:{label:'已拥有',cls:'status-have'}};
+  list.innerHTML = filtered.map((x,i)=>{
+    const realIdx = goods.indexOf(x);
+    const st = statusMap[x.status]||statusMap.want;
+    return `<div class="good-card">
+      <div class="good-header">
+        <div class="good-name">${esc(x.name)}</div>
+        <div class="good-brand">${esc(x.brand)} · ${esc(x.scene)}</div>
+        <div class="good-meta">
+          <span class="good-price">¥${x.price}</span>
+          <span class="stars">${'★'.repeat(x.star)}${'☆'.repeat(5-x.star)}</span>
+        </div>
+        <div class="small muted" style="margin-top:6px">📍 ${esc(x.channel)}</div>
+      </div>
+      <div class="good-actions">
+        <span class="good-status ${st.cls}">${st.label}</span>
+        <button class="btn btn-sm btn-outline" onclick="cycleGoodStatus(${realIdx})">${st.label==='想买'?'标记已买':st.label==='已买'?'标记拥有':'重置'}</button>
+        <button class="btn btn-sm" style="color:#9c5a4e" onclick="delGood(${realIdx})">删</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+function filterGoods(cat){
+  goodFilter=cat;
+  document.querySelectorAll('#goodTabs .tab').forEach(t=>t.classList.toggle('active',t.dataset.cat===cat));
+  renderGoods();
+}
+function addGoodItem(){
+  const name = document.getElementById('gName').value.trim();
+  if(!name){toast('请输入名称');return;}
+  const starVal = parseInt(document.getElementById('gStarInput').dataset.val);
+  goods.unshift({
+    name,
+    brand: document.getElementById('gBrand').value.trim(),
+    price: parseFloat(document.getElementById('gPrice').value)||0,
+    channel: document.getElementById('gChannel').value.trim(),
+    scene: document.getElementById('gScene').value.trim(),
+    cat: document.getElementById('gCat').value,
+    star: starVal,
+    status: document.getElementById('gStatus').value
+  });
+  saveGoods(); renderGoods();
+  closeModal('goodModal');
+  toast('已添加好物');
+}
+function cycleGoodStatus(idx){
+  const map = {want:'bought',bought:'have',have:'want'};
+  goods[idx].status = map[goods[idx].status]||'want';
+  saveGoods(); renderGoods();
+}
+function delGood(idx){
+  if(!confirm('删除这个好物？')) return;
+  goods.splice(idx,1);
+  saveGoods(); renderGoods();
+  toast('已删除');
+}
+
+/* ============ NEWS ============ */
+function renderNews(){
+  const filtered = newsFilter==='全部'?NEWS:NEWS.filter(x=>x.cat===newsFilter);
+  document.getElementById('newsList').innerHTML = filtered.map(n=>
+    `<div class="news-card">
+      <span class="news-tag">${n.cat}</span>
+      <div class="news-title">${n.title}</div>
+      <div class="news-desc">${n.desc}</div>
+    </div>`
+  ).join('');
+  // daily tip
+  const tIdx = Math.floor(Date.now()/86400000) % FASHION_TIPS.length;
+  document.getElementById('dailyFashionTip').textContent = '"'+FASHION_TIPS[tIdx]+'"';
+}
+function filterNews(cat){
+  newsFilter=cat;
+  document.querySelectorAll('#newsTabs .tab').forEach(t=>t.classList.toggle('active',t.dataset.cat===cat));
+  renderNews();
+}
+
+/* ============ GALLERY ============ */
+function saveGallery(){localStorage.setItem('style_gallery',JSON.stringify(galleryItems))}
+function renderGallery(){
+  const filtered = galleryFilter==='全部'?galleryItems:galleryItems.filter(x=>x.cat===galleryFilter);
+  const m = document.getElementById('galleryMasonry');
+  if(filtered.length===0){
+    m.innerHTML='<div class="empty" style="column-span:all">还没有灵感图，上传你喜欢的穿搭图片吧～</div>';return;
+  }
+  m.innerHTML = filtered.map((x,i)=>{
+    const realIdx = galleryItems.indexOf(x);
+    const tags = x.tags?x.tags.split(/[,，]/).filter(t=>t).map(t=>`<span class="chip" style="font-size:10px;padding:2px 8px;margin:2px 0">${esc(t.trim())}</span>`).join(''):'';
+    return `<div class="masonry-item">
+      <button class="masonry-del" onclick="delGallery(${realIdx})">×</button>
+      ${x.img?`<img src="${x.img}">`:'<div class="item-img-placeholder" style="aspect-ratio:auto;height:120px">📷</div>'}
+      <div class="masonry-note">
+        <div class="small" style="color:var(--primary);font-weight:600;margin-bottom:3px">${esc(x.cat)}</div>
+        ${x.note?`<div>${esc(x.note)}</div>`:''}
+        <div style="margin-top:4px">${tags}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+function filterGallery(cat){
+  galleryFilter=cat;
+  document.querySelectorAll('#galleryTabs .tab').forEach(t=>t.classList.toggle('active',t.dataset.cat===cat));
+  renderGallery();
+}
+function addGalleryItem(){
+  const img = document.getElementById('galImgPrev').dataset.data;
+  if(!img){toast('请选择图片');return;}
+  galleryItems.unshift({
+    img,
+    cat: document.getElementById('galCat').value,
+    note: document.getElementById('galNote').value.trim(),
+    tags: document.getElementById('galTags').value.trim(),
+    created: Date.now()
+  });
+  saveGallery(); renderGallery();
+  closeModal('galleryModal');
+  toast('已添加灵感图');
+}
+function delGallery(idx){
+  if(!confirm('删除这张灵感图？')) return;
+  galleryItems.splice(idx,1);
+  saveGallery(); renderGallery();
+  toast('已删除');
+}
+
+/* ============ DIARY ============ */
+function saveDiary(){localStorage.setItem('style_diary',JSON.stringify(diaryEntries))}
+function renderDiary(){
+  const list = document.getElementById('diaryList');
+  const stats = document.getElementById('diaryStats');
+  if(diaryEntries.length===0){
+    stats.style.display='none';
+    list.innerHTML='<div class="empty">还没有日记记录，记录你的第一次穿搭吧～</div>';
+    return;
+  }
+  // stats
+  const avgSat = (diaryEntries.reduce((s,x)=>s+(x.sat||0),0)/diaryEntries.length).toFixed(1);
+  const avgConf = (diaryEntries.reduce((s,x)=>s+(x.conf||0),0)/diaryEntries.length).toFixed(1);
+  stats.style.display='flex';
+  document.getElementById('diaryAvgSat').textContent = avgSat;
+  document.getElementById('diaryAvgConf').textContent = avgConf;
+  document.getElementById('diaryCount').textContent = diaryEntries.length;
+  
+  // scene freq
+  const sceneCount = {};
+  diaryEntries.forEach(x=>sceneCount[x.scene]=(sceneCount[x.scene]||0)+1);
+  const topScene = Object.entries(sceneCount).sort((a,b)=>b[1]-a[1])[0];
+  
+  list.innerHTML = (topScene?`<div class="card"><div class="small muted">最常穿风格</div><div style="font-size:15px;font-weight:600;color:var(--primary);margin-top:4px">${topScene[0]} (${topScene[1]}次)</div></div>`:'')+
+    diaryEntries.map((x,i)=>{
+    const realIdx = diaryEntries.indexOf(x);
+    const moodTags = x.mood?x.mood.split(/[,，]/).filter(t=>t).map(t=>`<span class="chip" style="font-size:10px;padding:2px 8px">${esc(t.trim())}</span>`).join(''):'';
+    const d = new Date(x.date);
+    return `<div class="diary-entry">
+      <button class="modal-close" style="position:absolute;top:8px;right:10px;font-size:16px" onclick="delDiary(${realIdx})">×</button>
+      <div class="diary-date">${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}</div>
+      <div class="diary-scene">${x.scene}</div>
+      ${x.img?`<img src="${x.img}" style="width:100%;border-radius:10px;margin-bottom:8px">`:''}
+      <div class="diary-rating">满意度：<span class="stars">${'★'.repeat(x.sat)}${'☆'.repeat(5-x.sat)}</span></div>
+      <div class="diary-rating">自信度：<span class="stars">${'★'.repeat(x.conf)}${'☆'.repeat(5-x.conf)}</span></div>
+      ${x.desc?`<div class="small" style="margin:6px 0">${esc(x.desc)}</div>`:''}
+      ${x.note?`<div class="small muted" style="margin:6px 0">💡 ${esc(x.note)}</div>`:''}
+      ${moodTags?`<div class="chips" style="margin-top:4px">${moodTags}</div>`:''}
+    </div>`;
+  }).join('');
+}
+function addDiaryEntry(){
+  const date = document.getElementById('dDate').value;
+  if(!date){toast('请选择日期');return;}
+  const desc = document.getElementById('dDesc').value.trim();
+  if(!desc){toast('请描述穿搭');return;}
+  diaryEntries.unshift({
+    date,
+    desc,
+    img: document.getElementById('dImgPrev').dataset.data||'',
+    scene: document.getElementById('dScene').value,
+    sat: parseInt(document.getElementById('dSat').dataset.val)||0,
+    conf: parseInt(document.getElementById('dConf').dataset.val)||0,
+    note: document.getElementById('dNote').value.trim(),
+    mood: document.getElementById('dMood').value.trim(),
+    created: Date.now()
+  });
+  saveDiary(); renderDiary();
+  closeModal('diaryModal');
+  toast('日记已记录');
+}
+function delDiary(idx){
+  if(!confirm('删除这条日记？')) return;
+  diaryEntries.splice(idx,1);
+  saveDiary(); renderDiary();
+  toast('已删除');
+}
+
+/* ============ UTIL ============ */
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+
+/* ============ INIT ============ */
+applyTheme(getTheme());
+setupStarInput('gStarInput');
+setupStarInput('dSat');
+setupStarInput('dConf');
+document.getElementById('dDate').valueAsDate = new Date();
+renderHome();
+renderCloset();
+renderFormulas();
+renderGoods();
+renderNews();
+renderGallery();
+renderDiary();
+
+// close modal on mask click
+document.querySelectorAll('.modal-mask').forEach(m=>{
+  m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('show')});
+});
+</script>
+</body>
+</html>

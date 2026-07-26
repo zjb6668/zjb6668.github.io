@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>佳蓓的审美图鉴</title>
+<style>
+:root {
+  --bg: #f5f3f0;
+  --card: #ffffff;
+  --text: #2c2825;
+  --text-light: #9a9288;
+  --accent: #8b7d6b;
+  --accent-dark: #6b5d4f;
+  --border: #e8e2d8;
+  --shadow: 0 2px 12px rgba(139,125,107,0.06);
+}
+[data-theme="dark"] {
+  --bg: #161412;
+  --card: #221f1c;
+  --text: #e8e2d8;
+  --text-light: #7a7268;
+  --accent: #c4b8a4;
+  --accent-dark: #a49680;
+  --border: #332e2a;
+  --shadow: 0 2px 12px rgba(0,0,0,0.3);
+}
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+body {
+  font-family: -apple-system, "PingFang SC", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  font-size: 14px;
+  transition: background 0.3s, color 0.3s;
+}
+/* Hero */
+.hero {
+  background: linear-gradient(135deg, #6b5d4f 0%, #4a3f35 50%, #2c2825 100%);
+  color: #fff;
+  padding: 50px 24px 36px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 40px;
+  background: linear-gradient(180deg, transparent, var(--bg));
+}
+.hero h1 { font-size: 26px; font-weight: 300; letter-spacing: 6px; margin-bottom: 6px; }
+.hero .sub { font-size: 13px; opacity: 0.7; letter-spacing: 3px; }
+.hero .tags { margin-top: 14px; display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; }
+.hero .tag {
+  font-size: 11px;
+  padding: 3px 10px;
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 16px;
+  letter-spacing: 1px;
+}
+.theme-btn {
+  position: fixed;
+  top: 14px; right: 14px;
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: #fff;
+  font-size: 16px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  z-index: 100;
+  backdrop-filter: blur(8px);
+}
+/* Tab bar */
+.tab-bar {
+  display: flex;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  background: var(--card);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  border-bottom: 1px solid var(--border);
+  scrollbar-width: none;
+}
+.tab-bar::-webkit-scrollbar { display: none; }
+.tab {
+  flex-shrink: 0;
+  padding: 14px 16px;
+  font-size: 13px;
+  color: var(--text-light);
+  cursor: pointer;
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+}
+.tab.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+  font-weight: 600;
+}
+/* Scene section */
+.scene {
+  display: none;
+  padding: 12px;
+  animation: fadeIn 0.3s;
+}
+.scene.active { display: block; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.scene-header {
+  text-align: center;
+  margin: 8px 0 16px;
+}
+.scene-header h2 {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: 2px;
+}
+.scene-header p {
+  font-size: 12px;
+  color: var(--text-light);
+  margin-top: 4px;
+}
+/* Masonry grid */
+.grid {
+  column-count: 2;
+  column-gap: 10px;
+}
+.card {
+  break-inside: avoid;
+  margin-bottom: 10px;
+  background: var(--card);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  position: relative;
+}
+.card img {
+  width: 100%;
+  display: block;
+  transition: opacity 0.3s;
+}
+.card img.loading { opacity: 0; }
+.card img.loaded { opacity: 1; }
+.card .desc {
+  padding: 8px 12px;
+  font-size: 12px;
+  color: var(--text-light);
+  line-height: 1.4;
+}
+.card .placeholder {
+  width: 100%;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+  background: linear-gradient(135deg, var(--border), var(--card));
+}
+/* Keywords section */
+.keywords-section {
+  background: var(--card);
+  margin: 12px;
+  border-radius: 16px;
+  padding: 20px 16px;
+  box-shadow: var(--shadow);
+}
+.kw-title {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: var(--text);
+  padding-left: 10px;
+  border-left: 3px solid var(--accent);
+}
+.kw-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+.kw {
+  font-size: 12px;
+  padding: 5px 11px;
+  background: var(--bg);
+  border-radius: 8px;
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.kw:active { transform: scale(0.93); background: var(--accent); color: #fff; }
+.kw.copied { background: var(--accent); color: #fff; }
+/* Style card */
+.style-card {
+  background: var(--card);
+  margin: 12px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+.style-card-header {
+  background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+}
+.style-card-header h3 { font-size: 16px; letter-spacing: 3px; font-weight: 400; }
+.style-card-body { padding: 20px 16px; }
+.style-row {
+  display: flex;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  gap: 12px;
+}
+.style-row:last-child { border-bottom: none; }
+.style-label {
+  flex-shrink: 0;
+  width: 70px;
+  font-size: 12px;
+  color: var(--text-light);
+}
+.style-value {
+  flex: 1;
+  font-size: 13px;
+  color: var(--text);
+  font-weight: 500;
+}
+.quote {
+  text-align: center;
+  padding: 30px 24px;
+  font-size: 15px;
+  color: var(--accent);
+  font-style: italic;
+  line-height: 1.8;
+}
+.toast {
+  position: fixed;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.8);
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 24px;
+  font-size: 12px;
+  z-index: 999;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+.toast.show { opacity: 1; }
+.footer {
+  text-align: center;
+  padding: 20px;
+  font-size: 11px;
+  color: var(--text-light);
+}
+</style>
+</head>
+<body>
+
+<button class="theme-btn" onclick="toggleTheme()">🌓</button>
+
+<div class="hero">
+  <h1>佳蓓的审美图鉴</h1>
+  <div class="sub">清冷文艺法式 · 高级感少女</div>
+  <div class="tags">
+    <span class="tag">170cm</span>
+    <span class="tag">梨形身材</span>
+    <span class="tag">冷白调</span>
+    <span class="tag">窄肩圆脸</span>
+  </div>
+</div>
+
+<div class="tab-bar" id="tabBar"></div>
+<div id="content"></div>
+
+<div class="quote">
+  「真正的风格，是知道什么适合自己，<br>并坚定地选择它。」
+</div>
+<div class="footer">佳蓓的审美图鉴 · 2026</div>
+
+<div class="toast" id="toast">已复制 ✓</div>
+
+<script>
+var scenes = [{"name": "法式穿搭", "emoji": "👗", "images": [{"url": "https://images.unsplash.com/photo-1591948083708-6edc852d7275?w=400&q=80", "desc": "法式优雅穿搭·黑色大衣搭配"}, {"url": "https://images.unsplash.com/photo-1670409058800-5ad831d3f5b8?w=400&q=80", "desc": "巴黎街头的法式时尚造型"}, {"url": "https://images.unsplash.com/photo-1675972737350-c746f5a2fba8?w=400&q=80", "desc": "法式简约穿搭·白衬衫"}, {"url": "https://images.unsplash.com/photo-1592114727439-8eb355854bf0?w=400&q=80", "desc": "法式条纹衫经典造型"}, {"url": "https://images.unsplash.com/photo-1665487761610-f58aad3faf54?w=400&q=80", "desc": "法式复古风穿搭"}, {"url": "https://images.unsplash.com/photo-1584085727732-b61e464863e3?w=400&q=80", "desc": "巴黎街头法式休闲风"}, {"url": "https://images.unsplash.com/photo-1600785670858-21638662e186?w=400&q=80", "desc": "法式穿搭·驼色大衣"}, {"url": "https://images.unsplash.com/photo-1602277292116-2e6211b23946?w=400&q=80", "desc": "法式优雅·巴黎街拍"}, {"url": "https://images.unsplash.com/photo-1600785672213-1e4b07462f19?w=400&q=80", "desc": "法式极简风·中性色调"}, {"url": "https://images.unsplash.com/photo-1591948080980-f2e97a59d773?w=400&q=80", "desc": "法式穿搭·优雅裙装"}]}, {"name": "清冷文艺风", "emoji": "🍂", "images": [{"url": "https://images.unsplash.com/photo-1516762689617-e1cffcef479d?w=400&q=80", "desc": "极简文艺风·白衬衫"}, {"url": "https://images.unsplash.com/photo-1551232864-3f0890e580d9?w=400&q=80", "desc": "清冷简约穿搭"}, {"url": "https://images.unsplash.com/photo-1621341103818-01dada8c6ef8?w=400&q=80", "desc": "文艺风·素雅造型"}, {"url": "https://images.unsplash.com/photo-1467043237213-65f2da53396f?w=400&q=80", "desc": "极简主义穿搭风格"}, {"url": "https://images.unsplash.com/photo-1479064555552-3ef4979f8908?w=400&q=80", "desc": "文艺简约·黑白搭配"}, {"url": "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=400&q=80", "desc": "清冷风·素色穿搭"}, {"url": "https://images.unsplash.com/photo-1627130697816-4d71dbfe6a5b?w=400&q=80", "desc": "极简文艺·大地色系"}, {"url": "https://images.unsplash.com/photo-1544441893-675973e31985?w=400&q=80", "desc": "简约高级感穿搭"}, {"url": "https://images.unsplash.com/photo-1504198458649-3128b932f49e?w=400&q=80", "desc": "文艺风·白色系搭配"}, {"url": "https://images.unsplash.com/photo-1653875842174-429c1b467548?w=400&q=80", "desc": "清冷淡雅穿搭造型"}]}, {"name": "梨形身材穿搭", "emoji": "🍐", "images": [{"url": "https://images.unsplash.com/photo-1618244972963-dbee1a7edc95?w=400&q=80", "desc": "梨形身材·A字裙搭配"}, {"url": "https://images.unsplash.com/photo-1619086303291-0ef7699e4b31?w=400&q=80", "desc": "梨形身材·高腰阔腿裤"}, {"url": "https://images.unsplash.com/photo-1618333452884-5c8d211ed2ad?w=400&q=80", "desc": "梨形身材穿搭示范"}, {"url": "https://images.unsplash.com/photo-1618244985759-a8a1dc26bce3?w=400&q=80", "desc": "梨形身材·长裙遮胯"}, {"url": "https://images.unsplash.com/photo-1625043811738-6da23ad2b469?w=400&q=80", "desc": "梨形身材·上衣外搭"}, {"url": "https://images.unsplash.com/photo-1665191031986-ecb57afc9570?w=400&q=80", "desc": "梨形身材·喇叭裤穿搭"}, {"url": "https://images.unsplash.com/photo-1664893876112-64c308bf0d70?w=400&q=80", "desc": "梨形身材搭配示范"}, {"url": "https://images.unsplash.com/photo-1597724939949-c55f24e34d48?w=400&q=80", "desc": "梨形身材·裙装搭配"}, {"url": "https://images.unsplash.com/photo-1598549670094-32703888ad69?w=400&q=80", "desc": "梨形身材·上紧下松"}, {"url": "https://images.unsplash.com/photo-1618244961087-dc20ab82c685?w=400&q=80", "desc": "梨形身材穿搭参考"}]}, {"name": "通勤穿搭", "emoji": "💼", "images": [{"url": "https://images.unsplash.com/photo-1618244972963-dbee1a7edc95?w=400&q=80", "desc": "通勤穿搭·干练西装"}, {"url": "https://images.unsplash.com/photo-1618333453067-769b06a8a9a9?w=400&q=80", "desc": "职场穿搭·衬衫+西裤"}, {"url": "https://images.unsplash.com/photo-1647218947427-d783309440d2?w=400&q=80", "desc": "通勤风·简约搭配"}, {"url": "https://images.unsplash.com/photo-1584273143981-41c073dfe8f8?w=400&q=80", "desc": "职场通勤·西装外套"}, {"url": "https://images.unsplash.com/photo-1596451984287-7a274406cbca?w=400&q=80", "desc": "通勤穿搭·知性风"}, {"url": "https://images.unsplash.com/photo-1634052358355-17b73d9f0501?w=400&q=80", "desc": "职场穿搭·利落造型"}, {"url": "https://images.unsplash.com/photo-1628938363960-82b9ec22833b?w=400&q=80", "desc": "通勤风·衬衫搭配"}, {"url": "https://images.unsplash.com/photo-1671639334426-e27d616492f7?w=400&q=80", "desc": "通勤穿搭·高级简约"}]}, {"name": "约会穿搭", "emoji": "🌹", "images": [{"url": "https://images.unsplash.com/photo-1618244985759-a8a1dc26bce3?w=400&q=80", "desc": "约会穿搭·优雅连衣裙"}, {"url": "https://images.unsplash.com/photo-1618244965061-1d27b208d6e8?w=400&q=80", "desc": "约会风·浪漫裙装"}, {"url": "https://images.unsplash.com/photo-1633926159079-b4402232c824?w=400&q=80", "desc": "约会穿搭·精致造型"}, {"url": "https://images.unsplash.com/photo-1558155091-3c8b7c1502cf?w=400&q=80", "desc": "约会风·温柔搭配"}, {"url": "https://images.unsplash.com/photo-1627561526813-22c96d5f8401?w=400&q=80", "desc": "约会穿搭·黑色连衣裙"}, {"url": "https://images.unsplash.com/photo-1578776704351-d900ace79a76?w=400&q=80", "desc": "约会风·精致配饰"}, {"url": "https://images.unsplash.com/photo-1676971751942-ce73a01d613d?w=400&q=80", "desc": "约会穿搭·优雅气质"}, {"url": "https://images.unsplash.com/photo-1654514439119-bbd39b3b6596?w=400&q=80", "desc": "约会风·浪漫造型"}, {"url": "https://images.unsplash.com/photo-1618584148383-832caa74c3b5?w=400&q=80", "desc": "约会穿搭·精致优雅"}, {"url": "https://images.unsplash.com/photo-1596662678434-186ae19d2879?w=400&q=80", "desc": "约会风·微醺气质"}]}, {"name": "度假穿搭", "emoji": "🏖️", "images": [{"url": "https://images.unsplash.com/photo-1582738509941-360b28c941ea?w=400&q=80", "desc": "度假风·海滩长裙"}, {"url": "https://images.unsplash.com/photo-1577900232413-d4009bb81e73?w=400&q=80", "desc": "度假穿搭·草帽造型"}, {"url": "https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=400&q=80", "desc": "度假风·波西米亚"}, {"url": "https://images.unsplash.com/photo-1583846783214-7229a91b20ed?w=400&q=80", "desc": "度假穿搭·清爽造型"}, {"url": "https://images.unsplash.com/photo-1679555916677-21fc473e4099?w=400&q=80", "desc": "度假风·沙滩裙装"}, {"url": "https://images.unsplash.com/photo-1760551937420-f34b764b1256?w=400&q=80", "desc": "度假穿搭·极简泳装"}, {"url": "https://images.unsplash.com/photo-1760551937661-cfcd23dcf7d1?w=400&q=80", "desc": "度假风·白色系穿搭"}, {"url": "https://images.unsplash.com/photo-1760551937885-6137e7f0548e?w=400&q=80", "desc": "度假穿搭·夏日造型"}, {"url": "https://images.unsplash.com/photo-1760552069944-e5dc0712fe85?w=400&q=80", "desc": "度假风·阳光海滩"}]}, {"name": "配色灵感", "emoji": "🎨", "images": [{"url": "https://images.unsplash.com/photo-1776436037469-2642b90e03bd?w=400&q=80", "desc": "配色灵感·雾霾蓝色系"}, {"url": "https://images.unsplash.com/photo-1645500334533-f537ac57fe1a?w=400&q=80", "desc": "配色灵感·藕粉色调"}, {"url": "https://images.unsplash.com/photo-1644130630260-4667be7544c9?w=400&q=80", "desc": "配色灵感·燕麦色系"}, {"url": "https://images.unsplash.com/photo-1692651294894-53c2f0a39064?w=400&q=80", "desc": "配色灵感·酒红色调"}, {"url": "https://images.unsplash.com/photo-1677612763299-edbf04c32b74?w=400&q=80", "desc": "配色灵感·墨绿色系"}, {"url": "https://images.unsplash.com/photo-1584531185216-b5c6114e98a9?w=400&q=80", "desc": "配色灵感·米白色调"}, {"url": "https://images.unsplash.com/photo-1740324974165-d5a075315e43?w=400&q=80", "desc": "配色灵感·驼色系搭配"}, {"url": "https://images.unsplash.com/photo-1674058924341-a79eed7e9a89?w=400&q=80", "desc": "配色灵感·大地色系"}, {"url": "https://images.unsplash.com/photo-1723258341178-8462de68b8a0?w=400&q=80", "desc": "配色灵感·莫兰迪色"}, {"url": "https://images.unsplash.com/photo-1600421719060-f18eba3cba4d?w=400&q=80", "desc": "配色灵感·低饱和搭配"}]}, {"name": "白衬衫", "emoji": "👕", "images": [{"url": "https://images.unsplash.com/photo-1617019114583-affb34d1b3cd?w=400&q=80", "desc": "白衬衫穿搭·经典造型"}, {"url": "https://images.unsplash.com/photo-1583846783214-7229a91b20ed?w=400&q=80", "desc": "白衬衫·简约搭配"}, {"url": "https://images.unsplash.com/photo-1770283554352-42c28278b885?w=400&q=80", "desc": "白衬衫穿搭·法式风"}, {"url": "https://images.unsplash.com/photo-1760551937885-6137e7f0548e?w=400&q=80", "desc": "白衬衫·度假风搭配"}, {"url": "https://images.unsplash.com/photo-1775234576215-4374ffe00b36?w=400&q=80", "desc": "白衬衫穿搭·文艺风"}]}, {"name": "阔腿裤", "emoji": "👖", "images": [{"url": "https://images.unsplash.com/photo-1768478701507-24b1c8de2df0?w=400&q=80", "desc": "阔腿裤穿搭·气场造型"}, {"url": "https://images.unsplash.com/photo-1768289222438-ee2993148ad2?w=400&q=80", "desc": "阔腿裤·通勤搭配"}, {"url": "https://images.unsplash.com/photo-1768289222720-752e43fe0f01?w=400&q=80", "desc": "阔腿裤穿搭·简约风"}, {"url": "https://images.unsplash.com/photo-1764764860078-637c358bbfb9?w=400&q=80", "desc": "阔腿裤·休闲搭配"}, {"url": "https://images.unsplash.com/photo-1762777777722-3242a1f1c575?w=400&q=80", "desc": "阔腿裤穿搭·高级感"}, {"url": "https://images.unsplash.com/photo-1768289222423-4984f638c542?w=400&q=80", "desc": "阔腿裤·优雅穿搭"}]}, {"name": "风衣", "emoji": "🧥", "images": [{"url": "https://images.unsplash.com/photo-1676716105765-e19fe6a01851?w=400&q=80", "desc": "风衣穿搭·经典驼色"}, {"url": "https://images.unsplash.com/photo-1617391258031-f8d80b22fb35?w=400&q=80", "desc": "风衣·街头造型"}, {"url": "https://images.unsplash.com/photo-1692180142575-c31fcd106b5b?w=400&q=80", "desc": "风衣穿搭·巴黎风"}, {"url": "https://images.unsplash.com/photo-1529399447871-731cff7f696b?w=400&q=80", "desc": "风衣·秋季穿搭"}, {"url": "https://images.unsplash.com/photo-1663343683182-70885ae0a792?w=400&q=80", "desc": "风衣穿搭·英伦风"}, {"url": "https://images.unsplash.com/photo-1737508945707-ebdccee97cc5?w=400&q=80", "desc": "风衣·优雅造型"}, {"url": "https://images.unsplash.com/photo-1763766274735-744ca07039d9?w=400&q=80", "desc": "风衣穿搭·秋冬搭配"}]}, {"name": "玛丽珍鞋", "emoji": "👠", "images": [{"url": "https://images.unsplash.com/photo-1535659513767-f1a7b068ebc1?w=400&q=80", "desc": "玛丽珍鞋·复古造型"}, {"url": "https://images.unsplash.com/photo-1774802536876-88b0e1ca7453?w=400&q=80", "desc": "玛丽珍鞋·搭配参考"}, {"url": "https://images.unsplash.com/photo-1780850603124-ec403cdd7ec3?w=400&q=80", "desc": "玛丽珍鞋·甜美风"}, {"url": "https://images.unsplash.com/photo-1773026474850-fd4506c98431?w=400&q=80", "desc": "玛丽珍鞋·复古搭配"}, {"url": "https://images.unsplash.com/photo-1780851705676-e20e283362e2?w=400&q=80", "desc": "玛丽珍鞋·穿搭造型"}, {"url": "https://images.unsplash.com/photo-1589753021240-78e3c95d2740?w=400&q=80", "desc": "玛丽珍鞋·法式搭配"}]}, {"name": "珍珠耳钉", "emoji": "💎", "images": [{"url": "https://images.unsplash.com/photo-1590166223826-12dee1677420?w=400&q=80", "desc": "珍珠耳钉·精致配饰"}, {"url": "https://images.unsplash.com/photo-1654699991494-892326ee8171?w=400&q=80", "desc": "珍珠耳钉·优雅造型"}, {"url": "https://images.unsplash.com/photo-1623303179820-de8ec58b03dc?w=400&q=80", "desc": "珍珠耳钉·特写"}, {"url": "https://images.unsplash.com/photo-1682822749969-61a63203c501?w=400&q=80", "desc": "珍珠耳钉·高级感"}, {"url": "https://images.unsplash.com/photo-1704957205218-d436eac4c607?w=400&q=80", "desc": "珍珠配饰·简约风"}, {"url": "https://images.unsplash.com/photo-1610917808168-4b4bebe3585b?w=400&q=80", "desc": "珍珠耳钉·气质搭配"}]}, {"name": "西装外套", "emoji": "🤵‍♀️", "images": [{"url": "https://images.unsplash.com/photo-1584273143981-41c073dfe8f8?w=400&q=80", "desc": "西装外套·干练造型"}, {"url": "https://images.unsplash.com/photo-1608234808654-2a8875faa7fd?w=400&q=80", "desc": "西装外套·职场穿搭"}, {"url": "https://images.unsplash.com/photo-1590873802674-55bb8f947bc5?w=400&q=80", "desc": "西装外套·休闲搭配"}, {"url": "https://images.unsplash.com/photo-1774131788584-ddda854ae460?w=400&q=80", "desc": "西装外套·时髦造型"}, {"url": "https://images.unsplash.com/photo-1782060579914-8d5a6894f52a?w=400&q=80", "desc": "西装外套·高级感穿搭"}, {"url": "https://images.unsplash.com/photo-1618554776245-6b23d506c3e1?w=400&q=80", "desc": "西装外套·白色系"}, {"url": "https://images.unsplash.com/photo-1675250719882-ab1d7f047550?w=400&q=80", "desc": "西装外套·简约职场"}, {"url": "https://images.unsplash.com/photo-1599492585944-d4b4c4b13d53?w=400&q=80", "desc": "西装外套·优雅搭配"}]}, {"name": "发型", "emoji": "💇‍♀️", "images": [{"url": "https://images.unsplash.com/photo-1613323885593-5fbcf35bf8ba?w=400&q=80", "desc": "法式低马尾·优雅发型"}, {"url": "https://images.unsplash.com/photo-1597586124394-fbd6ef244026?w=400&q=80", "desc": "长发造型·自然披肩"}, {"url": "https://images.unsplash.com/photo-1574013452070-94fa88bc5ddd?w=400&q=80", "desc": "法式低马尾·慵懒风"}, {"url": "https://images.unsplash.com/photo-1638404390945-a384f6cadecf?w=400&q=80", "desc": "长发造型·优雅卷发"}, {"url": "https://images.unsplash.com/photo-1558909167-57af62a8cd5d?w=400&q=80", "desc": "发型参考·法式编发"}, {"url": "https://images.unsplash.com/photo-1539832717171-4d1ad37fd528?w=400&q=80", "desc": "长发造型·空气感"}, {"url": "https://images.unsplash.com/photo-1638404757791-09481766b711?w=400&q=80", "desc": "法式低马尾·气质造型"}, {"url": "https://images.unsplash.com/photo-1628564697547-0b90e1c33e98?w=400&q=80", "desc": "长发造型·自然感"}]}, {"name": "正式场合", "emoji": " ✨", "images": [{"url": "https://images.unsplash.com/photo-1589212987511-4a924cb9d8ac?w=400&q=80", "desc": "正式场合·晚礼服"}, {"url": "https://images.unsplash.com/photo-1623580674393-edf6eb7090f8?w=400&q=80", "desc": "正式场合·优雅长裙"}, {"url": "https://images.unsplash.com/photo-1746025241709-0fb2528687e2?w=400&q=80", "desc": "正式场合·礼服造型"}, {"url": "https://images.unsplash.com/photo-1765229277058-177cd0dead2c?w=400&q=80", "desc": "正式场合·高级礼服"}, {"url": "https://images.unsplash.com/photo-1756483510864-5bc7bdc3cf22?w=400&q=80", "desc": "正式场合·黑色礼服"}, {"url": "https://images.unsplash.com/photo-1765229282730-0c5cfd5c8575?w=400&q=80", "desc": "正式场合·晚装造型"}, {"url": "https://images.unsplash.com/photo-1765229276796-c93c73cc3f3b?w=400&q=80", "desc": "正式场合·优雅晚装"}, {"url": "https://images.unsplash.com/photo-1765229279946-f265fa703385?w=400&q=80", "desc": "正式场合·精致礼服"}, {"url": "https://images.unsplash.com/photo-1765229277675-b8466891e689?w=400&q=80", "desc": "正式场合·华丽造型"}, {"url": "https://images.unsplash.com/photo-1765229279146-2acf43b5a553?w=400&q=80", "desc": "正式场合·经典礼服"}]}];
+
+// Keywords data
+var keywords = {
+  "日常穿搭": ["梨形身材穿搭170","高个子梨形穿搭","窄肩穿搭","清冷感穿搭","法式日常穿搭","极简高级感穿搭","低饱和度穿搭","静奢风穿搭","慵懒法式穿搭","文艺清冷风"],
+  "飞行通勤": ["空乘私服穿搭","飞行通勤穿搭","舒适通勤穿搭","风衣穿搭","乐福鞋穿搭","低马尾发型","乘务员日常穿搭","出差穿搭秋冬","机场穿搭女","简约通勤穿搭"],
+  "约会穿搭": ["法式约会穿搭","清冷感约会穿搭","V领穿搭显瘦","玛丽珍鞋穿搭","法式连衣裙穿搭","酒红色穿搭","珍珠配饰穿搭","长发造型约会","高级感约会穿搭","微醺法式穿搭"],
+  "配色灵感": ["雾霾蓝穿搭","藕粉穿搭","燕麦色穿搭","酒红穿搭","墨绿穿搭","米白穿搭","驼色穿搭","低饱和度配色","冷白皮穿搭配色","高级感配色方案"]
+};
+
+var styleCard = {
+  "风格关键词": "清冷 · 文艺 · 法式 · 高级感 · 少女感",
+  "身材优势": "170cm · 腰细59-62cm · 上半身瘦 · 锁骨明显 · 腿长",
+  "注意事项": "遮胯 · 拉长脸型 · 垫肩补窄肩",
+  "安全色": "雾霾蓝 · 藕粉 · 燕麦 · 酒红 · 墨绿 · 米白 · 驼色",
+  "避雷色": "荧光色 · 亮黄 · 橙色 · 玫红 · 纯黑上衣",
+  "必备单品": "白衬衫 · 高腰阔腿裤 · 风衣 · 玛丽珍鞋 · 珍珠耳钉",
+  "穿搭公式": "上松下紧 / 高腰线 / V领拉长脸型 / 深色下装遮胯"
+};
+
+function imgFallback(img) {
+  var emoji = img.dataset.emoji || '👗';
+  var div = document.createElement('div');
+  div.className = 'placeholder';
+  div.textContent = emoji;
+  img.parentNode.replaceChild(div, img);
+}
+
+function createCard(img, emoji) {
+  var card = document.createElement('div');
+  card.className = 'card';
+  var im = document.createElement('img');
+  im.src = img.url;
+  im.loading = 'lazy';
+  im.dataset.emoji = emoji;
+  im.className = 'loading';
+  im.onload = function() { this.classList.remove('loading'); this.classList.add('loaded'); };
+  im.onerror = function() { imgFallback(this); };
+  card.appendChild(im);
+  var desc = document.createElement('div');
+  desc.className = 'desc';
+  desc.textContent = img.desc;
+  card.appendChild(desc);
+  return card;
+}
+
+function renderScene(scene, index) {
+  var container = document.createElement('div');
+  container.className = 'scene' + (index === 0 ? ' active' : '');
+  container.dataset.index = index;
+
+  var header = document.createElement('div');
+  header.className = 'scene-header';
+  header.innerHTML = '<h2>' + scene.emoji + ' ' + scene.name + '</h2><p>点击图片长按可保存 · 左右滑动切换分类</p>';
+  container.appendChild(header);
+
+  var grid = document.createElement('div');
+  grid.className = 'grid';
+  scene.images.forEach(function(img) {
+    grid.appendChild(createCard(img, scene.emoji));
+  });
+  container.appendChild(grid);
+
+  // Add keywords for matching scenes
+  var kwKeys = {};
+  if (keywords[scene.name]) kwKeys = {};
+  
+  return container;
+}
+
+function renderKeywords() {
+  var container = document.createElement('div');
+  container.className = 'scene active';
+  container.dataset.index = 'keywords';
+
+  var header = document.createElement('div');
+  header.className = 'scene-header';
+  header.innerHTML = '<h2>🔍 搜索关键词</h2><p>点击复制 · 粘贴到小红书搜索框</p>';
+  container.appendChild(header);
+
+  var section = document.createElement('div');
+  section.className = 'keywords-section';
+  
+  for (var cat in keywords) {
+    var title = document.createElement('div');
+    title.className = 'kw-title';
+    title.textContent = cat;
+    section.appendChild(title);
+    
+    var grid = document.createElement('div');
+    grid.className = 'kw-grid';
+    keywords[cat].forEach(function(k) {
+      var span = document.createElement('span');
+      span.className = 'kw';
+      span.textContent = k;
+      span.onclick = function() { copyText(this, k); };
+      grid.appendChild(span);
+    });
+    section.appendChild(grid);
+  }
+  container.appendChild(section);
+  return container;
+}
+
+function renderStyleCard() {
+  var container = document.createElement('div');
+  container.className = 'scene';
+  container.dataset.index = 'style';
+
+  var header = document.createElement('div');
+  header.className = 'scene-header';
+  header.innerHTML = '<h2>🪪 风格定位卡</h2><p>购物、搭配前先看一眼</p>';
+  container.appendChild(header);
+
+  var card = document.createElement('div');
+  card.className = 'style-card';
+  
+  var cardHeader = document.createElement('div');
+  cardHeader.className = 'style-card-header';
+  cardHeader.innerHTML = '<h3>佳蓓的风格名片</h3>';
+  card.appendChild(cardHeader);
+
+  var body = document.createElement('div');
+  body.className = 'style-card-body';
+  for (var key in styleCard) {
+    var row = document.createElement('div');
+    row.className = 'style-row';
+    row.innerHTML = '<div class="style-label">' + key + '</div><div class="style-value">' + styleCard[key] + '</div>';
+    body.appendChild(row);
+  }
+  card.appendChild(body);
+  container.appendChild(card);
+  return container;
+}
+
+// Build tabs
+var tabBar = document.getElementById('tabBar');
+var content = document.getElementById('content');
+
+// Add "推荐" tab (keywords)
+var tabAll = document.createElement('div');
+tabAll.className = 'tab active';
+tabAll.textContent = '🔍 关键词';
+tabAll.onclick = function() { switchTab(this, 'keywords'); };
+tabBar.appendChild(tabAll);
+
+scenes.forEach(function(scene, i) {
+  var tab = document.createElement('div');
+  tab.className = 'tab';
+  tab.textContent = scene.emoji + ' ' + scene.name;
+  tab.onclick = function() { switchTab(this, i); };
+  tabBar.appendChild(tab);
+});
+
+var tabStyle = document.createElement('div');
+tabStyle.className = 'tab';
+tabStyle.textContent = '🪪 风格卡';
+tabStyle.onclick = function() { switchTab(this, 'style'); };
+tabBar.appendChild(tabStyle);
+
+// Render content
+content.appendChild(renderKeywords());
+scenes.forEach(function(scene, i) {
+  content.appendChild(renderScene(scene, i));
+});
+content.appendChild(renderStyleCard());
+
+function switchTab(el, target) {
+  document.querySelectorAll('.tab').forEach(function(t) { t.classList.remove('active'); });
+  el.classList.add('active');
+  document.querySelectorAll('.scene').forEach(function(s) { s.classList.remove('active'); });
+  if (target === 'keywords') {
+    document.querySelector('.scene[data-index="keywords"]').classList.add('active');
+  } else if (target === 'style') {
+    document.querySelector('.scene[data-index="style"]').classList.add('active');
+  } else {
+    document.querySelector('.scene[data-index="' + target + '"]').classList.add('active');
+  }
+  // Scroll tab into view
+  el.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+  window.scrollTo(0, 0);
+}
+
+function copyText(el, text) {
+  var ta = document.createElement('textarea');
+  ta.value = text;
+  document.body.appendChild(ta);
+  ta.select();
+  try {
+    document.execCommand('copy');
+    var toast = document.getElementById('toast');
+    toast.textContent = '已复制：' + text;
+    toast.classList.add('show');
+    setTimeout(function() { toast.classList.remove('show'); }, 2000);
+    el.classList.add('copied');
+    setTimeout(function() { el.classList.remove('copied'); }, 1000);
+  } catch(e) {}
+  document.body.removeChild(ta);
+}
+
+function toggleTheme() {
+  var cur = document.documentElement.getAttribute('data-theme');
+  if (cur === 'dark') {
+    document.documentElement.removeAttribute('data-theme');
+    localStorage.setItem('theme', 'light');
+  } else {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    localStorage.setItem('theme', 'dark');
+  }
+}
+
+var saved = localStorage.getItem('theme');
+if (saved === 'dark') {
+  document.documentElement.setAttribute('data-theme', 'dark');
+} else if (!saved) {
+  var h = new Date().getHours();
+  if (h >= 18 || h < 7) document.documentElement.setAttribute('data-theme', 'dark');
+}
+</script>
+</body>
+</html>

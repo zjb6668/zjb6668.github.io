@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>佳蓓的审美体系</title>
+<style>
+:root {
+  --bg: #faf8f5;
+  --card: #ffffff;
+  --text: #2c2825;
+  --text-light: #8a8278;
+  --accent: #8b7d6b;
+  --accent-light: #c4b8a4;
+  --border: #e8e2d8;
+  --tag-bg: #f0ebe2;
+  --shadow: 0 2px 16px rgba(139,125,107,0.08);
+}
+[data-theme="dark"] {
+  --bg: #1a1816;
+  --card: #252220;
+  --text: #e8e2d8;
+  --text-light: #8a8278;
+  --accent: #c4b8a4;
+  --accent-light: #8b7d6b;
+  --border: #3a3530;
+  --tag-bg: #2e2a26;
+  --shadow: 0 2px 16px rgba(0,0,0,0.3);
+}
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+body {
+  font-family: -apple-system, "PingFang SC", "Noto Serif SC", serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.8;
+  font-size: 15px;
+  transition: background 0.3s, color 0.3s;
+  padding-bottom: 60px;
+}
+.hero {
+  background: linear-gradient(135deg, #8b7d6b 0%, #6b5d4f 50%, #4a3f35 100%);
+  color: #fff;
+  padding: 50px 24px 40px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 60%);
+  animation: shimmer 8s infinite;
+}
+@keyframes shimmer {
+  0%,100% { transform: rotate(0deg); }
+  50% { transform: rotate(180deg); }
+}
+.hero h1 { font-size: 28px; font-weight: 700; letter-spacing: 4px; margin-bottom: 8px; position: relative; }
+.hero .subtitle { font-size: 14px; opacity: 0.85; letter-spacing: 2px; position: relative; }
+.hero .tags { margin-top: 16px; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; position: relative; }
+.hero .tag {
+  font-size: 12px;
+  padding: 4px 12px;
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 20px;
+  letter-spacing: 1px;
+}
+.hero .profile { margin-top: 20px; font-size: 12px; opacity: 0.7; position: relative; }
+section {
+  background: var(--card);
+  margin: 12px 16px;
+  border-radius: 16px;
+  padding: 24px 20px;
+  box-shadow: var(--shadow);
+}
+.section-title {
+  font-size: 13px;
+  color: var(--accent);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+  font-weight: 600;
+}
+.section-subtitle {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: var(--text);
+}
+.scene-block { margin-bottom: 20px; }
+.scene-block:last-child { margin-bottom: 0; }
+.scene-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 10px;
+  padding-left: 12px;
+  border-left: 3px solid var(--accent);
+}
+.keywords {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.keyword {
+  font-size: 13px;
+  padding: 6px 14px;
+  background: var(--tag-bg);
+  border-radius: 8px;
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.2s;
+  -webkit-user-select: none;
+  user-select: none;
+}
+.keyword:active { transform: scale(0.95); background: var(--accent); color: #fff; }
+.keyword.copied { background: var(--accent); color: #fff; }
+.blogger-row {
+  display: flex;
+  align-items: flex-start;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+  gap: 12px;
+}
+.blogger-row:last-child { border-bottom: none; }
+.blogger-num {
+  flex-shrink: 0;
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: var(--tag-bg);
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+.blogger-info { flex: 1; }
+.blogger-name { font-size: 14px; font-weight: 600; color: var(--text); }
+.blogger-style { font-size: 12px; color: var(--text-light); margin-top: 2px; }
+.blogger-search {
+  font-size: 12px;
+  color: var(--accent);
+  margin-top: 4px;
+  cursor: pointer;
+}
+.folder-list { display: flex; flex-direction: column; gap: 10px; }
+.folder-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  background: var(--tag-bg);
+  border-radius: 12px;
+}
+.folder-emoji { font-size: 24px; flex-shrink: 0; }
+.folder-name { font-size: 14px; font-weight: 600; color: var(--text); }
+.folder-desc { font-size: 12px; color: var(--text-light); margin-top: 2px; }
+.habit-timeline { position: relative; padding-left: 20px; }
+.habit-timeline::before {
+  content: '';
+  position: absolute;
+  left: 6px; top: 8px; bottom: 8px;
+  width: 2px;
+  background: var(--border);
+}
+.habit-item { position: relative; margin-bottom: 20px; }
+.habit-item:last-child { margin-bottom: 0; }
+.habit-item::before {
+  content: '';
+  position: absolute;
+  left: -17px; top: 6px;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid var(--card);
+}
+.habit-time { font-size: 13px; font-weight: 700; color: var(--accent); }
+.habit-desc { font-size: 13px; color: var(--text); margin-top: 4px; }
+.habit-tip {
+  margin-top: 16px;
+  padding: 14px 16px;
+  background: var(--tag-bg);
+  border-radius: 12px;
+  font-size: 13px;
+  color: var(--text-light);
+  line-height: 1.7;
+}
+.card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.card-item {
+  padding: 16px;
+  background: var(--tag-bg);
+  border-radius: 12px;
+}
+.card-label { font-size: 11px; color: var(--text-light); letter-spacing: 1px; margin-bottom: 8px; }
+.card-value { font-size: 13px; color: var(--text); font-weight: 500; line-height: 1.6; }
+.quote {
+  text-align: center;
+  padding: 30px 24px;
+  font-size: 16px;
+  font-style: italic;
+  color: var(--accent);
+  line-height: 1.8;
+}
+.toast {
+  position: fixed;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.8);
+  color: #fff;
+  padding: 10px 24px;
+  border-radius: 24px;
+  font-size: 13px;
+  z-index: 999;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+.toast.show { opacity: 1; }
+.theme-toggle {
+  position: fixed;
+  top: 16px; right: 16px;
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  border: 1px solid rgba(255,255,255,0.3);
+  color: #fff;
+  font-size: 18px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  z-index: 100;
+  backdrop-filter: blur(10px);
+}
+.footer {
+  text-align: center;
+  padding: 24px;
+  font-size: 12px;
+  color: var(--text-light);
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <button class="theme-toggle" onclick="toggleTheme()">🌓</button>
+  <h1>佳蓓的审美体系</h1>
+  <div class="subtitle">小红书穿搭灵感指南</div>
+  <div class="tags">
+    <span class="tag">清冷</span>
+    <span class="tag">文艺</span>
+    <span class="tag">法式</span>
+    <span class="tag">高级感少女</span>
+  </div>
+  <div class="profile">高挑 170cm ｜ 腰围 59-62cm ｜ 梨形身材 ｜ 冷白调<br>厦航空乘 · 2026</div>
+</div>
+
+<!-- Part 1: 搜索关键词库 -->
+<section>
+  <div class="section-title">PART 01</div>
+  <div class="section-subtitle">搜索关键词库</div>
+  <p style="font-size:13px;color:var(--text-light);margin-bottom:16px;">点击关键词即可复制，粘贴到小红书搜索框使用</p>
+
+  <div class="scene-block">
+    <div class="scene-name">🌤️ 日常穿搭</div>
+    <div class="keywords">
+      <span class="keyword" onclick="copy(this)">梨形身材穿搭170</span>
+      <span class="keyword" onclick="copy(this)">高个子梨形穿搭</span>
+      <span class="keyword" onclick="copy(this)">窄肩穿搭</span>
+      <span class="keyword" onclick="copy(this)">清冷感穿搭</span>
+      <span class="keyword" onclick="copy(this)">法式日常穿搭</span>
+      <span class="keyword" onclick="copy(this)">极简高级感穿搭</span>
+      <span class="keyword" onclick="copy(this)">低饱和度穿搭</span>
+      <span class="keyword" onclick="copy(this)">静奢风穿搭</span>
+      <span class="keyword" onclick="copy(this)">慵懒法式穿搭</span>
+      <span class="keyword" onclick="copy(this)">文艺清冷风</span>
+    </div>
+  </div>
+
+  <div class="scene-block">
+    <div class="scene-name">✈️ 飞行通勤</div>
+    <div class="keywords">
+      <span class="keyword" onclick="copy(this)">空乘私服穿搭</span>
+      <span class="keyword" onclick="copy(this)">飞行通勤穿搭</span>
+      <span class="keyword" onclick="copy(this)">舒适通勤穿搭</span>
+      <span class="keyword" onclick="copy(this)">风衣穿搭</span>
+      <span class="keyword" onclick="copy(this)">乐福鞋穿搭</span>
+      <span class="keyword" onclick="copy(this)">低马尾发型</span>
+      <span class="keyword" onclick="copy(this)">乘务员日常穿搭</span>
+      <span class="keyword" onclick="copy(this)">出差穿搭秋冬</span>
+      <span class="keyword" onclick="copy(this)">机场穿搭女</span>
+      <span class="keyword" onclick="copy(this)">简约通勤穿搭</span>
+    </div>
+  </div>
+
+  <div class="scene-block">
+    <div class="scene-name">💕 约会穿搭</div>
+    <div class="keywords">
+      <span class="keyword" onclick="copy(this)">法式约会穿搭</span>
+      <span class="keyword" onclick="copy(this)">清冷感约会穿搭</span>
+      <span class="keyword" onclick="copy(this)">V领穿搭显瘦</span>
+      <span class="keyword" onclick="copy(this)">玛丽珍鞋穿搭</span>
+      <span class="keyword" onclick="copy(this)">法式连衣裙穿搭</span>
+      <span class="keyword" onclick="copy(this)">酒红色穿搭</span>
+      <span class="keyword" onclick="copy(this)">珍珠配饰穿搭</span>
+      <span class="keyword" onclick="copy(this)">长发造型约会</span>
+      <span class="keyword" onclick="copy(this)">高级感约会穿搭</span>
+      <span class="keyword" onclick="copy(this)">微醺法式穿搭</span>
+    </div>
+  </div>
+
+  <div class="scene-block">
+    <div class="scene-name">🎭 正式场合</div>
+    <div class="keywords">
+      <span class="keyword" onclick="copy(this)">晚宴穿搭</span>
+      <span class="keyword" onclick="copy(this)">西装穿搭女</span>
+      <span class="keyword" onclick="copy(this)">垫肩西装穿搭</span>
+      <span class="keyword" onclick="copy(this)">阔腿裤穿搭正式</span>
+      <span class="keyword" onclick="copy(this)">猫跟鞋穿搭</span>
+      <span class="keyword" onclick="copy(this)">缎面穿搭</span>
+      <span class="keyword" onclick="copy(this)">珍珠耳钉搭配</span>
+      <span class="keyword" onclick="copy(this)">职场高级感穿搭</span>
+      <span class="keyword" onclick="copy(this)">收腰连衣裙</span>
+      <span class="keyword" onclick="copy(this)">正式场合配饰</span>
+    </div>
+  </div>
+
+  <div class="scene-block">
+    <div class="scene-name">🏖️ 度假穿搭</div>
+    <div class="keywords">
+      <span class="keyword" onclick="copy(this)">度假穿搭法式</span>
+      <span class="keyword" onclick="copy(this)">草编包穿搭</span>
+      <span class="keyword" onclick="copy(this)">草帽搭配</span>
+      <span class="keyword" onclick="copy(this)">A字长裙穿搭</span>
+      <span class="keyword" onclick="copy(this)">度假风穿搭</span>
+      <span class="keyword" onclick="copy(this)">海边穿搭高个子</span>
+      <span class="keyword" onclick="copy(this)">旅行穿搭秋冬</span>
+      <span class="keyword" onclick="copy(this)">法式度假风</span>
+      <span class="keyword" onclick="copy(this)">清新文艺穿搭</span>
+      <span class="keyword" onclick="copy(this)">度假配饰</span>
+    </div>
+  </div>
+
+  <div class="scene-block">
+    <div class="scene-name">🎨 配色灵感</div>
+    <div class="keywords">
+      <span class="keyword" onclick="copy(this)">雾霾蓝穿搭</span>
+      <span class="keyword" onclick="copy(this)">藕粉穿搭</span>
+      <span class="keyword" onclick="copy(this)">燕麦色穿搭</span>
+      <span class="keyword" onclick="copy(this)">酒红穿搭</span>
+      <span class="keyword" onclick="copy(this)">墨绿穿搭</span>
+      <span class="keyword" onclick="copy(this)">米白穿搭</span>
+      <span class="keyword" onclick="copy(this)">驼色穿搭</span>
+      <span class="keyword" onclick="copy(this)">低饱和度配色</span>
+      <span class="keyword" onclick="copy(this)">冷白皮穿搭配色</span>
+      <span class="keyword" onclick="copy(this)">高级感配色方案</span>
+    </div>
+  </div>
+
+  <div class="scene-block">
+    <div class="scene-name">💇‍♀️ 发型灵感</div>
+    <div class="keywords">
+      <span class="keyword" onclick="copy(this)">长发造型</span>
+      <span class="keyword" onclick="copy(this)">法式低马尾</span>
+      <span class="keyword" onclick="copy(this)">高马尾教程</span>
+      <span class="keyword" onclick="copy(this)">侧分大波浪</span>
+      <span class="keyword" onclick="copy(this)">半扎发教程</span>
+      <span class="keyword" onclick="copy(this)">法式盘发教程</span>
+      <span class="keyword" onclick="copy(this)">长发披肩造型</span>
+      <span class="keyword" onclick="copy(this)">碎发修饰脸型</span>
+      <span class="keyword" onclick="copy(this)">圆脸发型</span>
+      <span class="keyword" onclick="copy(this)">下巴短发型</span>
+    </div>
+  </div>
+
+  <div class="scene-block">
+    <div class="scene-name">🛍️ 单品推荐</div>
+    <div class="keywords">
+      <span class="keyword" onclick="copy(this)">白衬衫推荐</span>
+      <span class="keyword" onclick="copy(this)">阔腿裤推荐</span>
+      <span class="keyword" onclick="copy(this)">风衣推荐</span>
+      <span class="keyword" onclick="copy(this)">玛丽珍鞋推荐</span>
+      <span class="keyword" onclick="copy(this)">乐福鞋推荐</span>
+      <span class="keyword" onclick="copy(this)">尖头高跟鞋推荐</span>
+      <span class="keyword" onclick="copy(this)">珍珠耳钉推荐</span>
+      <span class="keyword" onclick="copy(this)">西装外套推荐</span>
+      <span class="keyword" onclick="copy(this)">针织开衫推荐</span>
+      <span class="keyword" onclick="copy(this)">A字裙推荐</span>
+    </div>
+  </div>
+</section>
+
+<!-- Part 2: 博主推荐 -->
+<section>
+  <div class="section-title">PART 02</div>
+  <div class="section-subtitle">博主推荐清单</div>
+
+  <div class="scene-name">📱 国内博主 · 小红书搜索</div>
+  <div style="margin-bottom:24px;">
+    <div class="blogger-row">
+      <div class="blogger-num">1</div>
+      <div class="blogger-info">
+        <div class="blogger-name">法式慵懒风博主</div>
+        <div class="blogger-style">法式穿搭 · 慵懒随性</div>
+        <div class="blogger-search" onclick="copy(this,'法式穿搭 博主')">📋 复制搜索词：法式穿搭 博主</div>
+      </div>
+    </div>
+    <div class="blogger-row">
+      <div class="blogger-num">2</div>
+      <div class="blogger-info">
+        <div class="blogger-name">梨形身材穿搭博主</div>
+        <div class="blogger-style">梨形 · 170高个子</div>
+        <div class="blogger-search" onclick="copy(this,'梨形身材 穿搭博主 170')">📋 复制搜索词：梨形身材 穿搭博主 170</div>
+      </div>
+    </div>
+    <div class="blogger-row">
+      <div class="blogger-num">3</div>
+      <div class="blogger-info">
+        <div class="blogger-name">清冷文艺风博主</div>
+        <div class="blogger-style">清冷感 · 文艺</div>
+        <div class="blogger-search" onclick="copy(this,'清冷感穿搭 博主')">📋 复制搜索词：清冷感穿搭 博主</div>
+      </div>
+    </div>
+    <div class="blogger-row">
+      <div class="blogger-num">4</div>
+      <div class="blogger-info">
+        <div class="blogger-name">极简高级感博主</div>
+        <div class="blogger-style">极简 · 高级感</div>
+        <div class="blogger-search" onclick="copy(this,'极简穿搭 高级感 博主')">📋 复制搜索词：极简穿搭 高级感 博主</div>
+      </div>
+    </div>
+    <div class="blogger-row">
+      <div class="blogger-num">5</div>
+      <div class="blogger-info">
+        <div class="blogger-name">窄肩穿搭博主</div>
+        <div class="blogger-style">窄肩 · 垫肩技巧</div>
+        <div class="blogger-search" onclick="copy(this,'窄肩穿搭 博主')">📋 复制搜索词：窄肩穿搭 博主</div>
+      </div>
+    </div>
+    <div class="blogger-row">
+      <div class="blogger-num">6</div>
+      <div class="blogger-info">
+        <div class="blogger-name">高个子穿搭博主</div>
+        <div class="blogger-style">170 · 高个子穿搭</div>
+        <div class="blogger-search" onclick="copy(this,'170穿搭 博主')">📋 复制搜索词：170穿搭 博主</div>
+      </div>
+    </div>
+    <div class="blogger-row">
+      <div class="blogger-num">7</div>
+      <div class="blogger-info">
+        <div class="blogger-name">空乘私服博主</div>
+        <div class="blogger-style">空乘 · 通勤私服</div>
+        <div class="blogger-search" onclick="copy(this,'空乘 穿搭')">📋 复制搜索词：空乘 穿搭</div>
+      </div>
+    </div>
+    <div class="blogger-row">
+      <div class="blogger-num">8</div>
+      <div class="blogger-info">
+        <div class="blogger-name">法式发型博主</div>
+        <div class="blogger-style">长发 · 法式发型</div>
+        <div class="blogger-search" onclick="copy(this,'法式发型 长发')">📋 复制搜索词：法式发型 长发</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scene-name">🌍 国外博主 · Instagram</div>
+  <p style="font-size:12px;color:var(--text-light);margin-bottom:12px;">可在小红书/Pinterest搜索博主名查看风格</p>
+  <div class="blogger-row">
+    <div class="blogger-num">1</div>
+    <div class="blogger-info">
+      <div class="blogger-name">Jeanne Damas</div>
+      <div class="blogger-style">@jeannedamas · 法式风格鼻祖</div>
+    </div>
+  </div>
+  <div class="blogger-row">
+    <div class="blogger-num">2</div>
+    <div class="blogger-info">
+      <div class="blogger-name">Sylvie Mus</div>
+      <div class="blogger-style">@sylviemus · 极简法式</div>
+    </div>
+  </div>
+  <div class="blogger-row">
+    <div class="blogger-num">3</div>
+    <div class="blogger-info">
+      <div class="blogger-name">Camille Charrière</div>
+      <div class="blogger-style">@camillecharriere · 高个子梨形</div>
+    </div>
+  </div>
+  <div class="blogger-row">
+    <div class="blogger-num">4</div>
+    <div class="blogger-info">
+      <div class="blogger-name">Leia Sfez</div>
+      <div class="blogger-style">@leiasfez · 极简黑白清冷</div>
+    </div>
+  </div>
+  <div class="blogger-row">
+    <div class="blogger-num">5</div>
+    <div class="blogger-info">
+      <div class="blogger-name">Sabina Socol</div>
+      <div class="blogger-style">@sabinasocol · 法式浪漫</div>
+    </div>
+  </div>
+  <div class="blogger-row">
+    <div class="blogger-num">6</div>
+    <div class="blogger-info">
+      <div class="blogger-name">Anne de Fries</div>
+      <div class="blogger-style">@annedefries · 通勤极简</div>
+    </div>
+  </div>
+  <div class="blogger-row">
+    <div class="blogger-num">7</div>
+    <div class="blogger-info">
+      <div class="blogger-name">Ines de la Fressange</div>
+      <div class="blogger-style">@inesdelafressange · 法式经典</div>
+    </div>
+  </div>
+  <div class="blogger-row">
+    <div class="blogger-num">8</div>
+    <div class="blogger-info">
+      <div class="blogger-name">Mathilde Warnier</div>
+      <div class="blogger-style">@mathilde_warnier · 法式文艺长发</div>
+    </div>
+  </div>
+</section>
+
+<!-- Part 3: 收藏分类 -->
+<section>
+  <div class="section-title">PART 03</div>
+  <div class="section-subtitle">小红书收藏分类体系</div>
+  <p style="font-size:13px;color:var(--text-light);margin-bottom:16px;">在小红书「我的收藏」中新建以下专辑，分类管理灵感素材</p>
+  <div class="folder-list">
+    <div class="folder-item">
+      <span class="folder-emoji">👗</span>
+      <div><div class="folder-name">穿搭公式</div><div class="folder-desc">收藏完整的穿搭搭配帖</div></div>
+    </div>
+    <div class="folder-item">
+      <span class="folder-emoji">🎨</span>
+      <div><div class="folder-name">配色灵感</div><div class="folder-desc">收藏配色方案、色彩搭配帖</div></div>
+    </div>
+    <div class="folder-item">
+      <span class="folder-emoji">🛍️</span>
+      <div><div class="folder-name">单品种草</div><div class="folder-desc">收藏想买的单品推荐帖</div></div>
+    </div>
+    <div class="folder-item">
+      <span class="folder-emoji">💇‍♀️</span>
+      <div><div class="folder-name">发型教程</div><div class="folder-desc">收藏长发造型教程</div></div>
+    </div>
+    <div class="folder-item">
+      <span class="folder-emoji">📐</span>
+      <div><div class="folder-name">身材技巧</div><div class="folder-desc">收藏梨形/窄肩/圆脸穿搭技巧</div></div>
+    </div>
+    <div class="folder-item">
+      <span class="folder-emoji">📷</span>
+      <div><div class="folder-name">拍照灵感</div><div class="folder-desc">收藏穿搭拍照姿势、构图灵感</div></div>
+    </div>
+    <div class="folder-item">
+      <span class="folder-emoji">💰</span>
+      <div><div class="folder-name">购物清单</div><div class="folder-desc">收藏具体单品的购买链接帖</div></div>
+    </div>
+    <div class="folder-item">
+      <span class="folder-emoji">✨</span>
+      <div><div class="folder-name">审美积累</div><div class="folder-desc">收藏整体风格灵感图</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Part 4: 每日习惯 -->
+<section>
+  <div class="section-title">PART 04</div>
+  <div class="section-subtitle">每日 5 分钟审美习惯</div>
+  <div class="habit-timeline">
+    <div class="habit-item">
+      <div class="habit-time">🌅 早间 1 分钟</div>
+      <div class="habit-desc">打开小红书搜索「法式穿搭」，刷 3 条帖子，收藏喜欢的</div>
+    </div>
+    <div class="habit-item">
+      <div class="habit-time">☀️ 午间 2 分钟</div>
+      <div class="habit-desc">搜索当日场景穿搭（如「通勤穿搭」），收藏 1-2 套</div>
+    </div>
+    <div class="habit-item">
+      <div class="habit-time">🌙 晚间 2 分钟</div>
+      <div class="habit-desc">从关键词库中选一个新关键词搜索，收藏灵感</div>
+    </div>
+    <div class="habit-item">
+      <div class="habit-time">📅 周日整理</div>
+      <div class="habit-desc">花 10 分钟整理收藏夹，把不喜欢的移除</div>
+    </div>
+  </div>
+  <div class="habit-tip">
+    💡 坚持 21 天形成习惯。不必贪多，每天 5 分钟比一周看 2 小时更有效。重点不在「看多少」，而在「收藏什么」——每一次收藏都是一次审美判断的训练。
+  </div>
+</section>
+
+<!-- Part 5: 风格定位卡 -->
+<section>
+  <div class="section-title">PART 05</div>
+  <div class="section-subtitle">你的风格定位卡片</div>
+  <div class="card-grid">
+    <div class="card-item">
+      <div class="card-label">风格关键词</div>
+      <div class="card-value">清冷 · 文艺 · 法式<br>高级感 · 少女感 · 暗调美学</div>
+    </div>
+    <div class="card-item">
+      <div class="card-label">身材优势</div>
+      <div class="card-value">170cm · 腰细59-62cm<br>上半身瘦 · 锁骨明显 · 腿长</div>
+    </div>
+    <div class="card-item">
+      <div class="card-label">注意事项</div>
+      <div class="card-value">遮胯 · 拉长脸型<br>垫肩补窄肩</div>
+    </div>
+    <div class="card-item">
+      <div class="card-label">穿搭公式</div>
+      <div class="card-value">上松下紧 / 高腰线<br>V领拉长脸型 / 深色下装遮胯</div>
+    </div>
+    <div class="card-item">
+      <div class="card-label">✅ 安全色</div>
+      <div class="card-value">雾霾蓝 · 藕粉 · 燕麦<br>酒红 · 墨绿 · 米白 · 驼色</div>
+    </div>
+    <div class="card-item">
+      <div class="card-label">❌ 避雷色</div>
+      <div class="card-value">荧光色 · 亮黄<br>橙色 · 玫红 · 纯黑上衣</div>
+    </div>
+    <div class="card-item" style="grid-column: span 2;">
+      <div class="card-label">🛍️ 必备单品</div>
+      <div class="card-value">白衬衫 · 高腰阔腿裤 · 风衣 · 玛丽珍鞋 · 珍珠耳钉</div>
+    </div>
+  </div>
+</section>
+
+<div class="quote">
+  「真正的风格，是知道什么适合自己，<br>并坚定地选择它。」
+</div>
+
+<div class="footer">
+  佳蓓的审美体系 · 2026<br>清冷文艺法式 · 高级感少女
+</div>
+
+<div class="toast" id="toast">已复制 ✓</div>
+
+<script>
+function copy(el, text) {
+  var content = text || el.textContent;
+  var tempInput = document.createElement('textarea');
+  tempInput.value = content;
+  document.body.appendChild(tempInput);
+  tempInput.select();
+  try {
+    document.execCommand('copy');
+    var toast = document.getElementById('toast');
+    toast.textContent = '已复制：' + content;
+    toast.classList.add('show');
+    setTimeout(function() { toast.classList.remove('show'); }, 2000);
+    if (!text) {
+      el.classList.add('copied');
+      setTimeout(function() { el.classList.remove('copied'); }, 1000);
+    }
+  } catch(e) {}
+  document.body.removeChild(tempInput);
+}
+
+function toggleTheme() {
+  var current = document.documentElement.getAttribute('data-theme');
+  if (current === 'dark') {
+    document.documentElement.removeAttribute('data-theme');
+    localStorage.setItem('theme', 'light');
+  } else {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    localStorage.setItem('theme', 'dark');
+  }
+}
+
+var savedTheme = localStorage.getItem('theme');
+if (savedTheme === 'dark') {
+  document.documentElement.setAttribute('data-theme', 'dark');
+} else if (!savedTheme) {
+  var hour = new Date().getHours();
+  if (hour >= 18 || hour < 7) {
+    document.documentElement.setAttribute('data-theme', 'dark');
+  }
+}
+</script>
+</body>
+</html>

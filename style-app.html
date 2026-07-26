@@ -6,6 +6,26 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <title>STYLE · 佳蓓的审美日记</title>
+<script>
+// 全局图片加载失败兜底：显示emoji占位
+window.imgFallback=function(img){
+  if(img.dataset.fallback)return;
+  img.dataset.fallback='1';
+  const cat=img.alt||img.getAttribute('data-cat')||'穿搭';
+  const map={'上衣':'👕','下装':'👖','裙装':'👗','外套':'🧥','鞋':'👠','配饰':'💎','穿搭':'👗','法式':'🥐','极简':'◻️','通勤':'💼','约会':'💕','度假':'🏖️','正式':'👑','飞行通勤':'✈️','休息日':'☕','博主':'👤','身材':'📐','发型':'💇','资讯':'📰','未分类单品':'📷'};
+  const emoji=map[cat]||'✨';
+  const wrap=document.createElement('div');
+  wrap.className='img-fallback';
+  wrap.textContent=emoji;
+  wrap.style.cssText='display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--secondary),var(--accent));color:#fff;font-size:48px;border-radius:10px;width:100%;height:100%;min-height:120px;';
+  if(img.style.height)wrap.style.height=img.style.height;
+  if(img.parentNode)img.parentNode.replaceChild(wrap,img);
+}
+// 给所有已存在的img添加兜底
+document.addEventListener('DOMContentLoaded',function(){
+  document.querySelectorAll('img').forEach(img=>{img.onerror=function(){window.imgFallback(this)};});
+});
+</script>
 <style>
 :root{
   --bg:#f5f0eb;
@@ -225,7 +245,7 @@ input,textarea,select{font-family:inherit;font-size:14px}
   <div class="card">
     <div class="section-title">✨ 每日审美灵感</div>
     <div class="inspiration-quote" id="dailyQuote"></div>
-    <img src="https://source.unsplash.com/400x250/?minimalist,fashion,elegant" style="width:100%;border-radius:var(--radius-sm);margin-top:8px" alt="灵感">
+    <img src="https://source.unsplash.com/400x250/?minimalist,fashion,elegant" style="width:100%;border-radius:var(--radius-sm);margin-top:8px" alt="灵感" onerror="window.imgFallback(this)">
   </div>
   <div class="card">
     <div class="section-title">🎨 今日色彩推荐</div>
@@ -298,7 +318,7 @@ input,textarea,select{font-family:inherit;font-size:14px}
       <div class="section-title" style="margin:0">个人数据</div>
       <button class="btn btn-sm btn-outline" id="bodyEditBtn" onclick="toggleBodyEdit()">编辑</button>
     </div>
-    <img class="body-img-demo" src="https://source.unsplash.com/400x250/?body-shape,style,fashion" alt="身材类型示意">
+    <img class="body-img-demo" src="https://source.unsplash.com/400x250/?body-shape,style,fashion" alt="身材类型示意" onerror="window.imgFallback(this)">
     <div class="body-data" id="bodyDisplay"></div>
     <div class="body-form hide" id="bodyEditForm">
       <div class="body-field"><label class="body-field-label">身高(cm)</label><input class="body-field-input" id="beHeight" type="number"></div>
@@ -775,7 +795,7 @@ function renderBodyAdvice(){
     <ul class="advice-list">${shape.donts.map(x=>`<li><span class="no">✗</span>${x}</li>`).join('')}</ul></div>`;
   const shoulderKey=bodyData.shoulder.includes('窄')?'窄肩':'宽肩';
   html+=`<div class="card"><div class="section-title">💪 ${shoulderKey}解决方案</div>
-    <img class="body-img-demo" src="https://source.unsplash.com/400x250/?shoulder,top,fashion,woman" alt="肩型穿搭">
+    <img class="body-img-demo" src="https://source.unsplash.com/400x250/?shoulder,top,fashion,woman" alt="肩型穿搭" onerror="window.imgFallback(this)">
     <ul class="advice-list">${shoulderKey==='窄肩'?['垫肩西装','泡泡袖上衣','一字肩设计','横条纹上衣','宽肩带上衣'].map(x=>`<li><span class="ok">✓</span>${x}</li>`).join(''):['简约上身','深色上衣','V领显瘦','避免垫肩','亮色下装平衡'].map(x=>`<li><span class="ok">✓</span>${x}</li>`).join('')}</ul></div>`;
   html+=`<div class="card"><div class="section-title">${face.title}</div>
     <img class="body-img-demo" src="${face.img}" alt="脸型穿搭">
@@ -786,7 +806,7 @@ function renderBodyAdvice(){
     <div class="small" style="margin-bottom:6px"><strong style="color:#9c5a4e">❌ 避免</strong></div>
     <div class="chips">${skin.bad.map(x=>`<span class="chip chip-warn">${x}</span>`).join('')}</div></div>`;
   html+=`<div class="card"><div class="section-title">💇 发型建议</div>
-    <img class="body-img-demo" src="https://source.unsplash.com/400x250/?long-hair,hairstyle,woman" alt="发型示意">
+    <img class="body-img-demo" src="https://source.unsplash.com/400x250/?long-hair,hairstyle,woman" alt="发型示意" onerror="window.imgFallback(this)">
     <div class="chips"><span class="chip">高马尾</span><span class="chip">法式低马尾</span><span class="chip">侧分大波浪</span><span class="chip">半扎发</span><span class="chip">法式盘发</span></div></div>`;
   document.getElementById('bodyAdviceCards').innerHTML=html;
 }
@@ -853,7 +873,7 @@ function renderCloset(){
     document.getElementById('uncatGrid').innerHTML=uncat.map((x,i)=>{
       const ri=closetItems.indexOf(x);
       return `<div class="uncat-item">
-        <img src="${x.img||''}" alt="未分类单品">
+        <img src="${x.img||''}" alt="未分类单品" onerror="window.imgFallback(this)">
         <button class="uncat-edit" onclick="editUncatItem(${ri})">✏</button>
         <button class="uncat-del" onclick="delClosetItem(${ri})">×</button>
       </div>`;
@@ -1000,7 +1020,7 @@ function renderCollection(){
   card.style.display='block';
   document.getElementById('myCollectionGrid').innerHTML=collectedPush.map(idx=>{
     const item=DAILY_PUSH[idx];
-    return `<div class="collection-item"><img src="${item.img}" alt="收藏"><div class="push-tags" style="padding:4px">${item.tags.map(t=>`<span class="push-tag">${t}</span>`).join('')}</div></div>`;
+    return `<div class="collection-item"><img src="${item.img}" alt="收藏" onerror="window.imgFallback(this)"><div class="push-tags" style="padding:4px">${item.tags.map(t=>`<span class="push-tag">${t}</span>`).join('')}</div></div>`;
   }).join('');
 }
 function renderBloggerList(){
@@ -1033,7 +1053,7 @@ function renderGallery(){
     const tags=x.tags?x.tags.split(/[,，]/).filter(t=>t).map(t=>`<span class="chip" style="font-size:10px;padding:2px 8px;margin:2px 0">${esc(t.trim())}</span>`).join(''):'';
     return `<div class="masonry-item">
       <button class="masonry-del" onclick="delGallery(${ri})">×</button>
-      ${x.img?`<img src="${x.img}">`:'<div class="item-img-placeholder" style="aspect-ratio:auto;height:120px">📷</div>'}
+      ${x.img?`<img src="${x.img}" onerror="window.imgFallback(this)">`:'<div class="item-img-placeholder" style="aspect-ratio:auto;height:120px">📷</div>'}
       <div class="masonry-note">
         <div class="small" style="color:var(--primary);font-weight:600;margin-bottom:3px">${esc(x.cat)}</div>
         ${x.note?`<div>${esc(x.note)}</div>`:''}
@@ -1063,7 +1083,7 @@ function renderDiary(){
         <button class="modal-close" style="position:absolute;top:8px;right:10px;font-size:16px" onclick="delDiary(${ri})">×</button>
         <div class="diary-date">${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}</div>
         <div class="diary-scene">${x.scene}</div>
-        ${x.img?`<img src="${x.img}" style="width:100%;border-radius:10px;margin-bottom:8px">`:''}
+        ${x.img?`<img src="${x.img}" style="width:100%;border-radius:10px;margin-bottom:8px" onerror="window.imgFallback(this)">`:''}
         <div class="diary-rating">满意度：<span class="stars">${'★'.repeat(x.sat)}${'☆'.repeat(5-x.sat)}</span></div>
         <div class="diary-rating">自信度：<span class="stars">${'★'.repeat(x.conf)}${'☆'.repeat(5-x.conf)}</span></div>
         ${x.desc?`<div class="small" style="margin:6px 0">${esc(x.desc)}</div>`:''}

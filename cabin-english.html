@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>乘务英语实战手册 · 佳蓓专属</title>
+<style>
+:root {
+  --bg: #f8f7f5;
+  --card: #ffffff;
+  --text: #2a2825;
+  --text-light: #9a958a;
+  --accent: #1a4d8f;
+  --accent-light: #4a7ab5;
+  --accent-bg: #e8f0fa;
+  --green: #4a7c3f;
+  --green-bg: #edf5ea;
+  --red: #b04040;
+  --red-bg: #fbeaea;
+  --orange: #c47530;
+  --orange-bg: #fdf3e8;
+  --border: #e8e3db;
+  --shadow: 0 1px 8px rgba(26,77,143,0.05);
+  --tag: #f0ede8;
+}
+[data-theme="dark"] {
+  --bg: #121110;
+  --card: #1e1c1a;
+  --text: #ddd8d0;
+  --text-light: #6a655a;
+  --accent: #5a8fc5;
+  --accent-light: #7aaad5;
+  --accent-bg: #1a2a3a;
+  --green: #7a9a6a;
+  --green-bg: #1a2a1a;
+  --red: #c06060;
+  --red-bg: #2a1a1a;
+  --orange: #c4955a;
+  --orange-bg: #2a2515;
+  --border: #2c2926;
+  --shadow: 0 1px 8px rgba(0,0,0,0.3);
+  --tag: #282523;
+}
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+body {
+  font-family: -apple-system, "PingFang SC", "SF Pro Display", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  font-size: 15px;
+  transition: background 0.3s, color 0.3s;
+}
+.theme-btn {
+  position: fixed; top: 14px; right: 14px;
+  width: 34px; height: 34px; border-radius: 50%;
+  background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.15);
+  color: #fff; font-size: 16px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; z-index: 100; backdrop-filter: blur(8px);
+}
+.hero {
+  background: linear-gradient(135deg, #1a4d8f 0%, #0d3060 50%, #061d3a 100%);
+  color: #fff;
+  padding: 50px 24px 40px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -20%; right: -10%;
+  width: 60%; height: 80%;
+  background: radial-gradient(ellipse, rgba(74,122,181,0.15) 0%, transparent 70%);
+}
+.hero::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+  height: 30px; background: linear-gradient(180deg, transparent, var(--bg));
+}
+.hero .icon { font-size: 36px; margin-bottom: 10px; position: relative; }
+.hero h1 { font-size: 22px; font-weight: 600; letter-spacing: 3px; position: relative; margin-bottom: 6px; }
+.hero .sub { font-size: 12px; opacity: 0.6; letter-spacing: 4px; position: relative; }
+.hero .desc { font-size: 13px; opacity: 0.55; margin-top: 14px; line-height: 1.8; position: relative; }
+
+/* Tab bar */
+.tab-bar {
+  display: flex;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  background: var(--card);
+  position: sticky; top: 0; z-index: 50;
+  border-bottom: 1px solid var(--border);
+  scrollbar-width: none;
+}
+.tab-bar::-webkit-scrollbar { display: none; }
+.tab {
+  flex-shrink: 0;
+  padding: 13px 14px;
+  font-size: 12px;
+  color: var(--text-light);
+  cursor: pointer;
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+  letter-spacing: 1px;
+}
+.tab.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+  font-weight: 600;
+}
+
+.scene { display: none; padding: 12px; animation: fadeIn 0.3s; }
+.scene.active { display: block; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+.scene-title {
+  text-align: center;
+  margin: 10px 0 16px;
+}
+.scene-title h2 { font-size: 17px; font-weight: 700; color: var(--text); letter-spacing: 2px; }
+.scene-title p { font-size: 11px; color: var(--text-light); margin-top: 4px; }
+
+/* Dialogue card */
+.dlg {
+  background: var(--card);
+  border-radius: 14px;
+  margin-bottom: 10px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+.dlg-header {
+  padding: 10px 14px;
+  background: var(--accent-bg);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.dlg-header.green { background: var(--green-bg); color: var(--green); }
+.dlg-header.red { background: var(--red-bg); color: var(--red); }
+.dlg-header.orange { background: var(--orange-bg); color: var(--orange); }
+.dlg-body { padding: 12px 14px; }
+.dlg-line { margin-bottom: 10px; }
+.dlg-line:last-child { margin-bottom: 0; }
+.dlg-label {
+  font-size: 10px;
+  color: var(--text-light);
+  margin-bottom: 3px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.dlg-en {
+  font-size: 14px;
+  color: var(--text);
+  font-weight: 500;
+  line-height: 1.5;
+  margin-bottom: 4px;
+}
+.dlg-zh {
+  font-size: 12px;
+  color: var(--text-light);
+  line-height: 1.5;
+}
+.dlg-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 10px 0;
+}
+
+/* Tip box */
+.tip {
+  background: var(--card);
+  border-radius: 12px;
+  padding: 14px;
+  margin-bottom: 10px;
+  border-left: 3px solid var(--accent);
+  box-shadow: var(--shadow);
+}
+.tip-label { font-size: 12px; font-weight: 700; color: var(--accent); margin-bottom: 6px; }
+.tip-text { font-size: 13px; color: var(--text); line-height: 1.8; }
+
+/* Quick reference list */
+.quick-list {
+  background: var(--card);
+  border-radius: 14px;
+  margin-bottom: 10px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+.quick-item {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border);
+}
+.quick-item:last-child { border-bottom: none; }
+.quick-en { font-size: 14px; font-weight: 500; color: var(--text); margin-bottom: 3px; }
+.quick-zh { font-size: 12px; color: var(--text-light); }
+
+.footer { text-align: center; padding: 24px; font-size: 11px; color: var(--text-light); }
+</style>
+</head>
+<body>
+<button class="theme-btn" onclick="toggleTheme()">🌓</button>
+
+<div class="hero">
+  <div class="icon">✈️</div>
+  <h1>乘务英语实战手册</h1>
+  <div class="sub">CABIN CREW ENGLISH HANDBOOK</div>
+  <div class="desc">
+    佳蓓专属 · 厦门航空<br>
+    从自我介绍到应对刁难 · 中英文对照<br>
+    背熟这些，对答如流
+  </div>
+</div>
+
+<div class="tab-bar" id="tabBar"></div>
+<div id="content"></div>
+
+<div class="footer">佳蓓的乘务英语实战手册 · 2026<br>厦门航空 · 持续更新中</div>
+
+<script>
+// ========== DATA ==========
+var scenes = [
+  {
+    tab: "👋 自我介绍",
+    title: "自我介绍 & 问候",
+    sub: "SELF-INTRODUCTION & GREETINGS",
+    items: [
+      {
+        type: "dlg",
+        color: "blue",
+        header: "📌 标准自我介绍",
+        lines: [
+          { label: "EN", en: "Good morning / afternoon / evening, sir / madam. Welcome aboard Xiamen Airlines flight MFXXX to [destination].", zh: "早上/下午/晚上好，先生/女士。欢迎乘坐厦门航空MFXXX航班前往[目的地]。" },
+          { label: "EN", en: "My name is Jia Bei. I am a flight attendant on this flight. My employee number is XXXXX.", zh: "我叫佳蓓。我是本次航班的乘务员。我的工号是XXXXX。" },
+          { label: "EN", en: "If there is anything I can do for you, please do not hesitate to let me know.", zh: "如果有什么需要，请随时告诉我。" }
+        ]
+      },
+      {
+        type: "dlg",
+        color: "blue",
+        header: "📌 简短版自我介绍（服务时）",
+        lines: [
+          { label: "EN", en: "Hello, I'm Jia Bei, your flight attendant today. Here is the menu. Please let me know if you need anything.", zh: "你好，我是佳蓓，今天的乘务员。这是菜单。有需要请告诉我。" }
+        ]
+      },
+      {
+        type: "dlg",
+        color: "blue",
+        header: "📌 登机问候",
+        lines: [
+          { label: "EN", en: "Welcome aboard! May I see your boarding pass, please?", zh: "欢迎登机！请出示您的登机牌。" },
+          { label: "EN", en: "Your seat is XXA, a window seat on the left side. This way, please.", zh: "您的座位是XXA，左边靠窗的位置。这边请。" },
+          { label: "EN", en: "Please watch your step. Mind your head as you enter the cabin.", zh: "请注意脚下。进入客舱时小心碰头。" }
+        ]
+      },
+      {
+        type: "dlg",
+        color: "blue",
+        header: "📌 引导入座",
+        lines: [
+          { label: "EN", en: "Please take your assigned seat. Your seat number is on the overhead bin.", zh: "请对号入座。您的座位号在头顶行李架上。" },
+          { label: "EN", en: "I'm afraid you're in the wrong seat. Let me check your boarding pass. Your seat is two rows behind on the right.", zh: "恐怕您坐错位置了。让我看一下您的登机牌。您的座位在后面两排右侧。" },
+          { label: "EN", en: "Excuse me, would you mind letting the passengers behind you pass? Thank you.", zh: "不好意思，能麻烦您让后面的旅客过一下吗？谢谢。" }
+        ]
+      },
+      {
+        type: "tip",
+        label: "💡 小贴士",
+        text: "自我介绍时保持微笑、语速适中。外籍旅客更看重你的自信和态度，不需要语法完美，关键是要清晰、礼貌。说自己的名字时可以放慢语速，重复一遍。"
+      }
+    ]
+  },
+  {
+    tab: "🍽️ 餐食服务",
+    title: "餐食服务 & 饮料",
+    sub: "MEAL & BEVERAGE SERVICE",
+    items: [
+      {
+        type: "dlg",
+        color: "green",
+        header: "📌 供餐",
+        lines: [
+          { label: "EN", en: "We are now serving meals. Today we have chicken with rice and beef with noodles. Which would you prefer?", zh: "现在开始供餐。今天有鸡肉饭和牛肉面，您喜欢哪一种？" },
+          { label: "EN", en: "Would you like something to drink? We have water, orange juice, apple juice, coffee, and tea.", zh: "您想喝点什么？我们有水、橙汁、苹果汁、咖啡和茶。" },
+          { label: "EN", en: "Here is your meal. Please enjoy. Mind the tray, it's a bit hot.", zh: "这是您的餐食。请慢用。注意餐盘有点烫。" }
+        ]
+      },
+      {
+        type: "dlg",
+        color: "orange",
+        header: "⚠️ 某选餐售罄",
+        lines: [
+          { label: "EN", en: "I'm very sorry, we've run out of the chicken. Would you like to try the beef instead? It's also very good.", zh: "非常抱歉，鸡肉已经发完了。您要不要试试牛肉？也很好吃的。" },
+          { label: "EN", en: "I apologize for the inconvenience. Let me check if there's anything else available in the galley for you.", zh: "为不便道歉。让我去厨房看看还有什么可以给您。" }
+        ]
+      },
+      {
+        type: "dlg",
+        color: "orange",
+        header: "⚠️ 旅客说餐食不好吃/冷了",
+        lines: [
+          { label: "EN", en: "I'm sorry to hear that. Let me bring you a different meal if one is available.", zh: "很抱歉听到这个。如果还有其他餐食，我给您换一份。" },
+          { label: "EN", en: "I understand. Let me heat it up for you, or would you prefer something else from our menu?", zh: "我理解。我帮您加热一下，还是您想换别的？" },
+          { label: "EN", en: "I'm sorry the meal didn't meet your expectations. I'll pass your feedback to our catering department. May I offer you some snacks instead?", zh: "很抱歉餐食不合您的期望。我会把您的意见反馈给餐饮部门。要不要给您拿些小零食？" }
+        ]
+      },
+      {
+        type: "dlg",
+        color: "green",
+        header: "📌 特殊餐食",
+        lines: [
+          { label: "EN", en: "I have your special meal here, Mr. Smith. You pre-ordered a vegetarian meal, correct?", zh: "史密斯先生，您的特殊餐到了。您预定了素食餐，对吗？" },
+          { label: "EN", en: "We also have halal meals, kosher meals, and gluten-free meals available upon request.", zh: "我们还有清真餐、犹太餐和无麸质餐可供选择。" }
+        ]
+      },
+      {
+        type: "dlg",
+        color: "green",
+        header: "📌 收餐盘",
+        lines: [
+          { label: "EN", en: "Excuse me, may I clear your tray table?", zh: "打扰一下，可以收走您的餐盘吗？" },
+          { label: "EN", en: "Would you like anything else to drink before I take this?", zh: "收走之前您还要喝点什么吗？" }
+        ]
+      }
+    ]
+  },
+  {
+    tab: "🌡️ 温度舒适",
+    title: "温度 & 舒适度",
+    sub: "TEMPERATURE & COMFORT",
+    items: [
+      {
+        type: "dlg",
+        color: "green",
+        header: "📌 旅客觉得冷",
+        lines: [
+          { label: "EN", en: "I'm sorry you're feeling cold. Let me get you a blanket right away.", zh: "抱歉您觉得冷。我马上给您拿条毛毯。" },
+          { label: "EN", en: "Here is a blanket for you. Would you also like a cup of hot water or tea?", zh: "给您毛毯。您要不要来杯热水或茶？" },
+          { label: "EN", en: "I'll check if we can adjust the cabin temperature. In the meantime, please use the air vent above to control the airflow.", zh: "我看看能不能调一下客舱温度。同时您可以调节头顶的通风口。" }
+        ]
+      },
+      {
+        type: "dlg",
+        color: "green",
+        header: "📌 旅客觉得热",
+        lines: [
+          { label: "EN", en: "I understand it feels warm. Let me adjust the air vent for you to increase the airflow.", zh: "我理解您觉得热。我帮您调一下通风口，增加通风。" },
+          { label: "EN", en: "Would you like a cold drink? I can bring you some water with ice.", zh: "您要来杯冷饮吗？我可以给您拿加冰的水。" },
+          { label: "EN", en: "I'll let the purser know about the temperature. We'll try to adjust it for you.", zh: "我会通知乘务长关于温度的问题。我们会尽量帮您调整。" }
+        ]
+      },
+      {
+        type: "dlg",
+        color: "green",
+        header: "📌 旅客要毛毯/枕头",
+        lines: [
+          { label: "EN", en: "Of course. Here is a blanket and a pillow. Is there anything else you need?", zh: "当然。这是毛毯和枕头。还需要别的吗？" },
+          { label: "EN", en: "I'm sorry, we've distributed all the blankets. Let me check if there are any extras in the back.", zh: "抱歉，毛毯已经发完了。我去后面看看还有没有多余的。" }
+        ]
+      },
+      {
+        type: "tip",
+        label: "💡 小贴士",
+        text: "温度问题是旅客最常抱怨的。关键三步：1. 先道歉并表示理解；2. 立即提供解决方案（毛毯/调通风口/冷饮热饮）；3. 通知乘务长调温度。不要只说\"没办法\"，外籍旅客最反感这个。"
+      }
+    ]
+  },
+  {
+    tab: "⏰ 延误",
+    title: "航班延误",
+    sub: "FLIGHT DELAY",
+    items: [
+      {
+        type: "dlg",
+        color: "orange",
+        header: "📌 通知延误",
+        lines: [
+          { label: "EN", en: "Ladies and gentlemen, this is your cabin crew speaking. We regret to inform you that our departure will be delayed due to [weather conditions / air traffic control / technical reasons].", zh: "女士们先生们，这是乘务组广播。很抱歉通知您，由于[天气原因/航空管制/技术原因]，我们的起飞将延迟。" },
+          { label: "EN", en: "The estimated delay is about [X] minutes/hours. We will keep you updated as soon as we receive more information.", zh: "预计延误约[X]分钟/小时。有进一步消息我们会第一时间通知您。" },
+          { label: "EN", en: "We apologize for the inconvenience and appreciate your patience. Please remain seated and we will begin our beverage service shortly.", zh: "为不便道歉，感谢您的耐心。请留在座位上，我们马上开始供应饮料。" }
+        ]
+      },
+      {
+        type: "dlg",
+        color: "red",
+        header: "⚠️ 旅客质问：为什么延误？",
+        lines: [
+          { label: "EN", en: "I understand your frustration, sir. The delay is due to air traffic control. We are waiting for clearance to depart.", zh: "我理解您的沮丧，先生。延误是因为航空管制，我们在等起飞许可。" },
+          { label: "EN", en: "I completely understand how you feel. Unfortunately, this is beyond our control. The captain is in communication with the tower and we will depart as soon as we receive clearance.", zh: "我完全理解您的心情。很遗憾这超出了我们的控制范围。机长正在和塔台沟通，一收到许可我们就起飞。" },
+          { label: "EN", en: "I wish I could give you a specific time, but we haven't received an update yet. The moment we know more, we will announce it immediately.", zh: "我也希望能给您具体时间，但目前还没收到更新。一有消息我们立刻广播。" }
+        ]
+      },
+      {
+        type: "dlg",
+        color: "red",
+        header: "⚠️ 旅客质问：我要误机了怎么办？",
+        lines: [
+          { label: "EN", en: "I understand your concern about your connecting flight. Our ground staff will assist you with rebooking once we land. Please speak with them at the gate.", zh: "我理解您担心转机。落地后地面工作人员会帮您改签。请在舱门口跟他们沟通。" },
+          { label: "EN", en: "If you have a connecting flight, please let me know your final destination. I will inform the captain, and our ground team will try to assist you upon arrival.", zh: "如果您有转机航班，请告诉我您的最终目的地。我会通知机长，落地后地面团队会尽量协助您。" }
+        ]
+      },
+      {
+        type: "dlg",
+        color: "orange",
+        header: "📌 旅客要求下机",
+        lines: [
+          { label: "EN", en: "I understand you'd like to disembark. Unfortunately, for safety and security reasons, we are not able to open the doors at this time. Please remain seated and we will keep you informed.", zh: "我理解您想下机。但出于安全原因，目前无法开门。请留在座位上，我们会持续通知您最新情况。" }
+        ]
+      },
+      {
+        type: "tip",
+        label: "💡 应对质问的万能公式",
+        text: "1️⃣ 共情：I understand your frustration / I completely understand how you feel<br>2️⃣ 解释原因：The delay is due to...<br>3️⃣ 给信息：We will keep you updated<br>4️⃣ 给方案：Our ground staff will assist you<br>5️⃣ 表感谢：Thank you for your patience<br>永远不要说 \"I don't know\" 或 \"It's not my fault\"。"
+      }
+    ]
+  },
+  {
+    tab: "🚻 洗手间",
+    title: "洗手间问题",
+    sub: "LAVATORY ISSUES",
+    items: [
+      {
+        type: "dlg",
+        color: "green",
+        header: "📌 洗手间位置",
+        lines: [
+          { label: "EN", en: "The lavatories are located at the front and the rear of the cabin.", zh: "洗手间在客舱的前部和后部。" },
+          { label: "EN", en: "The lavatory is currently occupied. There's another one available at the back of the cabin.", zh: "洗手间现在有人使用。后面还有一个可用的。" },
+          { label: "EN", en: "Please wait a moment. The lavatory sign shows it's occupied. It will be available shortly.", zh: "请稍等。洗手间标志显示有人使用。很快就会空出来。" }
+        ]
+      },
+      {
+        type: "dlg",
+        color: "orange",
+        header: "⚠️ 旅客排队等候太久抱怨",
+        lines: [
+          { label: "EN", en: "I'm sorry for the wait. There's another lavatory available in the front of the cabin. Would you like me to show you?", zh: "抱歉让您久等了。前面还有一个洗手间可用。要我带您过去吗？" },
+          { label: "EN", en: "I understand the wait is frustrating. Please use the front lavatory as it's currently available.", zh: "我理解等待很烦人。前面的洗手间现在空着，请使用那个。" }
+        ]
+      },
+      {
+        type: "dlg",
+        color: "red",
+        header: "⚠️ 旅客在洗手间抽烟",
+        lines: [
+          { label: "EN", en: "Excuse me, sir. Smoking is strictly prohibited on this aircraft, including in the lavatory. This is a federal aviation regulation. Please refrain from smoking.", zh: "先生打扰一下。飞机上严禁吸烟，包括洗手间内。这是航空法规。请不要吸烟。" },
+          { label: "EN", en: "I must inform you that tampering with the smoke detector in the lavatory is a serious violation and may result in legal consequences.", zh: "我必须告知您，破坏洗手间烟雾探测器是严重违规行为，可能面临法律后果。" }
+        ]
+      },
+      {
+        type: "dlg",
+        color: "orange",
+        header: "⚠️ 洗手间脏了/坏了",
+        lines: [
+          { label: "EN", en: "I apologize for the condition of the lavatory. Let me clean it for you right away. Please give me one moment.", zh: "为洗手间的状况道歉。我马上帮您清理。请稍等一下。" },
+          { label: "EN", en: "I'm sorry, this lavatory is temporarily out of service. Please use the one at the front of the cabin.", zh: "抱歉，这个洗手间暂时不能使用。请使用前面的洗手间。" }
+        ]
+      }
+    ]
+  },
+  {
+    tab: "💺 座椅靠背",
+    title: "座椅靠背 & 行李",
+    sub: "SEAT RECLINE & BAGGAGE",
+    items: [
+      {
+        type: "dlg",
+        color: "orange",
+        header: "⚠️ 后排旅客投诉前排座椅靠背",
+        lines: [
+          { label: "EN", en: "I understand your concern. Let me speak with the passenger in front of you.", zh: "我理解您的困扰。我去跟前排的旅客沟通一下。" },
+          { label: "EN", en: "Excuse me, sir / madam. The passenger behind you is having difficulty with their meal. Would you mind adjusting your seat back upright during meal service? Thank you for your understanding.", zh: "先生/女士打扰一下。后排的旅客用餐不太方便。供餐期间能否把座椅靠背调直？感谢您的理解。" },
+          { label: "EN", en: "Once meal service is complete, you're welcome to recline your seat again.", zh: "供餐结束后，您可以再调后座椅靠背。" }
+        ]
+      },
+      {
+        type: "dlg",
+        color: "red",
+        header: "⚠️ 旅客因座椅靠背发生争执",
+        lines: [
+          { label: "EN", en: "Gentlemen, please calm down. Let me help resolve this.", zh: "两位先生请冷静。让我来帮忙解决这个问题。" },
+          { label: "EN", en: "Sir, I understand you'd like to recline your seat. And sir, I understand you need space for your legs. May I suggest a compromise — reclining halfway? That way both of you can be comfortable.", zh: "先生，我理解您想调后靠背。先生，我也理解您需要腿部空间。我建议折中一下——调后一半？这样两位都能舒服些。" },
+          { label: "EN", en: "If this doesn't work, I can check if there are any empty seats available where one of you might be more comfortable.", zh: "如果不行的话，我可以看看有没有空座，让其中一位换到更舒适的位置。" }
+        ]
+      },
+      {
+        type: "dlg",
+        color: "green",
+        header: "📌 起降时调直座椅",
+        lines: [
+          { label: "EN", en: "Excuse me, sir / madam. For safety reasons, please return your seat to the upright position and stow your tray table. We are preparing for takeoff / landing.", zh: "先生/女士打扰一下。出于安全原因，请将座椅靠背调直、收起小桌板。我们准备起飞/降落了。" },
+          { label: "EN", en: "Please put your seat back in the upright position.", zh: "请将座椅靠背调直。" }
+        ]
+      },
+      {
+        type: "dlg",
+        color: "orange",
+        header: "⚠️ 行李放不下/太大",
+        lines: [
+          { label: "EN", en: "I'm sorry, your bag is too large for the overhead bin. We'll need to check it for you. It will be available at baggage claim upon arrival.", zh: "抱歉，您的包太大放不进行李架。我们需要帮您托运。到达后在行李转盘领取。" },
+          { label: "EN", en: "The overhead bins are full in this area. Let me help you find space a few rows ahead, or we can check your bag for you.", zh: "这片的行李架满了。我帮您在前面几排找找位置，或者帮您托运。" },
+          { label: "EN", en: "For safety, please do not place heavy items in the seat pocket. They should be stowed in the overhead bin or under the seat in front of you.", zh: "为了安全，请不要把重物放在座椅口袋里。应放在头顶行李架或前方座位下。" }
+        ]
+      }
+    ]
+  },
+  {
+    tab: "😤 旅客冲突",
+    title: "旅客之间的矛盾",
+    sub: "PASSENGER CONFLICTS",
+    items: [
+      {
+        type: "dlg",
+        color: "red",
+        header: "⚠️ 旅客大声争吵",
+        lines: [
+          { label: "EN", en: "Excuse me, everyone. Please lower your voices. There are other passengers on this flight who are resting. Let's be considerate of one another.", zh: "各位打扰一下。请降低音量。航班上还有其他旅客在休息。请互相体谅。" },
+          { label: "EN", en: "Sir, I understand you're upset, but please calm down. Let me help you sort this out. Could you tell me what happened?", zh: "先生，我理解您很生气，但请冷静。让我来帮您解决。能告诉我发生什么了吗？" }
+        ]
+      },
+      {
+        type: "dlg",
+        color: "red",
+        header: "⚠️ 旅客要求换座（对方不让）",
+        lines: [
+          { label: "EN", en: "Excuse me, sir / madam. This passenger would like to sit with their family. Would you be willing to switch seats with them? Your new seat would be in row XX, also a window / aisle seat.", zh: "先生/女士打扰一下。这位旅客想和家人坐在一起。您愿意和他们换座位吗？新座位在XX排，也是靠窗/靠走道的位置。" },
+          { label: "EN", en: "I understand you prefer to stay in your assigned seat, and that's completely your right. Let me see if there are any other available seats.", zh: "我理解您想坐在自己的座位上，这完全是您的权利。我看看有没有其他空座。" },
+          { label: "EN", en: "I'm sorry, we weren't able to arrange a seat swap. But once boarding is complete, I'll check if there are any empty seats available.", zh: "抱歉没能安排换座。但登机结束后，我会看看有没有空座。" }
+        ]
+      },
+      {
+        type: "dlg",
+        color: "red",
+        header: "⚠️ 旅客投诉邻座（打呼噜/体味/喝酒）",
+        lines: [
+          { label: "EN", en: "I'm sorry for the discomfort. Let me check if there's an empty seat where you could move.", zh: "为给您带来的不适道歉。我看看有没有空座可以给您换。" },
+          { label: "EN", en: "Unfortunately, the flight is fully booked. May I offer you earplugs or a headset to help with the noise?", zh: "很遗憾航班满员了。给您耳塞或耳机来帮助隔音好吗？" },
+          { label: "EN", en: "I understand this is unpleasant. Let me see what I can do. Perhaps I can ask the passenger if they'd be willing to switch to another seat.", zh: "我理解这很不舒服。让我看看能做什么。也许我可以问问那位旅客是否愿意换到别的座位。" }
+        ]
+      },
+      {
+        type: "dlg",
+        color: "red",
+        header: "⚠️ 旅客之间肢体冲突",
+        lines: [
+          { label: "EN", en: "Stop! Please stop immediately! This is a safety issue. Please return to your seats.", zh: "停下！请立刻停止！这是安全问题。请回到您的座位上。" },
+          { label: "EN", en: "Sir, I must ask you to calm down. Any physical altercation on an aircraft is a serious offense and may result in legal action upon landing.", zh: "先生，我必须要求您冷静。飞机上的任何肢体冲突都是严重违法行为，落地后可能面临法律诉讼。" },
+          { label: "EN", en: "I need to inform the purser and the captain about this situation. Please cooperate and remain seated.", zh: "我需要向乘务长和机长报告这个情况。请配合并留在座位上。" }
+        ]
+      },
+      {
+        type: "tip",
+        label: "💡 处理冲突的原则",
+        text: "1️⃣ 先降温：Please calm down<br>2️⃣ 分别倾听：Could you tell me what happened?<br>3️⃣ 提出方案：换座/耳塞/折中<br>4️⃣ 升级处理：通知乘务长和机长<br>5️⃣ 绝不偏袒任何一方，保持中立<br>肢体冲突必须立即上报，这是安全事件。"
+      }
+    ]
+  },
+  {
+    tab: "🔥 刁难应对",
+    title: "面对质疑 & 刁难",
+    sub: "HANDLING DIFFICULT PASSENGERS",
+    items: [
+      {
+        type: "dlg",
+        color: "red",
+        header: "⚠️ \"你们航空公司服务太差了！\"",
+        lines: [
+          { label: "EN", en: "I'm very sorry you feel that way. Could you tell me specifically what went wrong so I can try to make it right?", zh: "非常抱歉您有这样的感受。能具体告诉我哪里出了问题吗？我来想办法解决。" },
+          { label: "EN", en: "I sincerely apologize for your experience. I will personally make sure the rest of your flight is as comfortable as possible. What can I do for you right now?", zh: "为您的体验真诚道歉。我个人会确保您接下来的航程尽可能舒适。现在我能为您做什么？" }
+        ]
+      },
+      {
+        type: "dlg",
+        color: "red",
+        header: "⚠️ \"我要投诉你！你工号多少？\"",
+        lines: [
+          { label: "EN", en: "Of course. My name is Jia Bei, and my employee number is XXXXX. I understand you'd like to file a complaint, and I respect that. May I ask what I did wrong so I can improve?", zh: "当然。我叫佳蓓，工号是XXXXX。我理解您想投诉，我尊重您的权利。能告诉我哪里做得不好吗？这样我可以改进。" },
+          { label: "EN", en: "I'm sorry I didn't meet your expectations. You're welcome to speak with our purser as well. We want to make this right for you.", zh: "很抱歉没有达到您的期望。您也可以跟我们的乘务长沟通。我们想为您解决这个问题。" }
+        ]
+      },
+      {
+        type: "dlg",
+        color: "red",
+        header: "⚠️ \"为什么中国经济舱这么差？\"",
+        lines: [
+          { label: "EN", en: "I understand your frustration. We're constantly working to improve our service. Is there something specific I can help you with right now to make your flight more comfortable?", zh: "我理解您的沮丧。我们在不断改进服务。现在有什么具体的我能帮您让飞行更舒适的吗？" },
+          { label: "EN", en: "I appreciate your feedback. Every comment helps us improve. Please let me know if there's anything I can do for you.", zh: "感谢您的反馈。每一条意见都帮助我们改进。请告诉我有什么能为您做的。" }
+        ]
+      },
+      {
+        type: "dlg",
+        color: "red",
+        header: "⚠️ \"你英文不好，换个人来！\"",
+        lines: [
+          { label: "EN", en: "I understand, sir. Let me get my colleague who may be able to assist you better. One moment, please.", zh: "我理解，先生。让我叫我的同事来更好地为您服务。请稍等。" },
+          { label: "EN", en: "Of course. I'll find a colleague to help you right away. I apologize for any difficulty in communication.", zh: "当然。我马上找同事来帮您。为沟通不畅道歉。" }
+        ]
+      },
+      {
+        type: "dlg",
+        color: "red",
+        header: "⚠️ 旅客对你大声吼叫",
+        lines: [
+          { label: "EN", en: "Sir / madam, I want to help you, but I need you to lower your voice so I can understand your request. I'm here to assist you.", zh: "先生/女士，我想帮您，但请您降低音量，这样我才能听清您的需求。我是来协助您的。" },
+          { label: "EN", en: "I understand you're very upset. I will do my best to resolve this for you. Please give me a moment.", zh: "我理解您非常不满。我会尽力为您解决。请给我一点时间。" }
+        ]
+      },
+      {
+        type: "dlg",
+        color: "red",
+        header: "⚠️ \"叫你们机长来见我！\"",
+        lines: [
+          { label: "EN", en: "I understand you'd like to speak with the captain. Unfortunately, the captain is required to stay in the cockpit for safety reasons. However, I can relay your message to the captain through our purser. What would you like me to communicate?", zh: "我理解您想跟机长说话。但出于安全原因，机长必须留在驾驶舱。不过我可以通过乘务长把您的消息转达给机长。您想让我转达什么？" }
+        ]
+      },
+      {
+        type: "dlg",
+        color: "red",
+        header: "⚠️ 旅客要求升舱但不付款",
+        lines: [
+          { label: "EN", en: "I understand you'd like to upgrade to business class. Upgrades require a fare difference payment. Would you like me to check the upgrade price for you?", zh: "我理解您想升到商务舱。升舱需要补差价。要我帮您查一下升舱价格吗？" },
+          { label: "EN", en: "I'm sorry, but seat upgrades are only available with a fare difference payment. I'm not able to offer a free upgrade. Is there anything else I can do to make your flight more comfortable?", zh: "抱歉，升舱需要补差价。我无法提供免费升舱。还有别的什么能让您飞行更舒适的吗？" }
+        ]
+      },
+      {
+        type: "tip",
+        label: "💡 面对刁难的核心心态",
+        text: "1️⃣ 永远不要跟旅客对抗——你的态度比你的对错更重要<br>2️⃣ 共情先行：I understand / I'm sorry you feel that way<br>3️⃣ 给方案，不找借口：What can I do for you right now?<br>4️⃣ 需要时升级处理：找乘务长<br>5️⃣ 被要工号时大方给出——这是你的权利也是旅客的权利<br>6️⃣ 永远不说：\"I don't know\" / \"It's not my fault\" / \"That's impossible\"<br>7️⃣ 记住：旅客不是针对你个人，是对情况不满。别往心里去。"
+      }
+    ]
+  },
+  {
+    tab: "🩺 突发状况",
+    title: "突发状况 & 特殊需求",
+    sub: "EMERGENCIES & SPECIAL REQUESTS",
+    items: [
+      {
+        type: "dlg",
+        color: "red",
+        header: "📌 旅客身体不适",
+        lines: [
+          { label: "EN", en: "Sir / madam, are you feeling unwell? What seems to be the problem?", zh: "先生/女士，您不舒服吗？哪里不舒服？" },
+          { label: "EN", en: "Please remain calm. I'll get the first-aid kit and notify the purser right away. Is there a doctor on board?", zh: "请保持冷静。我去拿急救箱并通知乘务长。机上有医生吗？" },
+          { label: "EN", en: "If there is a medical professional on this flight, please press your call button. We need medical assistance.", zh: "如果机上有医务人员，请按呼叫铃。我们需要医疗援助。" }
+        ]
+      },
+      {
+        type: "dlg",
+        color: "red",
+        header: "📌 旅客晕机",
+        lines: [
+          { label: "EN", en: "You might be experiencing motion sickness. Here is a sickness bag. Would you like some water or a wet towel?", zh: "您可能是晕机了。这是清洁袋。您要水或湿毛巾吗？" },
+          { label: "EN", en: "Let me adjust the air vent for you. Try to look at a fixed point in the distance and keep your head still.", zh: "我帮您调一下通风口。尽量看着远处一个固定点，头部不要动。" }
+        ]
+      },
+      {
+        type: "dlg",
+        color: "orange",
+        header: "📌 颠簸",
+        lines: [
+          { label: "EN", en: "Ladies and gentlemen, the captain has turned on the seatbelt sign. Please return to your seats and fasten your seatbelts. For your safety, please remain seated until the sign is turned off.", zh: "女士们先生们，机长已开启安全带指示灯。请回到座位并系好安全带。为了您的安全，请在指示灯熄灭前保持就座。" },
+          { label: "EN", en: "Sir / madam, please return to your seat immediately and fasten your seatbelt. We are experiencing turbulence.", zh: "先生/女士，请立即回到座位系好安全带。我们正在经历颠簸。" }
+        ]
+      },
+      {
+        type: "dlg",
+        color: "green",
+        header: "📌 旅客遗失物品",
+        lines: [
+          { label: "EN", en: "Don't worry, I'll help you look for it. Could you describe the item and where you last saw it?", zh: "别担心，我帮您找。能描述一下物品和您最后看到它的地方吗？" },
+          { label: "EN", en: "I've checked the area but couldn't find it. I'll report this to our ground staff. Please leave your contact information so we can reach you if it's found.", zh: "我检查了这个区域但没找到。我会向地面工作人员报告。请留下联系方式，如果找到了我们通知您。" }
+        ]
+      },
+      {
+        type: "dlg",
+        color: "green",
+        header: "📌 旅客要求特殊帮助（轮椅/小孩）",
+        lines: [
+          { label: "EN", en: "Of course. We have wheelchair assistance available upon arrival. Let me note your request.", zh: "当然。到达后有轮椅服务。我记录一下您的需求。" },
+          { label: "EN", en: "For your child's safety, please ensure they are seated with their seatbelt fastened. We have baby bassinets available — would you like one?", zh: "为了孩子的安全，请确保他们坐好并系好安全带。我们有婴儿摇篮——您要一个吗？" }
+        ]
+      }
+    ]
+  },
+  {
+    tab: "👋 下客告别",
+    title: "落地 & 下客",
+    sub: "LANDING & FAREWELL",
+    items: [
+      {
+        type: "dlg",
+        color: "green",
+        header: "📌 准备降落",
+        lines: [
+          { label: "EN", en: "Ladies and gentlemen, we are beginning our descent. Please return to your seats, fasten your seatbelts, and stow your tray tables and seatbacks.", zh: "女士们先生们，我们开始下降了。请回到座位，系好安全带，收起小桌板和座椅靠背。" },
+          { label: "EN", en: "Please ensure all personal items are secured and your seatback is in the upright position.", zh: "请确保所有个人物品放好，座椅靠背调直。" }
+        ]
+      },
+      {
+        type: "dlg",
+        color: "green",
+        header: "📌 落地广播",
+        lines: [
+          { label: "EN", en: "Ladies and gentlemen, welcome to [destination]. The local time is [time]. The outside temperature is [X] degrees Celsius / Fahrenheit.", zh: "女士们先生们，欢迎来到[目的地]。当地时间是[时间]。外部温度是[X]摄氏度/华氏度。" },
+          { label: "EN", en: "Please remain seated until the aircraft has come to a complete stop and the seatbelt sign has been turned off. Please check around your seat for personal belongings before disembarking.", zh: "请在飞机完全停稳、安全带指示灯熄灭前保持就座。下机前请检查座位周围是否有遗留物品。" }
+        ]
+      },
+      {
+        type: "dlg",
+        color: "green",
+        header: "📌 下机告别",
+        lines: [
+          { label: "EN", en: "Thank you for flying with Xiamen Airlines. We look forward to serving you again. Have a wonderful day!", zh: "感谢您乘坐厦门航空。期待再次为您服务。祝您有美好的一天！" },
+          { label: "EN", en: "Goodbye! Please watch your step as you exit. Thank you and safe travels!", zh: "再见！下机时请注意脚下。谢谢，祝旅途平安！" },
+          { label: "EN", en: "Thank you for choosing Xiamen Airlines. If you have any feedback about your flight, please speak with our ground staff at the gate.", zh: "感谢选择厦门航空。如有关于航班的反馈，请与舱门口的地面工作人员沟通。" }
+        ]
+      },
+      {
+        type: "dlg",
+        color: "green",
+        header: "📌 转机引导",
+        lines: [
+          { label: "EN", en: "If you have a connecting flight, please follow the transit signs in the terminal. Our ground staff can assist you with transfer information.", zh: "如果您有转机航班，请跟随航站楼内的中转标识。地面工作人员可以协助您查询转机信息。" },
+          { label: "EN", en: "Your connecting flight departs from gate XX. Please allow enough time for security and boarding.", zh: "您的转机航班在XX登机口出发。请预留足够时间过安检和登机。" }
+        ]
+      }
+    ]
+  },
+  {
+    tab: "📖 万能句型",
+    title: "万能句型速查",
+    sub: "QUICK REFERENCE",
+    items: [
+      {
+        type: "quick",
+        title: "🤝 共情（万能开头）",
+        items: [
+          { en: "I understand your frustration.", zh: "我理解您的沮丧。" },
+          { en: "I completely understand how you feel.", zh: "我完全理解您的心情。" },
+          { en: "I'm sorry to hear that.", zh: "很抱歉听到这个。" },
+          { en: "I can see why you're upset.", zh: "我能理解您为什么不高兴。" },
+          { en: "I appreciate your patience.", zh: "感谢您的耐心。" }
+        ]
+      },
+      {
+        type: "quick",
+        title: "🙏 道歉（万能缓冲）",
+        items: [
+          { en: "I sincerely apologize for the inconvenience.", zh: "为不便真诚道歉。" },
+          { en: "I'm sorry this happened. Let me fix it.", zh: "抱歉发生这种事。我来解决。" },
+          { en: "I apologize on behalf of Xiamen Airlines.", zh: "我代表厦门航空向您道歉。" },
+          { en: "I'm sorry we didn't meet your expectations.", zh: "抱歉没有达到您的期望。" }
+        ]
+      },
+      {
+        type: "quick",
+        title: "✅ 给方案（万能解决）",
+        items: [
+          { en: "Let me see what I can do for you.", zh: "让我看看能为您做什么。" },
+          { en: "I'll check on that right away.", zh: "我马上去查一下。" },
+          { en: "Let me speak with the purser about this.", zh: "我跟乘务长沟通一下这个事。" },
+          { en: "May I offer you an alternative?", zh: "我能给您提供一个替代方案吗？" },
+          { en: "I'll do my best to resolve this.", zh: "我会尽力解决。" }
+        ]
+      },
+      {
+        type: "quick",
+        title: "⛔ 婉拒（万能拒绝）",
+        items: [
+          { en: "I'm afraid that's not possible, but let me offer you...", zh: "恐怕这不行，但我可以给您提供……" },
+          { en: "Unfortunately, we're not able to do that. However...", zh: "很遗憾我们无法那样做。不过……" },
+          { en: "I understand your request, but for safety reasons...", zh: "我理解您的要求，但出于安全原因……" },
+          { en: "I'm sorry, that's against regulations. But what I can do is...", zh: "抱歉，这违反规定。但我能做的是……" }
+        ]
+      },
+      {
+        type: "quick",
+        title: "🔔 升级处理",
+        items: [
+          { en: "Let me get the purser for you.", zh: "我去叫乘务长来。" },
+          { en: "I'll inform the captain about this situation.", zh: "我会向机长报告这个情况。" },
+          { en: "Our ground staff will assist you upon arrival.", zh: "落地后地面工作人员会协助您。" },
+          { en: "I'll report this and someone will follow up with you.", zh: "我会上报此事，会有人跟进的。" }
+        ]
+      },
+      {
+        type: "tip",
+        label: "💡 记住这三句话",
+        text: "不管遇到什么情况，先说这三句：<br><br>1️⃣ \"I understand.\"（我理解）<br>2️⃣ \"I'm sorry.\"（很抱歉）<br>3️⃣ \"Let me help you.\"（让我来帮您）<br><br>这三句话能化解 80% 的冲突。剩下的 20%，交给乘务长。"
+      }
+    ]
+  }
+];
+
+// ========== RENDER ==========
+var tabBar = document.getElementById('tabBar');
+var content = document.getElementById('content');
+
+scenes.forEach(function(scene, i) {
+  // Tab
+  var tab = document.createElement('div');
+  tab.className = 'tab' + (i === 0 ? ' active' : '');
+  tab.textContent = scene.tab;
+  tab.onclick = function() { switchTab(this, i); };
+  tabBar.appendChild(tab);
+
+  // Scene container
+  var div = document.createElement('div');
+  div.className = 'scene' + (i === 0 ? ' active' : '');
+  div.dataset.index = i;
+
+  // Title
+  var title = document.createElement('div');
+  title.className = 'scene-title';
+  title.innerHTML = '<h2>' + scene.title + '</h2><p>' + scene.sub + '</p>';
+  div.appendChild(title);
+
+  // Items
+  scene.items.forEach(function(item) {
+    if (item.type === 'dlg') {
+      var card = document.createElement('div');
+      card.className = 'dlg';
+      var header = document.createElement('div');
+      header.className = 'dlg-header ' + (item.color === 'green' ? 'green' : item.color === 'red' ? 'red' : item.color === 'orange' ? 'orange' : '');
+      header.textContent = item.header;
+      card.appendChild(header);
+
+      var body = document.createElement('div');
+      body.className = 'dlg-body';
+      item.lines.forEach(function(line, j) {
+        if (j > 0) {
+          var d = document.createElement('div');
+          d.className = 'dlg-divider';
+          body.appendChild(d);
+        }
+        var lineDiv = document.createElement('div');
+        lineDiv.className = 'dlg-line';
+        lineDiv.innerHTML = '<div class="dlg-label">' + line.label + '</div><div class="dlg-en">' + line.en + '</div><div class="dlg-zh">' + line.zh + '</div>';
+        body.appendChild(lineDiv);
+      });
+      card.appendChild(body);
+      div.appendChild(card);
+    } else if (item.type === 'tip') {
+      var tip = document.createElement('div');
+      tip.className = 'tip';
+      tip.innerHTML = '<div class="tip-label">' + item.label + '</div><div class="tip-text">' + item.text + '</div>';
+      div.appendChild(tip);
+    } else if (item.type === 'quick') {
+      var ql = document.createElement('div');
+      ql.className = 'quick-list';
+      var qTitle = document.createElement('div');
+      qTitle.style.cssText = 'padding:10px 14px;background:var(--accent-bg);font-size:13px;font-weight:600;color:var(--accent);';
+      qTitle.textContent = item.title;
+      ql.appendChild(qTitle);
+      item.items.forEach(function(qi) {
+        var q = document.createElement('div');
+        q.className = 'quick-item';
+        q.innerHTML = '<div class="quick-en">' + qi.en + '</div><div class="quick-zh">' + qi.zh + '</div>';
+        ql.appendChild(q);
+      });
+      div.appendChild(ql);
+    }
+  });
+
+  content.appendChild(div);
+});
+
+function switchTab(el, index) {
+  document.querySelectorAll('.tab').forEach(function(t) { t.classList.remove('active'); });
+  el.classList.add('active');
+  document.querySelectorAll('.scene').forEach(function(s) { s.classList.remove('active'); });
+  document.querySelector('.scene[data-index="' + index + '"]').classList.add('active');
+  el.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+  window.scrollTo(0, 0);
+}
+
+function toggleTheme() {
+  var cur = document.documentElement.getAttribute('data-theme');
+  if (cur === 'dark') {
+    document.documentElement.removeAttribute('data-theme');
+    localStorage.setItem('theme', 'light');
+  } else {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    localStorage.setItem('theme', 'dark');
+  }
+}
+
+var saved = localStorage.getItem('theme');
+if (saved === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+else if (!saved) { var h = new Date().getHours(); if (h >= 18 || h < 7) document.documentElement.setAttribute('data-theme', 'dark'); }
+</script>
+</body>
+</html>

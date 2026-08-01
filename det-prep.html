@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>多邻国DET保姆级备考手册 · 佳蓓专属</title>
+<style>
+:root {
+  --bg: #f5f7fa;
+  --card: #ffffff;
+  --text: #1a1a2e;
+  --text-light: #8892a6;
+  --accent: #6c5ce7;
+  --accent-light: #a29bfe;
+  --accent-bg: #eeeafe;
+  --green: #00b894;
+  --green-bg: #e6f9f4;
+  --red: #e17055;
+  --red-bg: #fdeeec;
+  --orange: #fdcb6e;
+  --orange-bg: #fff8e8;
+  --blue: #0984e3;
+  --blue-bg: #e7f3fe;
+  --border: #e8ecf1;
+  --shadow: 0 1px 8px rgba(108,92,231,0.05);
+}
+[data-theme="dark"] {
+  --bg: #0d0d1a;
+  --card: #1a1a2e;
+  --text: #dde0ec;
+  --text-light: #5a6072;
+  --accent: #a29bfe;
+  --accent-light: #6c5ce7;
+  --accent-bg: #252245;
+  --green: #55efc4;
+  --green-bg: #1a2a25;
+  --red: #fab1a0;
+  --red-bg: #2a1a18;
+  --orange: #ffeaa7;
+  --orange-bg: #2a2618;
+  --blue: #74b9ff;
+  --blue-bg: #1a2233;
+  --border: #2a2a3e;
+  --shadow: 0 1px 8px rgba(0,0,0,0.3);
+}
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+body {
+  font-family: -apple-system, "PingFang SC", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  font-size: 15px;
+  transition: background 0.3s, color 0.3s;
+}
+.theme-btn {
+  position: fixed; top: 14px; right: 14px;
+  width: 34px; height: 34px; border-radius: 50%;
+  background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.15);
+  color: #fff; font-size: 16px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; z-index: 100; backdrop-filter: blur(8px);
+}
+.hero {
+  background: linear-gradient(135deg, #6c5ce7 0%, #4834d4 50%, #2c1e6a 100%);
+  color: #fff;
+  padding: 50px 24px 40px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -20%; right: -10%;
+  width: 60%; height: 80%;
+  background: radial-gradient(ellipse, rgba(162,155,254,0.15) 0%, transparent 70%);
+}
+.hero::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+  height: 30px; background: linear-gradient(180deg, transparent, var(--bg));
+}
+.hero .icon { font-size: 36px; margin-bottom: 10px; position: relative; }
+.hero h1 { font-size: 22px; font-weight: 600; letter-spacing: 3px; position: relative; margin-bottom: 6px; }
+.hero .sub { font-size: 12px; opacity: 0.6; letter-spacing: 4px; position: relative; }
+.hero .desc { font-size: 13px; opacity: 0.55; margin-top: 14px; line-height: 1.8; position: relative; }
+.hero .tags { margin-top: 16px; display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; position: relative; }
+.hero .tag { font-size: 10px; padding: 3px 11px; border: 1px solid rgba(255,255,255,0.15); border-radius: 16px; opacity: 0.7; }
+
+.tab-bar {
+  display: flex; overflow-x: auto; -webkit-overflow-scrolling: touch;
+  background: var(--card); position: sticky; top: 0; z-index: 50;
+  border-bottom: 1px solid var(--border); scrollbar-width: none;
+}
+.tab-bar::-webkit-scrollbar { display: none; }
+.tab {
+  flex-shrink: 0; padding: 13px 14px; font-size: 12px;
+  color: var(--text-light); cursor: pointer; white-space: nowrap;
+  border-bottom: 2px solid transparent; transition: all 0.2s; letter-spacing: 1px;
+}
+.tab.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 600; }
+
+.scene { display: none; padding: 12px; animation: fadeIn 0.3s; }
+.scene.active { display: block; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+.scene-title { text-align: center; margin: 10px 0 16px; }
+.scene-title h2 { font-size: 18px; font-weight: 700; color: var(--text); letter-spacing: 2px; }
+.scene-title p { font-size: 11px; color: var(--text-light); margin-top: 4px; }
+
+.card-box {
+  background: var(--card); border-radius: 14px; margin-bottom: 10px;
+  overflow: hidden; box-shadow: var(--shadow);
+}
+.card-header {
+  padding: 10px 14px; font-size: 13px; font-weight: 600;
+  display: flex; align-items: center; gap: 6px;
+}
+.card-header.purple { background: var(--accent-bg); color: var(--accent); }
+.card-header.green { background: var(--green-bg); color: var(--green); }
+.card-header.red { background: var(--red-bg); color: var(--red); }
+.card-header.orange { background: var(--orange-bg); color: #c47530; }
+.card-header.blue { background: var(--blue-bg); color: var(--blue); }
+.card-body { padding: 14px; }
+
+.qtype {
+  background: var(--card); border-radius: 14px; margin-bottom: 10px;
+  overflow: hidden; box-shadow: var(--shadow);
+}
+.qtype-header {
+  padding: 12px 14px; background: var(--accent-bg);
+  display: flex; align-items: center; justify-content: space-between; gap: 8px;
+}
+.qtype-name { font-size: 14px; font-weight: 700; color: var(--accent); }
+.qtype-badge {
+  font-size: 10px; padding: 2px 8px; border-radius: 10px;
+  background: var(--card); color: var(--text-light); white-space: nowrap;
+}
+.qtype-body { padding: 14px; }
+.qtype-row { display: flex; gap: 8px; margin-bottom: 6px; font-size: 12px; }
+.qtype-label { color: var(--text-light); flex-shrink: 0; width: 70px; }
+.qtype-value { color: var(--text); flex: 1; }
+.qtype-tip {
+  margin-top: 8px; padding: 10px 12px; background: var(--green-bg);
+  border-radius: 10px; font-size: 12px; color: var(--green); line-height: 1.8;
+}
+
+.tip-box {
+  background: var(--card); border-radius: 12px; padding: 14px;
+  margin-bottom: 10px; border-left: 3px solid var(--accent); box-shadow: var(--shadow);
+}
+.tip-label { font-size: 12px; font-weight: 700; color: var(--accent); margin-bottom: 6px; }
+.tip-text { font-size: 13px; color: var(--text); line-height: 1.9; }
+
+.template {
+  background: var(--card); border-radius: 12px; padding: 14px;
+  margin-bottom: 10px; box-shadow: var(--shadow);
+  border-left: 3px solid var(--green);
+}
+.template-title { font-size: 13px; font-weight: 700; color: var(--green); margin-bottom: 8px; }
+.template-en { font-size: 13px; color: var(--text); line-height: 1.8; margin-bottom: 6px; font-style: italic; }
+.template-zh { font-size: 11px; color: var(--text-light); line-height: 1.6; }
+
+.schedule {
+  background: var(--card); border-radius: 14px; margin-bottom: 10px;
+  overflow: hidden; box-shadow: var(--shadow);
+}
+.schedule-header { padding: 10px 14px; font-size: 14px; font-weight: 700; }
+.schedule-header.w1 { background: var(--blue-bg); color: var(--blue); }
+.schedule-header.w2 { background: var(--accent-bg); color: var(--accent); }
+.schedule-header.w3 { background: var(--orange-bg); color: #c47530; }
+.schedule-header.w4 { background: var(--green-bg); color: var(--green); }
+.schedule-body { padding: 14px; }
+.day-plan { margin-bottom: 10px; }
+.day-plan:last-child { margin-bottom: 0; }
+.day-label { font-size: 12px; font-weight: 700; color: var(--accent); margin-bottom: 4px; }
+.day-text { font-size: 12px; color: var(--text); line-height: 1.8; }
+
+.footer { text-align: center; padding: 24px; font-size: 11px; color: var(--text-light); }
+</style>
+</head>
+<body>
+<button class="theme-btn" onclick="toggleTheme()">🌓</button>
+
+<div class="hero">
+  <div class="icon">🎯</div>
+  <h1>多邻国DET备考手册</h1>
+  <div class="sub">DUOLINGO ENGLISH TEST · 30 DAYS</div>
+  <div class="desc">
+    六级424分 → 目标130（最低100）<br>
+    一个月保姆级备考计划<br>
+    13种题型全解析 + 模板 + 技巧
+  </div>
+  <div class="tags">
+    <span class="tag">1个月</span>
+    <span class="tag">130分目标</span>
+    <span class="tag">自适应考试</span>
+  </div>
+</div>
+
+<div class="tab-bar" id="tabBar"></div>
+<div id="content"></div>
+<div class="footer">佳蓓的多邻国备考手册 · 2026</div>
+
+<script>
+var scenes = [
+// ===== 1. 你的基础分析 =====
+{
+  tab: "📊 基础分析",
+  title: "你的基础和目标分析",
+  sub: "BASELINE & TARGET ANALYSIS",
+  items: [
+    {
+      type: "card", color: "blue",
+      header: "📌 你的起点",
+      body: "<b>六级424分</b>意味着什么：<br>• 词汇量约4000-4500，基础还行但不够<br>• 阅读理解能力中等，但缺学术词汇<br>• 听力一般，长句容易漏听<br>• 口语和写作是你的短板（六级不怎么考这两项）<br>• 语法基础有，但输出（说+写）不熟练"
+    },
+    {
+      type: "card", color: "purple",
+      header: "📌 分数换算",
+      body: "<table style='width:100%;font-size:13px;'><tr style='color:var(--text-light);'><td style='padding:4px 0;'>DET 100分</td><td>≈ 雅思 5.5 / 托福 72</td></tr><tr style='color:var(--text-light);'><td style='padding:4px 0;'>DET 115分</td><td>≈ 雅思 6.0 / 托福 79</td></tr><tr style='color:var(--text-light);'><td style='padding:4px 0;'>DET 130分</td><td>≈ 雅思 6.5 / 托福 100</td></tr><tr style='color:var(--text-light);'><td style='padding:4px 0;'>DET 140分</td><td>≈ 雅思 7.0 / 托福 110</td></tr></table><br>你的<b style='color:var(--accent);'>目标130（雅思6.5）</b>，六级424大概对应DET 95-105区间，所以你需要提升约25-30分。一个月完全够用，关键在精准发力。"
+    },
+    {
+      type: "card", color: "green",
+      header: "📌 DET vs 六级的区别",
+      body: "<b>1. 自适应考试</b>：答对加难度，答错降难度。不是固定题量，是看你的能力上限<br><b>2. 考口语和写作</b>：六级口写占比低，DET口写占比约50%——这是你最大的提升空间<br><b>3. 不考翻译</b>：纯英语输入输出<br><b>4. 电脑自适应</b>：在家考，1小时完成，48小时出分<br><b>5. 词汇是核心</b>：DET特别爱考词汇辨析和完形填空，词汇量直接决定分数"
+    },
+    {
+      type: "tip",
+      label: "💡 你的一月策略",
+      text: "1️⃣ <b>词汇优先</b>：每天背DET高频词，从4000扩到6000+<br>2️⃣ <b>口写用模板</b>：这是提分最快的捷径，提前背熟<br>3️⃣ <b>阅读完形多刷</b>：这是DET提分最快的客观题<br>4️⃣ <b>听力听写练细节</b>：漏掉冠词介词就扣分<br>5️⃣ <b>每5天模考一次</b>：跟踪进度，调整方向<br><br>不用面面俱到。六级424的基础，重点抓<b>词汇+口写模板+阅读完形</b>，这三项搞定了100分保底，130可以冲。"
+    }
+  ]
+},
+// ===== 2. 30天计划 =====
+{
+  tab: "📅 30天计划",
+  title: "一个月保姆级备考计划",
+  sub: "30-DAY STUDY PLAN",
+  items: [
+    {
+      type: "schedule", color: "w1",
+      header: "🟦 第1周（Day 1-7）：基础+熟悉题型",
+      days: [
+        { label: "Day 1", text: "做一次完整模考（官网免费模考），摸底看分数。注册detpractice.com或登登多邻国题库账号。了解13种题型，每种看2-3道例题" },
+        { label: "Day 2-3", text: "词汇专项：每天背50个DET高频词（用登登题库的词汇题刷，不要用单词书死背）。同时刷Read and Select（单词辨析）50题/天" },
+        { label: "Day 4-5", text: "阅读专项：Fill in the Blanks（填空）20题/天 + Read and Complete（补全单词）15题/天。错题整理，不会的词记下来背" },
+        { label: "Day 6-7", text: "听力专项：Listen and Type（听写句子）15句/天，每句听3遍。开始熟悉口语模板（看题演讲模板），每天读2遍" }
+      ]
+    },
+    {
+      type: "schedule", color: "w2",
+      header: "🟪 第2周（Day 8-14）：专项强化",
+      days: [
+        { label: "Day 8-9", text: "口语模板背诵+练习：看题演讲、看图说话各练5题/天。用模板套，录音回听，注意流利度不要停顿" },
+        { label: "Day 10-11", text: "写作模板背诵+练习：看图写句3题/天 + 互动写作2题/天。注意用C级词汇（高级词汇）提升分数" },
+        { label: "Day 12-13", text: "互动阅读+互动听力：每天各练2套。互动阅读注意选标题和段落大意；互动听力注意听关键词" },
+        { label: "Day 14", text: "第二次模考！记录分数变化，对比第一次模考，找到还弱的题型" }
+      ]
+    },
+    {
+      type: "schedule", color: "w3",
+      header: "🟨 第3周（Day 15-21）：刷题+提速",
+      days: [
+        { label: "Day 15-17", text: "弱项专攻：根据第二次模考结果，集中刷最弱的2种题型。同时保持词汇50题/天、听写10句/天" },
+        { label: "Day 18-19", text: "口语写作综合练：每天口写各练5题，严格计时。口语不停顿，写作用模板+高级词汇" },
+        { label: "Day 20-21", text: "全题型混合刷题：每天40题混合练习，模拟考试的随机出题感。注意时间管理" }
+      ]
+    },
+    {
+      type: "schedule", color: "w4",
+      header: "🟩 第4周（Day 22-30）：冲刺+模考",
+      days: [
+        { label: "Day 22-24", text: "隔天模考一次（第3、4次模考），每次模考后花2小时复盘错题。针对错题集中的题型再刷20题" },
+        { label: "Day 25-27", text: "考前冲刺：每天刷题2小时（混合题型50题）+口语写作各3题。背熟模板，确保口写能秒输出" },
+        { label: "Day 28", text: "最后一次模考（第5次模考）。确认分数稳定在目标区间。检查考试设备（摄像头、麦克风、网络）" },
+        { label: "Day 29", text: "轻松复习：过一遍错题本，复习模板，不要再刷新题。准备好身份证/护照，检查考试环境" },
+        { label: "Day 30", text: "考试日！保持冷静，按模考节奏走。记住：答对加难度是好事，说明系统在给你冲高分的机会" }
+      ]
+    },
+    {
+      type: "tip",
+      label: "💡 每日时间分配建议",
+      text: "在职/飞行间隙备考，每天2-3小时：<br><b>早间 30min</b>：背单词50个（用APP刷词汇题）<br><b>午间 30min</b>：听写句子10句 + 碎片刷题<br><b>晚间 1-1.5h</b>：专项练习（口写/阅读/听力轮换）<br><b>睡前 15min</b>：复习今天错题 + 过一遍模板<br><br>飞行日利用碎片时间背单词和听听力，不飞的日子集中刷题。"
+    }
+  ]
+},
+// ===== 3. 题型全解析 =====
+{
+  tab: "📖 题型解析",
+  title: "13种题型全解析",
+  sub: "ALL 13 QUESTION TYPES",
+  items: [
+    {
+      type: "qtype", name: "📖 Read and Select（单词辨析）", badge: "出现15-18次 | 每词5秒",
+      subscore: "Literacy, Reading",
+      desc: "屏幕显示一个单词，判断是不是真实英语单词。点Yes或No",
+      tip: "相信直觉，假词的字母组合通常有微妙错误。过度思考会浪费5秒。高难度的真词会是罕见的学术词汇"
+    },
+    {
+      type: "qtype", name: "📖 Fill in the Blanks（填空）", badge: "6-9次 | 每句20秒",
+      subscore: "Literacy, Comprehension, Reading",
+      desc: "短文中一个或多个词被部分删除，只显示首字母，输入完整单词。接受美式和英式拼写",
+      tip: "输入前先读整句！周围语法会告诉你需要名词/动词/形容词。即使不认识词，根据语法也能猜"
+    },
+    {
+      type: "qtype", name: "📖 Read and Complete（补全单词）", badge: "3-6次 | 每段3分钟",
+      subscore: "Literacy, Comprehension, Reading",
+      desc: "完整段落中多个单词的后半部分被删，只留开头字母。输入缺失字母。仅接受美式拼写",
+      tip: "先读全段再填空，上下文能解决大部分。空白和错误得分相同，一定要尝试每个空，绝不留空！"
+    },
+    {
+      type: "qtype", name: "📖 Interactive Reading（互动阅读）", badge: "1套/场 | 含5小题",
+      subscore: "Literacy, Comprehension, Reading",
+      desc: "学术文章后完成5种子题：选词填空、下拉填空、点击答案、写段落摘要、选标题",
+      tip: "Identify the Idea要写一句话段落摘要，是唯一考写作的互动阅读子题。一句精准概括比详细但松散得分更高"
+    },
+    {
+      type: "qtype", name: "🎧 Listen and Type（听写句子）", badge: "6-9次 | 可重播3次",
+      subscore: "Literacy, Comprehension, Listening",
+      desc: "播放5-15秒音频，逐字打出所听内容。可重播3次",
+      tip: "三次重播策略：第1遍听整体意思，第2遍填补空白，第3遍验证冠词介词。漏掉小词是最常见失分点！"
+    },
+    {
+      type: "qtype", name: "🎧 Interactive Listening（互动听力）", badge: "2场景/场 | 约7分钟/场景",
+      subscore: "Comprehension, Conversation, Listening",
+      desc: "3子题型：①听音频填空 ②选最合适回应（5-6题/场景）③75秒写对话摘要",
+      tip: "正确答案不总是最热情的，而是学术语境中最务实合适的。摘要用流畅散文写，不要用要点式，聚焦讨论主题和达成的结论"
+    },
+    {
+      type: "qtype", name: "✏️ Write About the Photo（看图写句）", badge: "连续3题 | 每题60秒",
+      subscore: "Writing, Literacy, Production",
+      desc: "看照片写1-3个句子描述所见内容。目标40-50词，2-3个语法复杂的句子",
+      tip: "三部分结构：前景动作→场景背景→情绪氛围推断。仅描述可见内容，不加个人观点。留最后10秒校对！连续3题每题同时影响3个子分数，是考试中影响最大的题型之一"
+    },
+    {
+      type: "qtype", name: "✏️ Interactive Writing（互动写作）", badge: "1次/场 | 第一阶段5分钟+第二阶段3分钟",
+      subscore: "Literacy, Production, Writing",
+      desc: "第一阶段根据提示写约120词。第二阶段回应后续提示写约80词",
+      tip: "第二阶段最大错误是复述第一阶段内容！评分看你是否真正扩展论点——新例子、反驳论点、实际含义。用不同词重复同样观点不加分"
+    },
+    {
+      type: "qtype", name: "✏️ Writing Sample（写作样本）", badge: "1次 | 5分钟+30秒准备",
+      subscore: "不计入总分，发给大学",
+      desc: "学术或个人话题写结构化回应，目标100-130+词",
+      tip: "用30秒确定立场和两个理由。第一句直接回答，展开两个具体要点配例子，以前瞻性语句结尾。虽然不计分但大学会看！"
+    },
+    {
+      type: "qtype", name: "🗣️ Speak About the Photo（看图口语）", badge: "1次 | 最多3分钟",
+      subscore: "Production, Conversation, Speaking",
+      desc: "对着摄像头口头描述照片。2025年起取消最短时间要求",
+      tip: "用看图写作相同的前景→背景→推断结构，但作为连续口语散文。保持自然语速，为填充时间说太快反而扣分"
+    },
+    {
+      type: "qtype", name: "🗣️ Read Then Speak（阅读后口语）", badge: "1次 | 最多3分钟",
+      subscore: "Comprehension, Production, Speaking",
+      desc: "阅读书面提示，然后对着摄像头口述回应",
+      tip: "不要大声朗读提示！用阅读时间计划口语结构（立场+2要点+结论），然后凭记忆说。反复低头重读提示会打断流利度"
+    },
+    {
+      type: "qtype", name: "🗣️ Interactive Speaking（互动口语）⭐新增", badge: "1组6题 | 每题35秒",
+      subscore: "Conversation, Production, Speaking",
+      desc: "与动画角色模拟对话，6个问题形成连贯对话。音频只播一次，不可重播",
+      tip: "每个回应要参照对话线索，不是孤立回答。短暂停顿比填充音好——干净简短的沉默后跟自信句子比持续犹豫得分更高"
+    },
+    {
+      type: "qtype", name: "🗣️ Speaking Sample（口语样本）", badge: "1次 | 最多3分钟",
+      subscore: "不计入总分，发给大学",
+      desc: "类似Read Then Speak的书面提示，口述回应。目标60-90秒",
+      tip: "招生官会看这个。穿着得体，背景中性，光线充足。70秒结构清晰流利的回应比3分钟填充式漫谈更令人印象深刻"
+    }
+  ]
+},
+// ===== 4. 词汇策略 =====
+{
+  tab: "📝 词汇策略",
+  title: "词汇提升策略",
+  sub: "VOCABULARY STRATEGY",
+  items: [
+    {
+      type: "card", color: "purple",
+      header: "📌 词汇为什么是核心",
+      body: "DET有4种题型直接考词汇（单词辨析、填空、补全单词、听写），占考试题量的40%+。词汇量直接决定你的分数上限。<br><br>六级424的你大概有4000-4500词汇，DET 130需要约6000-7000词汇。一个月内补2000个高频词是可行的——关键是背<b>对的词</b>。"
+    },
+    {
+      type: "card", color: "green",
+      header: "📌 背什么词",
+      body: "<b>1. DET高频词</b>：在登登题库/detpractice上刷词汇题，遇到不认识的就记下来<br><b>2. C级词汇</b>：高级词汇（C1/C2级别），用于口语写作提分。比如用 'significant' 代替 'important'，用 'demonstrate' 代替 'show'<br><b>3. 学术词汇</b>：education, environment, technology, society, economy 相关的学术表达<br><b>4. 不要背GRE级别生僻词</b>：DET不考超纲词，考的是常用词的准确用法"
+    },
+    {
+      type: "card", color: "blue",
+      header: "📌 怎么背最高效",
+      body: "<b>1. 题库语境记忆</b>：不要用单词书！在刷题中遇到不认识的词，记在错题本上，结合题目语境记<br><b>2. 每天50个新词+复习旧词</b>：用Anki或纸片，新词当天复习3次，第二天再复习一次<br><b>3. 词根词缀法</b>：认识一个词根=认识10个词。比如 -spect（看）：inspect, suspect, perspective, spectacle<br><b>4. 每天刷50道Read and Select</b>：这个题型就是考词汇量，刷多了自然提升"
+    },
+    {
+      type: "tip",
+      label: "💡 口写提分词汇表（背熟这些，口写直接提分）",
+      text: "用高级词替换简单词：<br>• important → <b>crucial / vital / significant</b><br>• good → <b>beneficial / advantageous / favorable</b><br>• bad → <b>detrimental / adverse / unfavorable</b><br>• think → <b>believe / consider / perceive</b><br>• show → <b>demonstrate / illustrate / reveal</b><br>• big → <b>substantial / considerable / substantial</b><br>• many → <b>numerous / a multitude of / countless</b><br>• also → <b>moreover / furthermore / additionally</b><br>• but → <b>however / nevertheless / nonetheless</b><br>• because → <b>due to / owing to / on account of</b><br><br>这些就是C级词汇，口写用了直接加分。背熟！"
+    }
+  ]
+},
+// ===== 5. 口语模板 =====
+{
+  tab: "🗣️ 口语模板",
+  title: "口语模板 & 技巧",
+  sub: "SPEAKING TEMPLATES",
+  items: [
+    {
+      type: "tip",
+      label: "💡 口语核心原则",
+      text: "1️⃣ <b>流利度 > 语法</b>：不停顿、不回头改，哪怕有小语法错误也继续说<br>2️⃣ <b>用模板</b>：提前背好框架，考试时往里填内容，不用临场组织语言<br>3️⃣ <b>说够时间</b>：至少说60-90秒，不够就展开例子<br>4️⃣ <b>语速适中</b>：不要太快（不自然）也不要太慢（显得不流利）<br>5️⃣ <b>录音回听</b>：练习时录下来听，找到卡壳的地方"
+    },
+    {
+      type: "template",
+      title: "🗣️ 看题演讲模板（通用话题）",
+      en: "Well, I think this is a very interesting topic. In my opinion, [your main point]. There are a couple of reasons for this. First of all, [reason 1]. For example, [give an example]. Additionally, [reason 2]. This is significant because [explain why it matters]. Overall, I believe that [restate your point in different words].",
+      zh: "嗯，我觉得这是一个非常有趣的话题。在我看来，[你的主要观点]。有几个原因。首先，[原因1]。例如，[举例]。此外，[原因2]。这很重要因为[解释为什么]。总的来说，我相信[换种方式重申观点]。"
+    },
+    {
+      type: "template",
+      title: "🗣️ 看图说话模板",
+      en: "In this image, I can see [main subject/scene]. It appears to be [where/when]. In the foreground, there is/are [foreground details]. In the background, I notice [background details]. The overall atmosphere seems to be [mood/feeling], because [reason]. This image reminds me of [personal connection or broader context].",
+      zh: "在这张图片中，我能看到[主要主体/场景]。看起来是在[哪里/什么时候]。前景有[前景细节]。背景中我注意到[背景细节]。整体氛围似乎是[情绪/感觉]，因为[原因]。这张图让我想到[个人联系或更广的背景]。"
+    },
+    {
+      type: "template",
+      title: "🗣️ 互动口语模板（每题35秒）",
+      en: "That's a great question. Personally, I [direct answer]. I feel this way because [one reason with brief explanation]. For instance, [quick example]. So that's why I [restate answer briefly].",
+      zh: "这是个好问题。就我个人而言，[直接回答]。我这么觉得因为[一个原因+简短解释]。例如，[快速举例]。所以这就是为什么我[简要重申]。"
+    },
+    {
+      type: "card", color: "green",
+      header: "📌 口语高分技巧",
+      body: "<b>1. 开头不用犹豫</b>：直接 \"Well, I think...\" / \"In my opinion...\" / \"That's an interesting question\"<br><b>2. 用连接词</b>：First of all / Additionally / Moreover / However / Overall / In conclusion<br><b>3. 一定要举例</b>：\"For example...\" / \"For instance...\" / \"To illustrate...\"<br><b>4. 结尾总结</b>：\"Overall...\" / \"To sum up...\" / \"In conclusion...\"<br><b>5. 别怕语法错</b>：流利度优先，语法次要。说错了不要回头改，继续说"
+    }
+  ]
+},
+// ===== 6. 写作模板 =====
+{
+  tab: "✏️ 写作模板",
+  title: "写作模板 & 技巧",
+  sub: "WRITING TEMPLATES",
+  items: [
+    {
+      type: "tip",
+      label: "💡 写作核心原则",
+      text: "1️⃣ <b>用C级词汇</b>：模板里预埋高级词，系统检测到就加分<br>2️⃣ <b>字数要够</b>：看图写句40-50词，互动写作120+词，写作样本100-130词<br>3️⃣ <b>语法准确</b>：留最后10秒检查拼写和冠词，错别字直接扣Literacy分<br>4️⃣ <b>结构清晰</b>：主题句+论据+例子+结论<br>5️⃣ <b>第二阶段要扩展</b>：互动写作第二阶段必须写新内容，不能复述第一阶段"
+    },
+    {
+      type: "template",
+      title: "✏️ 看图写句模板（60秒/题，连续3题）",
+      en: "This image depicts [main scene]. In the foreground, [specific detail 1], while in the background, [specific detail 2]. It appears that [inference about what's happening]. The atmosphere conveys a sense of [mood/feeling].",
+      zh: "这张图片描绘了[主要场景]。前景[具体细节1]，而背景中[具体细节2]。看起来[推断正在发生什么]。整体氛围传达了一种[情绪/感觉]。",
+      tip: "3句就够，每句要有复杂语法（从句/分词）。留10秒检查拼写！"
+    },
+    {
+      type: "template",
+      title: "✏️ 互动写作模板（第一阶段 5分钟 120词）",
+      en: "I firmly believe that [your position on the topic]. This is a significant issue that deserves careful consideration. First and foremost, [reason 1]. For instance, [specific example]. Moreover, [reason 2]. A compelling illustration of this is [another example]. Furthermore, it is crucial to acknowledge that [counter-argument or deeper analysis]. In conclusion, I am convinced that [restate position] due to [summarize main reasons].",
+      zh: "我坚信[你的立场]。这是一个值得认真考虑的重要问题。首先，[原因1]。例如，[具体例子]。此外，[原因2]。一个有力的例证是[另一个例子]。此外，必须承认[反面论证或更深层分析]。总之，我确信[重申立场]，因为[总结主要原因]。",
+      tip: "这个模板包含12个C级词汇，系统检测到会加分。"
+    },
+    {
+      type: "template",
+      title: "✏️ 互动写作模板（第二阶段 3分钟 80词）",
+      en: "Building upon my previous argument, I would like to further elaborate on [new aspect]. An additional dimension to consider is [new point]. This demonstrates that [analysis]. Therefore, [conclusion that extends beyond stage 1].",
+      zh: "在我之前的论述基础上，我想进一步阐述[新方面]。另一个值得考虑的维度是[新观点]。这说明[分析]。因此，[超越第一阶段的结论]。",
+      tip: "关键：不能复述第一阶段！必须写新内容——新例子、新角度、新结论。"
+    },
+    {
+      type: "template",
+      title: "✏️ 写作样本模板（5分钟 100-130词）",
+      en: "[Topic] is a subject that has generated considerable debate. From my perspective, [clear position]. There are several compelling reasons for this stance. Primarily, [reason 1 with example]. Additionally, [reason 2 with example]. It is also worth noting that [concession or broader implication]. Ultimately, I maintain that [final position], as [brief justification].",
+      zh: "[话题]是一个引发了广泛讨论的主题。从我的角度，[明确立场]。有几个令人信服的理由。首先，[原因1+例子]。此外，[原因2+例子]。还值得注意的是[让步或更广泛的含义]。最终，我坚持[最终立场]，因为[简要理由]。",
+      tip: "虽然不计入总分，但大学会看。写得规范一些，给招生官好印象。"
+    },
+    {
+      type: "card", color: "green",
+      header: "📌 写作高分技巧",
+      body: "<b>1. 模板背到能秒输出</b>：考试时不用想结构，直接填内容<br><b>2. 每个模板里的C级词不要改</b>：significant, crucial, demonstrate, compelling——这些就是分数<br><b>3. 例子要具体</b>：不要说 \"for example, many people\"，要说 \"for instance, when I was in college...\"<br><b>4. 检查拼写</b>：their/there/they're，your/you're，affect/effect——这些错了直接扣分<br><b>5. 字数宁多勿少</b>：写得比最低要求多20-30词最安全"
+    }
+  ]
+},
+// ===== 7. 考试当天 =====
+{
+  tab: "🖥️ 考试当天",
+  title: "考试当天 & 注意事项",
+  sub: "EXAM DAY GUIDE",
+  items: [
+    {
+      type: "card", color: "orange",
+      header: "📌 考前1小时",
+      body: "• 检查电脑：Chrome浏览器、摄像头、麦克风、网络<br>• 关闭所有其他程序和通知（微信、钉钉等）<br>• 准备好身份证或护照<br>• 喝水上厕所，考试中途不能离开<br>• 做几道题热身，找找英语语感"
+    },
+    {
+      type: "card", color: "orange",
+      header: "📌 考试环境要求",
+      body: "• <b>独自在房间</b>，不能有其他人<br>• <b>安静</b>，不能有背景噪音<br>• <b>光线充足</b>，面部清晰可见<br>• <b>桌面清空</b>，不能有书本、手机、笔记<br>• <b>不能戴耳机</b>，用电脑自带扬声器和麦克风<br>• <b>不能离开摄像头范围</b>，不能东张西望<br>• <b>2025年9月起需第二摄像头</b>：用手机拍摄屏幕和键盘，按官方指引架设"
+    },
+    {
+      type: "card", color: "red",
+      header: "⚠️ 考试不认证的常见原因",
+      body: "• 眼神离开屏幕太久（系统认为你在看别处/作弊）<br>• 有人进入房间<br>• 听到声音/有人说话<br>• 离开摄像头范围<br>• 屏幕上弹出通知<br>• 网络中断<br>• 戴了耳机<br>• 桌上有手机/书本<br><br>不认证=白考！考前务必检查以上所有项。"
+    },
+    {
+      type: "card", color: "green",
+      header: "📌 考试中的策略",
+      body: "• <b>自适应考试不要慌</b>：题目变难=你答对了=系统在给你冲高分的机会<br>• <b>不会的题不要纠结</b>：快速猜一个继续，偶尔答错正常<br>• <b>口语不停顿</b>：哪怕不知道说什么也比沉默好<br>• <b>写作先写再改</b>：先把内容写完，最后10秒检查拼写<br>• <b>看图题连续3张</b>：每张60秒，别在第一张花太久<br>• <b>时间到了就交</b>：不要反复修改，自信一点"
+    },
+    {
+      type: "tip",
+      label: "💡 考试费用 & 出分",
+      text: "• 考试费用：$59美元（约420元人民币）<br>• 出分时间：考完48小时内<br>• 成绩有效期：2年<br>• 30天内最多考2次<br>• 可免费发送给无限所院校<br>• 可在官网购买模考卷（免费模考在官网就能做）<br><br>报名网址：englishtest.duolingo.com"
+    }
+  ]
+},
+// ===== 8. 工具推荐 =====
+{
+  tab: "🛠️ 工具推荐",
+  title: "备考工具 & 资源",
+  sub: "TOOLS & RESOURCES",
+  items: [
+    {
+      type: "card", color: "purple",
+      header: "📌 题库平台（必备）",
+      body: "<b>1. 登登多邻国题库</b>（推荐⭐）<br>题型齐全、分类清晰、有解析和错题收藏。适合系统刷题。<br><br><b>2. detpractice.com</b><br>一站式备考平台，有模考和AI评分。<br><br><b>3. 官方免费模考</b><br>englishtest.duolingo.com 官网免费模考，无限次做，了解考试节奏。"
+    },
+    {
+      type: "card", color: "blue",
+      header: "📌 词汇工具",
+      body: "<b>1. Anki</b>：用间隔重复法背单词，免费。可以下载DET高频词牌组<br><b>2. Quizlet</b>：搜索 \"Duolingo English Test vocabulary\" 有现成词集<br><b>3. 登登题库词汇题</b>：在刷题中记词，比单独背效率高<br><b>4. 词根词缀字典</b>：认识词根=词汇量翻倍"
+    },
+    {
+      type: "card", color: "green",
+      header: "📌 口语练习工具",
+      body: "<b>1. 手机录音</b>：最简单，录下来听自己的流利度和发音<br><b>2. ChatGPT对话</b>：跟AI用英语聊天，练即兴表达<br><b>3. 影子跟读</b>：找TED演讲或BBC新闻，跟着说，练语感<br><b>4. detpractice口语精批</b>：AI评分+指出不足"
+    },
+    {
+      type: "card", color: "orange",
+      header: "📌 听力练习资源",
+      body: "<b>1. TED Talks</b>：每天看1个，开英文字幕，练听力+学词汇<br><b>2. BBC 6 Minute English</b>：6分钟英语，语速适中，适合你的水平<br><b>3. 登登题库听写题</b>：每天15句，最贴近考试<br><b>4. YouTube日常vlog</b>：找英文博主，练自然语速的听力"
+    },
+    {
+      type: "tip",
+      label: "💡 最终建议",
+      text: "1️⃣ <b>不用报班</b>：六级424的基础，自学完全够用。省下报班的钱买题库VIP<br>2️⃣ <b>模板是捷径</b>：口写模板背到能秒输出，这是你从100冲130的最快路径<br>3️⃣ <b>词汇是地基</b>：每天50个词雷打不动，一个月2000个新词<br>4️⃣ <b>模考是导航</b>：每5天模考一次，跟踪进度，调整方向<br>5️⃣ <b>别贪多</b>：宁可少刷题也要复盘错题。刷50题+复盘 > 刷100题不复盘<br>6️⃣ <b>考试当天别紧张</b>：题目变难是好事，说明你答对了，系统在给你冲高分的机会！"
+    }
+  ]
+}
+];
+
+// Render
+var tabBar = document.getElementById('tabBar');
+var content = document.getElementById('content');
+
+scenes.forEach(function(scene, i) {
+  var tab = document.createElement('div');
+  tab.className = 'tab' + (i === 0 ? ' active' : '');
+  tab.textContent = scene.tab;
+  tab.onclick = function() { switchTab(this, i); };
+  tabBar.appendChild(tab);
+
+  var div = document.createElement('div');
+  div.className = 'scene' + (i === 0 ? ' active' : '');
+  div.dataset.index = i;
+
+  var title = document.createElement('div');
+  title.className = 'scene-title';
+  title.innerHTML = '<h2>' + scene.title + '</h2><p>' + scene.sub + '</p>';
+  div.appendChild(title);
+
+  scene.items.forEach(function(item) {
+    if (item.type === 'card') {
+      var c = document.createElement('div');
+      c.className = 'card-box';
+      var h = document.createElement('div');
+      h.className = 'card-header ' + (item.color || 'purple');
+      h.textContent = item.header;
+      c.appendChild(h);
+      var b = document.createElement('div');
+      b.className = 'card-body';
+      b.innerHTML = item.body;
+      c.appendChild(b);
+      div.appendChild(c);
+    } else if (item.type === 'tip') {
+      var t = document.createElement('div');
+      t.className = 'tip-box';
+      t.innerHTML = '<div class="tip-label">' + item.label + '</div><div class="tip-text">' + item.text + '</div>';
+      div.appendChild(t);
+    } else if (item.type === 'template') {
+      var tp = document.createElement('div');
+      tp.className = 'template';
+      tp.innerHTML = '<div class="template-title">' + item.title + '</div>' +
+        '<div class="template-en">' + item.en + '</div>' +
+        '<div class="template-zh">' + item.zh + '</div>' +
+        (item.tip ? '<div style="margin-top:8px;padding:8px 10px;background:var(--orange-bg);border-radius:8px;font-size:11px;color:#c47530;">💡 ' + item.tip + '</div>' : '');
+      div.appendChild(tp);
+    } else if (item.type === 'qtype') {
+      var qt = document.createElement('div');
+      qt.className = 'qtype';
+      qt.innerHTML = '<div class="qtype-header"><div class="qtype-name">' + item.name + '</div><div class="qtype-badge">' + item.badge + '</div></div>' +
+        '<div class="qtype-body">' +
+        '<div class="qtype-row"><div class="qtype-label">单项分</div><div class="qtype-value">' + item.subscore + '</div></div>' +
+        '<div class="qtype-row"><div class="qtype-label">考查内容</div><div class="qtype-value">' + item.desc + '</div></div>' +
+        '<div class="qtype-tip">💡 ' + item.tip + '</div>' +
+        '</div>';
+      div.appendChild(qt);
+    } else if (item.type === 'schedule') {
+      var sc = document.createElement('div');
+      sc.className = 'schedule';
+      var sh = document.createElement('div');
+      sh.className = 'schedule-header ' + item.color;
+      sh.textContent = item.header;
+      sc.appendChild(sh);
+      var sb = document.createElement('div');
+      sb.className = 'schedule-body';
+      item.days.forEach(function(d) {
+        var dp = document.createElement('div');
+        dp.className = 'day-plan';
+        dp.innerHTML = '<div class="day-label">' + d.label + '</div><div class="day-text">' + d.text + '</div>';
+        sb.appendChild(dp);
+      });
+      sc.appendChild(sb);
+      div.appendChild(sc);
+    }
+  });
+
+  content.appendChild(div);
+});
+
+function switchTab(el, index) {
+  document.querySelectorAll('.tab').forEach(function(t) { t.classList.remove('active'); });
+  el.classList.add('active');
+  document.querySelectorAll('.scene').forEach(function(s) { s.classList.remove('active'); });
+  document.querySelector('.scene[data-index="' + index + '"]').classList.add('active');
+  el.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+  window.scrollTo(0, 0);
+}
+
+function toggleTheme() {
+  var cur = document.documentElement.getAttribute('data-theme');
+  if (cur === 'dark') { document.documentElement.removeAttribute('data-theme'); localStorage.setItem('theme','light'); }
+  else { document.documentElement.setAttribute('data-theme','dark'); localStorage.setItem('theme','dark'); }
+}
+var saved = localStorage.getItem('theme');
+if (saved === 'dark') document.documentElement.setAttribute('data-theme','dark');
+else if (!saved) { var h = new Date().getHours(); if (h >= 18 || h < 7) document.documentElement.setAttribute('data-theme','dark'); }
+</script>
+</body>
+</html>

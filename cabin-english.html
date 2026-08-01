@@ -357,17 +357,36 @@ var scenes = [
       {
         type: "dlg",
         color: "green",
-        header: "📌 旅客要毛毯/枕头",
+        header: "📌 旅客要毛毯/枕头（有存货）",
         lines: [
-          { label: "EN", en: "Of course. Here is a blanket and a pillow. Is there anything else you need?", zh: "当然。这是毛毯和枕头。还需要别的吗？" },
-          { label: "EN", en: "I'm sorry, we've distributed all the blankets. Let me check if there are any extras in the back.", zh: "抱歉，毛毯已经发完了。我去后面看看还有没有多余的。" }
+          { label: "EN", en: "Of course. Here is a blanket and a pillow. Is there anything else you need?", zh: "当然。这是毛毯和枕头。还需要别的吗？" }
+        ]
+      },
+      {
+        type: "dlg",
+        color: "orange",
+        header: "⚠️ 毛毯发完了",
+        lines: [
+          { label: "EN", en: "I'm very sorry, we've run out of blankets. However, let me give you two blankets' worth — I can fold a larger blanket for you, or give you an extra towel to use as a layer.", zh: "非常抱歉，毛毯已经发完了。不过我可以给您想办法——给您叠一条大一点的，或者多给您一条毛巾来垫着。" },
+          { label: "EN", en: "I'm sorry, all blankets have been distributed. Let me check if we have any spares in the back. If not, I can bring you extra towels to keep you warm.", zh: "抱歉，毛毯已经全发完了。我去后面看看有没有多余的。如果没有，我多拿几条毛巾给您保暖。" },
+          { label: "EN", en: "Unfortunately we're out of blankets, but I can adjust the air vent to direct more warm air toward you. I'll also keep checking if any become available later.", zh: "很遗憾毛毯发完了，但我可以调一下通风口让更多暖气吹向您。我也会留意后面有没有多的。" }
+        ]
+      },
+      {
+        type: "dlg",
+        color: "orange",
+        header: "⚠️ 要枕头但没了→用毛毯卷",
+        lines: [
+          { label: "EN", en: "I'm sorry, we don't have any pillows left on this flight. But I can fold a blanket into a pillow shape for you — it works just as well. Would you like me to do that?", zh: "抱歉，本次航班枕头已经发完了。但我可以帮您把毛毯卷成枕头的形状——效果一样好。您要我帮您卷吗？" },
+          { label: "EN", en: "Unfortunately, we've run out of pillows. But if you have a blanket, simply roll it up like this and it makes a very comfortable pillow. Here, let me show you.", zh: "很遗憾枕头发完了。但如果您有毛毯，像这样卷起来就能当枕头用。来，我帮您弄。" },
+          { label: "EN", en: "We don't have pillows available anymore, but let me bring you an extra blanket. You can roll it up to support your neck, and it'll be quite comfortable.", zh: "枕头已经没有了，但我多给您拿一条毛毯。您可以卷起来垫脖子，会挺舒服的。" }
         ]
       },
       {
         type: "tip",
-        label: "💡 小贴士",
-        text: "温度问题是旅客最常抱怨的。关键三步：1. 先道歉并表示理解；2. 立即提供解决方案（毛毯/调通风口/冷饮热饮）；3. 通知乘务长调温度。不要只说\"没办法\"，外籍旅客最反感这个。"
-      }
+        label: "💡 毛毯/枕头发完的应对原则",
+        text: "1️⃣ 先道歉：I'm sorry, we've run out of...<br>2️⃣ 马上给替代方案：用毛毯卷成枕头、多给毛巾保暖、调通风口吹暖气<br>3️⃣ 主动说我会帮你留意：I'll keep checking if any become available<br>4️⃣ 千万别说 \"没了就是没了\"——要给方案，不是给结论<br>5️⃣ 动手帮旅客卷毛毯当枕头，这个动作本身就能化解不满。"
+      },
     ]
   },
   {
@@ -460,6 +479,32 @@ var scenes = [
           { label: "EN", en: "I apologize for the condition of the lavatory. Let me clean it for you right away. Please give me one moment.", zh: "为洗手间的状况道歉。我马上帮您清理。请稍等一下。" },
           { label: "EN", en: "I'm sorry, this lavatory is temporarily out of service. Please use the one at the front of the cabin.", zh: "抱歉，这个洗手间暂时不能使用。请使用前面的洗手间。" }
         ]
+      },
+      {
+        type: "dlg",
+        color: "red",
+        header: "⚠️ 颠簸时洗手间关闭",
+        lines: [
+          { label: "EN", en: "Sir / madam, please return to your seat. The seatbelt sign is on and the lavatories are temporarily closed for your safety due to turbulence.", zh: "先生/女士，请回到座位。安全带指示灯亮了，因为颠簸，洗手间暂时关闭，为了您的安全。" },
+          { label: "EN", en: "I understand you need to use the lavatory, but for your safety, please wait until the seatbelt sign is turned off. The turbulence should pass soon.", zh: "我理解您要用洗手间，但为了安全，请等安全带指示灯熄灭后再去。颠簸很快就会过去。" },
+          { label: "EN", en: "I'm sorry, the lavatories must remain closed during turbulence. It's a safety regulation. Please be seated and I'll let you know as soon as it's safe to move around the cabin.", zh: "抱歉，颠簸期间洗手间必须关闭。这是安全规定。请就座，一可以走动我就通知您。" },
+          { label: "EN", en: "If it's an urgent situation, please let me know and I'll do my best to assist you from here. But I must ask you to remain seated with your seatbelt fastened for now.", zh: "如果情况紧急，请告诉我，我在这边尽量协助您。但现在必须请您系好安全带坐在座位上。" }
+        ]
+      },
+      {
+        type: "dlg",
+        color: "orange",
+        header: "⚠️ 旅客要坐最后一排空座→不能换",
+        lines: [
+          { label: "EN", en: "I'm sorry, those seats in the last row need to remain empty. During turbulence, we use that area for passengers who need to queue for the lavatory. It's a safety arrangement.", zh: "抱歉，最后一排的座位需要空出来。颠簸的时候，我们用那个区域给排队等洗手间的旅客站。这是安全安排。" },
+          { label: "EN", en: "I understand you'd like to move there for more space. Unfortunately, we need to keep the last row clear for safety reasons — it's where passengers wait during turbulence when they need the lavatory. I appreciate your understanding.", zh: "我理解您想换过去多些空间。但最后一排需要空出来——颠簸时旅客等洗手间要站在那里。感谢您的理解。" },
+          { label: "EN", en: "If you'd like to change seats, let me check if there are any other available seats elsewhere in the cabin.", zh: "如果您想换座位，我看看客舱其他位置有没有空座。" }
+        ]
+      },
+      {
+        type: "tip",
+        label: "💡 洗手间相关场景应对要点",
+        text: "1️⃣ 颠簸关洗手间是安全规定，不是你为难旅客——语气要坚定但不生硬<br>2️⃣ 先说原因：for your safety due to turbulence<br>3️⃣ 给预期：it should pass soon / I'll let you know when it's safe<br>4️⃣ 最后一排空座是工作需要——颠簸排队区域，这个理由要理直气壮地说<br>5️⃣ 如果旅客真的很急，可以帮忙拿清洁袋或判断情况协助，但安全永远是第一位的。"
       }
     ]
   },
@@ -684,6 +729,42 @@ var scenes = [
           { label: "EN", en: "Of course. We have wheelchair assistance available upon arrival. Let me note your request.", zh: "当然。到达后有轮椅服务。我记录一下您的需求。" },
           { label: "EN", en: "For your child's safety, please ensure they are seated with their seatbelt fastened. We have baby bassinets available — would you like one?", zh: "为了孩子的安全，请确保他们坐好并系好安全带。我们有婴儿摇篮——您要一个吗？" }
         ]
+      },
+      {
+        type: "dlg",
+        color: "green",
+        header: "📌 婴儿安全带",
+        lines: [
+          { label: "EN", en: "Excuse me, are you traveling with an infant? For your baby's safety, we provide an infant seatbelt that attaches to yours. Would you like me to bring one?", zh: "打扰一下，您带着婴儿乘机吗？为了宝宝的安全，我们提供婴儿安全带，可以系在您的安全带上。要我拿一条来吗？" },
+          { label: "EN", en: "Here is the infant seatbelt. Please pass it through your own seatbelt like this, and fasten it around your baby. Let me help you.", zh: "这是婴儿安全带。请像这样穿过您自己的安全带，然后系在宝宝身上。我来帮您。" },
+          { label: "EN", en: "The infant seatbelt must be worn during takeoff, landing, and whenever the seatbelt sign is on. It's for your baby's safety.", zh: "起飞、降落和安全带指示灯亮时，婴儿安全带必须系好。这是为了宝宝的安全。" }
+        ]
+      },
+      {
+        type: "dlg",
+        color: "orange",
+        header: "⚠️ 旅客不想用婴儿安全带（想自己抱着）",
+        lines: [
+          { label: "EN", en: "I understand you'd prefer to hold your baby without the extra seatbelt. However, for safety reasons, aviation regulations require all infants to use an infant seatbelt during takeoff and landing. It's designed to protect your baby in case of sudden turbulence.", zh: "我理解您想直接抱宝宝不想多系安全带。但出于安全原因，航空法规要求所有婴儿在起降时必须使用婴儿安全带。这是为了在突然颠簸时保护您的宝宝。" },
+          { label: "EN", en: "I know it might feel unnecessary, but holding your baby with just your arms is not safe enough during turbulence. The infant seatbelt is a safety requirement — please let me help you put it on.", zh: "我知道可能觉得没必要，但颠簸时光靠手臂抱住宝宝是不够安全的。婴儿安全带是安全要求——请让我帮您系上。" },
+          { label: "EN", en: "It's very quick and comfortable for the baby. Here, let me show you how it works — it simply loops through your seatbelt. Your baby will still be in your arms, just with an extra layer of protection.", zh: "很快也很舒服的。来，我给您演示——就是穿过您的安全带扣上。宝宝还是在您怀里，只是多一层保护。" }
+        ]
+      },
+      {
+        type: "dlg",
+        color: "green",
+        header: "📌 延长安全带",
+        lines: [
+          { label: "EN", en: "Excuse me, would you need a seatbelt extender? I can bring one for you right away.", zh: "打扰一下，您需要延长安全带吗？我马上给您拿一条。" },
+          { label: "EN", en: "Here is the seatbelt extender. Let me help you attach it to your seatbelt. Please make sure it's fastened securely.", zh: "这是延长安全带。我帮您接到您的安全带上。请确保系紧了。" },
+          { label: "EN", en: "The seatbelt extender is for your comfort and safety. Please keep it fastened whenever the seatbelt sign is on.", zh: "延长安全带是为了您的舒适和安全。安全带指示灯亮时请保持系好。" },
+          { label: "EN", en: "No problem at all, many passengers use them. Let me know if it needs adjusting.", zh: "没问题的，很多旅客都用。需要调的话告诉我。" }
+        ]
+      },
+      {
+        type: "tip",
+        label: "💡 安全带相关场景要点",
+        text: "1️⃣ 婴儿安全带：主动询问「Are you traveling with an infant?」——不要等旅客开口<br>2️⃣ 旅客不想用婴儿安全带：态度温和但立场坚定——\"aviation regulations require\"（航空法规要求）<br>3️⃣ 延长安全带：要主动观察谁可能需要，但询问时注意方式，不要让旅客尴尬<br>4️⃣ 关键词：<br>• infant seatbelt = 婴儿安全带<br>• seatbelt extender = 延长安全带<br>• bassinet = 婴儿摇篮<br>5️⃣ 帮旅客系安全带时边做边解释，外籍旅客喜欢知道你在做什么。"
       }
     ]
   },

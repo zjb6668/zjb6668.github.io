@@ -395,9 +395,14 @@ body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Helvetica Neue'
 <div class="st" style="padding:0;margin-top:16px">我的排班 <button class="save-btn danger" style="float:right;padding:4px 12px;font-size:12px" onclick="clearSched()">清空</button></div>
 <div id="schedList"><div class="empty">暂无排班，粘贴上方文本自动识别</div></div>
 <div style="margin-top:16px">
-<button class="backup-btn" onclick="exportData()">📤 导出备份</button>
-<button class="backup-btn" onclick="importData()">📥 导入备份</button>
-<input type="file" id="importFile" accept=".json" style="display:none" onchange="handleImport(this)">
+<div class="st" style="padding:0;margin-bottom:10px">数据备份与恢复</div>
+<button class="backup-btn" onclick="exportData()">📤 导出备份到手机</button>
+<button class="backup-btn" onclick="importData()">📥 从文件导入</button>
+<button class="backup-btn" onclick="cloudPull()" style="border-color:var(--pri);color:var(--pri)">☁️ 从云端恢复</button>
+<button class="backup-btn" onclick="restoreFromSnapshot()">💾 从本地快照恢复</button>
+<button class="backup-btn" onclick="cloudSync('manual')" style="border-color:var(--ok);color:var(--ok)">🔄 立即同步到云端</button>
+<button class="backup-btn" onclick="setupToken()" id="tokenBtn">🔑 设置云端Token</button>
+<div id="syncStatus" style="text-align:center;font-size:11px;color:var(--text2);margin-top:8px"></div>
 </div>
 </div>
 </div>
@@ -1002,6 +1007,58 @@ function loadAll() {
     loadKnowledgeToday();
     getEncourage();
     loadTodayScheduleBadge();
+    updateSyncStatus();
+}
+
+function updateSyncStatus() {
+    const el = document.getElementById('syncStatus');
+    if (!el) return;
+    const btn = document.getElementById('tokenBtn');
+    const hasToken = isCloudReady();
+    if (btn) {
+        btn.textContent = hasToken ? '🔑 Token已设置 (点击修改)' : '🔑 设置云端Token';
+    }
+    const lastSync = LS('last_cloud_sync', null);
+    const gistId = localStorage.getItem('study_app_gist_id');
+    let html = '';
+    if (!hasToken) {
+        html = '⚠️ 未设置Token，仅本地备份。点击上方按钮设置后启用云端同步';
+    } else {
+        if (gistId) html += '☁️ 已绑定云端 | ';
+        if (lastSync) {
+            const t = new Date(lastSync);
+            const timeStr = (t.getMonth()+1) + '/' + t.getDate() + ' ' + String(t.getHours()).padStart(2,'0') + ':' + String(t.getMinutes()).padStart(2,'0');
+            html += '上次同步: ' + timeStr;
+        } else {
+            html += '尚未同步';
+        }
+    }
+    el.textContent = html;
+}
+
+function setupToken() {
+    const current = getGhToken();
+    const btn = document.getElementById('tokenBtn');
+    if (current) {
+        btn.textContent = '🔑 Token已设置 (点击修改)';
+        if (confirm('云端Token已设置。要更换Token吗？')) {
+            const token = prompt('请输入GitHub Personal Access Token:\n(需要有 gist 权限)');
+            if (token && token.trim()) {
+                localStorage.setItem(GIST_TOKEN_KEY, token.trim());
+                toast('Token已保存，云端同步已启用');
+                btn.textContent = '🔑 Token已设置 (点击修改)';
+            }
+        }
+    } else {
+        const token = prompt('请输入GitHub Personal Access Token:\n(需要有 gist 权限)\n\n获取方式：\ngithub.com → Settings → Developer settings → Personal access tokens → Generate new token → 勾选 gist');
+        if (token && token.trim()) {
+            localStorage.setItem(GIST_TOKEN_KEY, token.trim());
+            toast('Token已保存，云端同步已启用');
+            btn.textContent = '🔑 Token已设置 (点击修改)';
+            // 立即同步一次
+            cloudSync('first_setup');
+        }
+    }
 }
 
 function loadStats() {
@@ -1363,7 +1420,10 @@ function saveDiary() {
     if (existing >= 0) { diaryObj.id = diaries[existing].id; diaries[existing] = diaryObj; }
     else { diaryObj.id = nextId(diaries); diaries.push(diaryObj); }
     LSset('diaries', diaries);
-    toast('日记已保存 📔');
+    // 自动备份到本地安全副本 + 云端
+    autoLocalBackup();
+    cloudSync('diary');
+    toast('日记已保存 📔 自动备份中...');
 }
 
 function loadDiary() {
@@ -2004,6 +2064,228 @@ async function generateShareImage() {
 }
 
 // ============================================================
+// 云端同步 (GitHub Gist) + 本地自动备份
+// ============================================================
+
+const GIST_TOKEN_KEY = 'gh_token'; // Token 存在 localStorage，不硬编码
+const GIST_ID_KEY = 'study_app_gist_id';
+const GIST_FILENAME = 'study-app-backup.json';
+const BACKUP_KEYS = ['schedules', 'tasks', 'pomodoro', 'moods', 'sleep_logs', 'diaries', 'word_notes', 'flight_feelings'];
+
+function getGhToken() {
+    return localStorage.getItem(GIST_TOKEN_KEY) || '';
+}
+
+function isCloudReady() {
+    return !!getGhToken();
+}
+
+// 本地自动备份：存多份带时间戳的快照
+function autoLocalBackup() {
+    try {
+        const data = {};
+        BACKUP_KEYS.forEach(k => { data[k] = LS(k, []); });
+        data.backup_time = new Date().toISOString();
+        data.backup_date = today();
+        // 保留最近 7 份本地快照
+        let snapshots = LS('local_snapshots', []);
+        snapshots.unshift(data);
+        if (snapshots.length > 7) snapshots = snapshots.slice(0, 7);
+        LSset('local_snapshots', snapshots);
+    } catch(e) { console.warn('本地备份失败:', e); }
+}
+
+// 上传所有数据到 GitHub Gist（私有）
+async function cloudSync(trigger) {
+    const token = getGhToken();
+    if (!token) { console.log('☁️ 未设置Token，跳过云同步'); return; }
+    try {
+        const data = {};
+        BACKUP_KEYS.forEach(k => { data[k] = LS(k, []); });
+        data.sync_time = new Date().toISOString();
+        data.sync_trigger = trigger || 'manual';
+        
+        const gistId = localStorage.getItem(GIST_ID_KEY);
+        const payload = {
+            description: '学习App数据备份 (自动同步)',
+            public: false,
+            files: { [GIST_FILENAME]: { content: JSON.stringify(data, null, 2) } }
+        };
+
+        let resp;
+        if (gistId) {
+            // 更新已有 Gist
+            resp = await fetch('https://api.github.com/gists/' + gistId, {
+                method: 'PATCH',
+                headers: {
+                    'Authorization': 'token ' + token,
+                    'Accept': 'application/vnd.github.v3+json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            });
+        } else {
+            // 创建新 Gist
+            resp = await fetch('https://api.github.com/gists', {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'token ' + token,
+                    'Accept': 'application/vnd.github.v3+json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            });
+            if (resp.ok) {
+                const gist = await resp.json();
+                localStorage.setItem(GIST_ID_KEY, gist.id);
+            }
+        }
+        
+        if (resp.ok) {
+            LSset('last_cloud_sync', new Date().toISOString());
+            console.log('☁️ 云端同步成功');
+        } else {
+            console.warn('☁️ 云端同步失败:', resp.status);
+        }
+    } catch(e) {
+        console.warn('☁️ 云端同步异常:', e);
+    }
+}
+
+// 从 GitHub Gist 拉取数据并合并（不覆盖本地新增数据）
+async function cloudPull() {
+    const token = getGhToken();
+    if (!token) { toast('请先在设置中输入GitHub Token'); return false; }
+    try {
+        const gistId = localStorage.getItem(GIST_ID_KEY);
+        if (!gistId) {
+            toast('暂无云端备份');
+            return false;
+        }
+        
+        const token = getGhToken();
+        if (!token) { toast('请先在设置中输入GitHub Token'); return false; }
+        const resp = await fetch('https://api.github.com/gists/' + gistId, {
+            headers: {
+                'Authorization': 'token ' + token,
+                'Accept': 'application/vnd.github.v3+json'
+            }
+        });
+        
+        if (!resp.ok) {
+            toast('拉取失败: ' + resp.status);
+            return false;
+        }
+        
+        const gist = await resp.json();
+        const file = gist.files[GIST_FILENAME];
+        if (!file) { toast('云端无数据'); return false; }
+        
+        const cloudData = JSON.parse(file.content);
+        
+        // 合并策略：以 log_date + id 去重，云端和本地都保留
+        BACKUP_KEYS.forEach(k => {
+            const local = LS(k, []);
+            const cloud = cloudData[k] || [];
+            // 合并去重
+            const merged = [...local];
+            cloud.forEach(c => {
+                const exists = merged.find(m => 
+                    (m.id === c.id && m.id) || 
+                    (m.log_date && c.log_date && m.log_date === c.log_date)
+                );
+                if (!exists) merged.push(c);
+            });
+            LSset(k, merged);
+        });
+        
+        LSset('last_cloud_pull', new Date().toISOString());
+        toast('☁️ 云端数据已恢复');
+        loadAll();
+        loadSched();
+        loadDiary();
+        return true;
+    } catch(e) {
+        console.warn('拉取异常:', e);
+        toast('拉取异常');
+        return false;
+    }
+}
+
+// 启动时自动拉取云端数据（静默）
+async function autoCloudPull() {
+    if (!isCloudReady()) return; // 没设置 Token 就不自动拉
+    const lastPull = LS('last_cloud_pull', null);
+    const now = Date.now();
+    // 距上次拉取超过 10 分钟才自动拉
+    if (lastPull && (now - new Date(lastPull).getTime()) < 600000) return;
+    
+    const gistId = localStorage.getItem(GIST_ID_KEY);
+    if (!gistId) return; // 没有 gist 说明还没备份过
+    
+    try {
+        const resp = await fetch('https://api.github.com/gists/' + gistId, {
+            headers: { 'Accept': 'application/vnd.github.v3+json' }
+        });
+        if (!resp.ok) return;
+        
+        const gist = await resp.json();
+        const file = gist.files[GIST_FILENAME];
+        if (!file) return;
+        
+        const cloudData = JSON.parse(file.content);
+        let hasNew = false;
+        
+        BACKUP_KEYS.forEach(k => {
+            const local = LS(k, []);
+            const cloud = cloudData[k] || [];
+            cloud.forEach(c => {
+                const exists = local.find(m => 
+                    (m.id === c.id && m.id) || 
+                    (m.log_date && c.log_date && m.log_date === c.log_date)
+                );
+                if (!exists) { local.push(c); hasNew = true; }
+            });
+            if (hasNew) LSset(k, local);
+        });
+        
+        if (hasNew) {
+            LSset('last_cloud_pull', new Date().toISOString());
+            console.log('☁️ 从云端恢复了新数据');
+            loadAll();
+        }
+    } catch(e) { console.warn('自动拉取失败:', e); }
+}
+
+// 从本地快照恢复
+function restoreFromSnapshot() {
+    const snapshots = LS('local_snapshots', []);
+    if (!snapshots.length) { toast('没有本地备份'); return; }
+    
+    // 找最近一份有日记数据的快照
+    let target = null;
+    for (const s of snapshots) {
+        if (s.diaries && s.diaries.length > 0) { target = s; break; }
+    }
+    if (!target) target = snapshots[0];
+    
+    if (confirm('将恢复到备份时间：' + (target.backup_time || '未知') + '\n当前数据会被覆盖，确定吗？')) {
+        BACKUP_KEYS.forEach(k => {
+            if (target[k]) LSset(k, target[k]);
+        });
+        toast('已从本地备份恢复');
+        loadAll();
+        loadSched();
+        loadDiary();
+    }
+}
+
+// 每 5 分钟自动本地备份
+setInterval(autoLocalBackup, 5 * 60 * 1000);
+// 每 30 分钟自动云同步
+setInterval(() => cloudSync('auto'), 30 * 60 * 1000);
+
+// ============================================================
 // 数据导出/导入
 // ============================================================
 
@@ -2075,6 +2357,10 @@ function switchPage(name, el) {
 
 initTheme();
 loadAll();
+// 启动时自动从云端拉取最新数据
+autoCloudPull();
+// 启动时做一次本地备份
+autoLocalBackup();
 </script>
 </body>
 </html>

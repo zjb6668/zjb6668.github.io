@@ -5,443 +5,1741 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>学习打卡 · 日常</title>
 <style>
-:root{--bg:#f0f4f8;--card:#fff;--text:#2d3748;--text2:#718096;--pri:#667eea;--priL:#ebf0ff;--ok:#48bb78;--okL:#e6f7ee;--warn:#ed8936;--danger:#e53e3e;--border:#e2e8f0;--shadow:0 4px 16px rgba(0,0,0,.06);--r:16px}
-[data-theme="dark"]{--bg:#1a1a2e;--card:#16213e;--text:#e2e8f0;--text2:#a0aec0;--pri:#7c8cf8;--priL:#1e2a4a;--ok:#68d391;--okL:#1a3a2a;--warn:#f6ad55;--danger:#fc8181;--border:#2d3748;--shadow:0 4px 16px rgba(0,0,0,.3)}
-*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Helvetica Neue',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;transition:background .3s,color .3s;padding-bottom:80px}
-.header{padding:20px 16px 16px;background:linear-gradient(135deg,var(--pri),#764ba2);color:#fff;border-radius:0 0 24px 24px}
-[data-theme="dark"] .header{background:linear-gradient(135deg,#1e2a4a,#2d1b4e)}
-.ht{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
-.ui{display:flex;align-items:center;gap:8px;font-size:14px;opacity:.9}
-.btn-icon{background:none;border:none;color:#fff;font-size:20px;cursor:pointer;padding:4px 8px}
-.cc{background:rgba(255,255,255,.15);border-radius:12px;padding:16px;text-align:center;backdrop-filter:blur(10px)}
-[data-theme="dark"] .cc{background:rgba(255,255,255,.08)}
-.cn{font-size:48px;font-weight:800;line-height:1}
-.cl{font-size:13px;opacity:.85;margin-top:4px}
-.pw{margin-top:12px;height:6px;background:rgba(255,255,255,.2);border-radius:3px;overflow:hidden}
-.pb{height:100%;background:#fff;border-radius:3px;transition:width .5s}
-.pt{font-size:11px;opacity:.7;margin-top:6px}
-.stats{display:flex;gap:10px;padding:16px}
-.sc{flex:1;background:var(--card);border-radius:12px;padding:14px 10px;text-align:center;box-shadow:var(--shadow)}
-.sn{font-size:24px;font-weight:700;color:var(--pri)}
-.sl{font-size:11px;color:var(--text2);margin-top:4px}
-.sc.streak .sn{color:var(--warn)}
-.sc.pomo .sn{color:var(--ok)}
-.encourage{margin:0 16px 16px;background:linear-gradient(135deg,var(--pri),#764ba2);border-radius:14px;padding:16px 18px;color:#fff;box-shadow:var(--shadow);cursor:pointer}
-[data-theme="dark"] .encourage{background:linear-gradient(135deg,#1e2a4a,#2d1b4e)}
-.et{font-size:14px;line-height:1.6;font-weight:500}
-.er{font-size:11px;opacity:.7;margin-top:8px}
-.kbit{margin:0 16px 16px;background:var(--card);border-radius:14px;padding:14px 16px;box-shadow:var(--shadow);border-left:4px solid var(--pri)}
-.kbit-label{font-size:11px;color:var(--pri);font-weight:600;margin-bottom:4px}
-.kbit-text{font-size:13px;line-height:1.6;color:var(--text)}
-.mode-sec{padding:0 16px 16px}
-.mode-bar{background:var(--card);border-radius:12px;padding:14px 16px;box-shadow:var(--shadow);display:flex;align-items:center;justify-content:space-between}
-.ml{font-size:14px;font-weight:600}
-.md{font-size:12px;color:var(--text2);margin-top:2px}
-.mb{background:var(--pri);color:#fff;border:none;border-radius:20px;padding:8px 16px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap}
-.mb.shell{background:var(--warn)}
-.st{padding:0 16px;font-size:16px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:6px}
-.dt-badge{font-size:11px;padding:2px 8px;border-radius:10px;font-weight:500}
-.dt-badge.flight{background:#fff3cd;color:#856404}
-.dt-badge.rest{background:#d4edda;color:#155724}
-[data-theme="dark"] .dt-badge.flight{background:#3d3318;color:#f6ad55}
-[data-theme="dark"] .dt-badge.rest{background:#1a3a2a;color:#68d391}
-.tl{padding:0 16px}
-.tc{background:var(--card);border-radius:14px;padding:14px 16px;margin-bottom:10px;box-shadow:var(--shadow);display:flex;align-items:flex-start;gap:12px;transition:opacity .3s}
-.tc.done{opacity:.5}
-.tc.done .tn{text-decoration:line-through}
-.tcb{width:24px;height:24px;border-radius:50%;border:2px solid var(--border);flex-shrink:0;margin-top:2px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;color:#fff;transition:all .2s}
-.tc.done .tcb{background:var(--ok);border-color:var(--ok)}
-.ti{flex:1}
-.tn{font-size:15px;font-weight:600}
-.td{font-size:12px;color:var(--text2);margin-top:4px;line-height:1.5}
-.tbr{display:flex;align-items:center;gap:8px;margin-top:6px;flex-wrap:wrap}
-.tag{display:inline-block;font-size:10px;padding:2px 8px;border-radius:8px;font-weight:500}
-.tag.core{background:var(--priL);color:var(--pri)}
-.tag.flex{background:var(--okL);color:var(--ok)}
-.tbtn{display:inline-flex;align-items:center;gap:4px;background:var(--pri);color:#fff!important;font-size:12px;font-weight:600;padding:5px 12px;border-radius:16px;border:none;cursor:pointer;white-space:nowrap}
-.tbtn:active{transform:scale(.95)}
-.tbtn.english{background:#f59e0b}
-.tbtn.politics{background:#ef4444}
-.tbtn.word{background:#10b981}
-.tbtn.anki{background:#8b5cf6}
-.tbtn.major{background:#3b82f6}
-.pomo-sec{padding:16px}
-.pomo-card{background:var(--card);border-radius:16px;padding:24px;box-shadow:var(--shadow);text-align:center}
-.ptimer{font-size:56px;font-weight:800;font-variant-numeric:tabular-nums;color:var(--pri);line-height:1;margin:16px 0}
-.ptimer.running{color:var(--ok)}
-.pc{display:flex;gap:10px;justify-content:center}
-.pbtn{border:none;border-radius:24px;padding:12px 28px;font-size:15px;font-weight:600;cursor:pointer}
-.pbtn.start{background:var(--pri);color:#fff}
-.pbtn.stop{background:var(--danger);color:#fff}
-.pbtn.reset{background:var(--border);color:var(--text)}
-.pinput{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:10px 14px;font-size:14px;color:var(--text);margin-bottom:12px}
-.pstats{font-size:13px;color:var(--text2);margin-top:12px}
-.sec{padding:0 16px 16px}
-.card-box{background:var(--card);border-radius:14px;padding:16px;box-shadow:var(--shadow)}
-.input{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:10px 14px;font-size:14px;color:var(--text);margin-bottom:8px}
-.ta{width:100%;min-height:80px;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:10px 14px;font-size:14px;color:var(--text);resize:vertical;margin-bottom:8px;font-family:inherit}
-.save-btn{background:var(--pri);color:#fff;border:none;border-radius:10px;padding:10px 20px;font-size:14px;font-weight:600;cursor:pointer}
-.save-btn.danger{background:var(--danger)}
-.list-item{background:var(--bg);border-radius:10px;padding:10px 14px;margin-bottom:8px;font-size:13px}
-.list-item .topic{font-weight:600;color:var(--pri)}
-.del-btn{background:none;border:none;color:var(--danger);font-size:12px;cursor:pointer;float:right}
-.nav{position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--border);display:flex;padding:8px 0;z-index:100}
-.ni{flex:1;text-align:center;font-size:9px;color:var(--text2);cursor:pointer;padding:6px 0}
-.ni.active{color:var(--pri);font-weight:600}
-.ni .ico{font-size:18px;display:block;margin-bottom:2px}
-.page{display:none}
-.page.active{display:block}
-.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:var(--text);color:var(--bg);padding:10px 20px;border-radius:20px;font-size:13px;z-index:200;opacity:0;transition:opacity .3s;white-space:nowrap}
-.toast.show{opacity:1}
-.empty{text-align:center;padding:40px 20px;color:var(--text2);font-size:14px}
-.flip-card{background:var(--bg);border-radius:10px;padding:14px;margin-bottom:8px;cursor:pointer}
-.flip-q{font-size:14px;font-weight:600;color:var(--pri)}
-.flip-a{font-size:13px;color:var(--text);margin-top:8px;display:none;line-height:1.6;white-space:pre-wrap}
-.flip-card.open .flip-a{display:block}
-.flip-card.open .flip-q{color:var(--ok)}
-.ch-tabs{display:flex;gap:6px;margin-bottom:12px;overflow-x:auto;padding-bottom:4px}
-.ch-tab{flex-shrink:0;padding:6px 14px;border-radius:16px;background:var(--bg);font-size:13px;color:var(--text2);cursor:pointer;border:1px solid var(--border)}
-.ch-tab.active{background:var(--pri);color:#fff;border-color:var(--pri)}
-.sleep-slider{width:100%;margin:16px 0 8px;-webkit-appearance:none;height:6px;border-radius:3px;background:var(--border);outline:none}
-.sleep-slider::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;border-radius:50%;background:var(--pri);cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.2)}
-.sq-row{display:flex;gap:8px;margin-top:12px}
-.sq-btn{flex:1;padding:10px;border-radius:10px;border:2px solid var(--border);background:var(--bg);font-size:13px;color:var(--text);cursor:pointer;text-align:center}
-.sq-btn.active{border-color:var(--pri);background:var(--priL);color:var(--pri);font-weight:600}
-.sleep-advice{background:var(--bg);border-radius:10px;padding:12px 14px;margin-top:12px;font-size:13px;color:var(--text);line-height:1.5}
-.sleep-chart{display:flex;gap:6px;align-items:flex-end;height:80px;margin-top:12px}
-.sleep-bar{flex:1;border-radius:4px 4px 0 0;min-height:4px;opacity:.7;transition:height .3s}
-.sleep-bar.good{background:var(--ok)}.sleep-bar.warn{background:var(--warn)}.sleep-bar.bad{background:var(--danger)}
-.sleep-col{flex:1;display:flex;flex-direction:column;align-items:center}
-.sleep-lbl{font-size:9px;color:var(--text2);margin-top:4px}
-.sched-paste{width:100%;min-height:120px;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:10px 14px;font-size:13px;color:var(--text);resize:vertical;margin-bottom:8px;font-family:inherit}
-.sched-item{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px}
-.sched-item .date{font-weight:600}
-.sched-item .info{flex:1;margin-left:12px;font-size:11px;color:var(--text2)}
-.ff-card{background:var(--card);border-radius:14px;margin-bottom:10px;box-shadow:var(--shadow);overflow:hidden}
-.ff-header{display:flex;align-items:center;gap:8px;padding:12px 14px}
-.ff-date{font-size:13px;font-weight:700}
-.ff-type{font-size:11px;padding:2px 8px;border-radius:8px;font-weight:500}
-.ff-type.flight{background:#fff3cd;color:#856404}
-.ff-type.rest{background:#d4edda;color:#155724}
-[data-theme="dark"] .ff-type.flight{background:#3d3318;color:#f6ad55}
-[data-theme="dark"] .ff-type.rest{background:#1a3a2a;color:#68d391}
-.ff-info{flex:1;font-size:11px;color:var(--text2)}
-.ff-del{background:none;border:none;color:var(--danger);font-size:12px;cursor:pointer}
-.ff-body{padding:0 14px 12px}
-.ff-stars{display:flex;gap:4px;margin-bottom:8px}
-.ff-star{font-size:22px;cursor:pointer;opacity:.4;transition:opacity .15s;-webkit-tap-highlight-color:transparent}
-.ff-star.on{opacity:1}
-.ff-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
-.ff-tag{padding:5px 12px;border-radius:16px;border:2px solid var(--border);background:var(--bg);font-size:12px;cursor:pointer;color:var(--text2)}
-.ff-tag.on{border-color:var(--pri);background:var(--priL);color:var(--pri);font-weight:600}
-.ff-photo-row{display:flex;align-items:center;gap:8px;margin-bottom:8px}
-.ff-photo-btn{padding:6px 12px;border-radius:10px;background:var(--bg);border:1px solid var(--border);font-size:12px;cursor:pointer;color:var(--text2)}
-.ff-photo-preview{width:60px;height:60px;border-radius:8px;object-fit:cover}
-.ff-note{width:100%;min-height:36px;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:8px 10px;font-size:13px;color:var(--text);resize:vertical;font-family:inherit;margin-bottom:8px}
-.ff-save{background:var(--pri);color:#fff;border:none;border-radius:10px;padding:8px 20px;font-size:13px;font-weight:600;cursor:pointer}
-.ff-saved{font-size:11px;color:var(--ok);margin-left:8px;display:none}
-.ff-saved.show{display:inline}
-.ff-rating-display{font-size:13px;color:var(--text);margin-top:4px}
-.ff-tags-display{display:flex;gap:4px;flex-wrap:wrap;margin-top:4px}
-.ff-tag-display{font-size:10px;padding:2px 8px;border-radius:8px;background:var(--priL);color:var(--pri)}
-.mood-row{display:flex;gap:6px;margin-bottom:8px;flex-wrap:wrap}
-.mood-btn{padding:6px 12px;border-radius:16px;border:2px solid var(--border);background:var(--bg);font-size:12px;cursor:pointer}
-.mood-btn.active{border-color:var(--pri);background:var(--priL);color:var(--pri)}
-.sw-card{background:var(--card);border-radius:14px;margin-bottom:12px;box-shadow:var(--shadow);overflow:hidden}
-.sw-card-head{padding:14px 16px 8px}
-.sw-card-tag{display:inline-block;font-size:10px;padding:2px 8px;border-radius:8px;font-weight:600;margin-bottom:6px}
-.sw-card-tag.policy{background:#e3f2fd;color:#1976d2}
-.sw-card-tag.news{background:#fff3e0;color:#f57c00}
-.sw-card-tag.trend{background:#e8f5e9;color:#388e3c}
-.sw-card-tag.global{background:#f3e5f5;color:#7b1fa2}
-[data-theme="dark"] .sw-card-tag.policy{background:#1a2a3a;color:#64b5f6}
-[data-theme="dark"] .sw-card-tag.news{background:#3d3318;color:#ffb74d}
-[data-theme="dark"] .sw-card-tag.trend{background:#1a3a2a;color:#81c784}
-[data-theme="dark"] .sw-card-tag.global{background:#2a1a3a;color:#ce93d8}
-.sw-card-title{font-size:15px;font-weight:700;line-height:1.4;color:var(--text)}
-.sw-card-meta{font-size:11px;color:var(--text2);margin-top:4px;display:flex;gap:8px}
-.sw-card-summary{font-size:13px;color:var(--text);line-height:1.6;padding:0 16px 10px}
-.sw-card-detail{font-size:12px;color:var(--text2);line-height:1.6;padding:0 16px;max-height:0;overflow:hidden;transition:max-height .3s ease,padding .3s ease;border-top:1px solid var(--border)}
-.sw-card.open .sw-card-detail{max-height:500px;padding:10px 16px 14px}
-.sw-card-toggle{font-size:12px;color:var(--pri);text-align:center;padding:6px 0;cursor:pointer;font-weight:600}
-.sw-card-toggle:hover{background:var(--priL)}
-.backup-btn{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:10px 20px;font-size:13px;color:var(--text2);cursor:pointer;width:100%;margin-top:8px}
+/* ============================================================
+   莫兰迪色系 · 日系简约清新 · MUJI 风格
+   ============================================================ */
+:root {
+  --bg: #F5F3F0;
+  --card: #FFFFFF;
+  --text: #3D3D3D;
+  --text2: #8C8C8C;
+  --text3: #B0AEA9;
+  --pri: #7C9885;
+  --priL: #E8F0E5;
+  --priD: #5A7A63;
+  --ok: #8BA888;
+  --okL: #EAF1E8;
+  --warn: #D4A373;
+  --warnL: #FDF2E7;
+  --danger: #C4A49A;
+  --dangerL: #F9F0ED;
+  --accent: #C4A49A;
+  --border: #E8E5E0;
+  --borderD: #D8D5CF;
+  --shadow: 0 1px 3px rgba(0,0,0,.04), 0 1px 2px rgba(0,0,0,.02);
+  --shadow-card: 0 2px 8px rgba(0,0,0,.03), 0 1px 3px rgba(0,0,0,.02);
+  --r: 16px;
+  --r-sm: 10px;
+  --r-lg: 20px;
+}
+
+[data-theme="dark"] {
+  --bg: #1A1A1A;
+  --card: #242424;
+  --text: #E0E0E0;
+  --text2: #A0A0A0;
+  --text3: #666666;
+  --pri: #8BA888;
+  --priL: #1E2A20;
+  --priD: #A3C0A0;
+  --ok: #8BA888;
+  --okL: #1A2A1C;
+  --warn: #C4A06A;
+  --warnL: #2A2018;
+  --danger: #B89086;
+  --dangerL: #2A1E1C;
+  --accent: #B89086;
+  --border: #333333;
+  --borderD: #404040;
+  --shadow: 0 1px 3px rgba(0,0,0,.12);
+  --shadow-card: 0 2px 8px rgba(0,0,0,.15);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+
+body {
+  font-family: -apple-system, 'Hiragino Sans GB', 'PingFang SC', 'Noto Sans SC', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  transition: background .3s ease, color .3s ease;
+  padding-bottom: 90px;
+  line-height: 1.6;
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ============================================================
+   Header
+   ============================================================ */
+.header {
+  padding: 24px 20px 20px;
+  background: var(--card);
+  border-bottom: 1px solid var(--border);
+  position: relative;
+}
+
+[data-theme="dark"] .header {
+  background: var(--card);
+  border-bottom-color: var(--border);
+}
+
+.ht {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.ui {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  letter-spacing: 0.02em;
+}
+
+.ui span:first-child {
+  font-size: 18px;
+}
+
+.btn-icon {
+  background: none;
+  border: none;
+  color: var(--text2);
+  font-size: 20px;
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: 50%;
+  transition: background .2s;
+}
+
+.btn-icon:hover {
+  background: var(--bg);
+}
+
+/* Countdown card */
+.cc {
+  background: var(--priL);
+  border-radius: var(--r-lg);
+  padding: 24px 20px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.cc::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -30%;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(124,152,133,.08) 0%, transparent 70%);
+  border-radius: 50%;
+}
+
+.cn {
+  font-size: 56px;
+  font-weight: 300;
+  line-height: 1;
+  color: var(--pri);
+  letter-spacing: -0.02em;
+  position: relative;
+  font-variant-numeric: tabular-nums;
+}
+
+.cl {
+  font-size: 13px;
+  color: var(--text2);
+  margin-top: 6px;
+  letter-spacing: 0.03em;
+  position: relative;
+}
+
+.pw {
+  margin-top: 14px;
+  height: 4px;
+  background: rgba(124,152,133,.15);
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+}
+
+.pb {
+  height: 100%;
+  background: var(--pri);
+  border-radius: 2px;
+  transition: width .6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.pt {
+  font-size: 11px;
+  color: var(--text2);
+  margin-top: 8px;
+  letter-spacing: 0.04em;
+  position: relative;
+}
+
+/* Stats row */
+.stats {
+  display: flex;
+  gap: 8px;
+  padding: 12px 16px;
+}
+
+.sc {
+  flex: 1;
+  background: var(--card);
+  border-radius: var(--r);
+  padding: 16px 8px;
+  text-align: center;
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--border);
+  transition: transform .2s;
+}
+
+.sc:active { transform: scale(.97); }
+
+.sn {
+  font-size: 26px;
+  font-weight: 300;
+  color: var(--pri);
+  letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums;
+}
+
+.sl {
+  font-size: 11px;
+  color: var(--text2);
+  margin-top: 4px;
+  letter-spacing: 0.04em;
+}
+
+.sc.streak .sn { color: var(--warn); }
+.sc.pomo .sn { color: var(--ok); }
+
+/* Encourage card */
+.encourage {
+  margin: 0 16px 16px;
+  background: var(--card);
+  border-radius: var(--r);
+  padding: 18px 20px;
+  color: var(--text);
+  box-shadow: var(--shadow-card);
+  cursor: pointer;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  transition: all .2s;
+}
+
+.encourage:active {
+  background: var(--priL);
+}
+
+.et {
+  font-size: 14px;
+  line-height: 1.7;
+  font-weight: 400;
+  color: var(--text);
+}
+
+.er {
+  font-size: 11px;
+  color: var(--text3);
+  margin-top: 10px;
+  text-align: right;
+}
+
+/* Knowledge bit */
+.kbit {
+  margin: 0 16px 16px;
+  background: var(--card);
+  border-radius: var(--r);
+  padding: 16px 18px;
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--pri);
+}
+
+.kbit-label {
+  font-size: 11px;
+  color: var(--pri);
+  font-weight: 600;
+  margin-bottom: 6px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.kbit-text {
+  font-size: 13px;
+  line-height: 1.8;
+  color: var(--text);
+}
+
+/* Mode section */
+.mode-sec {
+  padding: 0 16px 16px;
+}
+
+.mode-bar {
+  background: var(--card);
+  border-radius: var(--r);
+  padding: 16px 18px;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid var(--border);
+}
+
+.ml {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: 0.02em;
+}
+
+.md {
+  font-size: 12px;
+  color: var(--text2);
+  margin-top: 3px;
+}
+
+.mb {
+  background: var(--pri);
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 18px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all .2s;
+  letter-spacing: 0.02em;
+}
+
+.mb:active {
+  background: var(--priD);
+}
+
+.mb.shell {
+  background: var(--warn);
+}
+
+/* Section title */
+.st {
+  padding: 0 16px;
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text);
+  letter-spacing: 0.02em;
+}
+
+.dt-badge {
+  font-size: 11px;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+
+.dt-badge.flight {
+  background: var(--warnL);
+  color: var(--warn);
+}
+
+.dt-badge.rest {
+  background: var(--okL);
+  color: var(--ok);
+}
+
+[data-theme="dark"] .dt-badge.flight {
+  background: var(--warnL);
+  color: var(--warn);
+}
+
+[data-theme="dark"] .dt-badge.rest {
+  background: var(--okL);
+  color: var(--ok);
+}
+
+/* Task list */
+.tl {
+  padding: 0 16px;
+}
+
+.tc {
+  background: var(--card);
+  border-radius: var(--r);
+  padding: 16px 18px;
+  margin-bottom: 8px;
+  box-shadow: var(--shadow);
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  transition: all .25s;
+  border: 1px solid var(--border);
+}
+
+.tc:active {
+  background: var(--bg);
+}
+
+.tc.done {
+  opacity: .45;
+}
+
+.tc.done .tn {
+  text-decoration: line-through;
+}
+
+.tcb {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1.5px solid var(--borderD);
+  flex-shrink: 0;
+  margin-top: 3px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: #fff;
+  transition: all .2s cubic-bezier(0.4, 0, 0.2, 1);
+  background: var(--card);
+}
+
+.tc.done .tcb {
+  background: var(--ok);
+  border-color: var(--ok);
+}
+
+.ti {
+  flex: 1;
+  min-width: 0;
+}
+
+.tn {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: 0.02em;
+}
+
+.td {
+  font-size: 12px;
+  color: var(--text2);
+  margin-top: 4px;
+  line-height: 1.6;
+}
+
+.tbr {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+
+.tag {
+  display: inline-block;
+  font-size: 10px;
+  padding: 3px 10px;
+  border-radius: 10px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+
+.tag.core {
+  background: var(--priL);
+  color: var(--pri);
+}
+
+.tag.flex {
+  background: var(--okL);
+  color: var(--ok);
+}
+
+.tbtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: #fff !important;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 5px 14px;
+  border-radius: 16px;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  letter-spacing: 0.03em;
+  transition: all .2s;
+  background: var(--pri);
+}
+
+.tbtn:active { transform: scale(.95); opacity: .85; }
+
+.tbtn.english { background: #C4A06A; }
+.tbtn.politics { background: #C4A49A; }
+.tbtn.word { background: #8BA888; }
+.tbtn.anki { background: #9B8EC4; }
+.tbtn.major { background: #7C9885; }
+
+/* Pomo section */
+.pomo-sec {
+  padding: 16px;
+}
+
+.pomo-card {
+  background: var(--card);
+  border-radius: var(--r-lg);
+  padding: 28px 24px;
+  box-shadow: var(--shadow-card);
+  text-align: center;
+  border: 1px solid var(--border);
+}
+
+.ptimer {
+  font-size: 64px;
+  font-weight: 200;
+  font-variant-numeric: tabular-nums;
+  color: var(--pri);
+  line-height: 1;
+  margin: 20px 0;
+  letter-spacing: -0.03em;
+}
+
+.ptimer.running {
+  color: var(--ok);
+}
+
+.pc {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.pbtn {
+  border: none;
+  border-radius: 24px;
+  padding: 12px 32px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all .2s;
+  letter-spacing: 0.03em;
+}
+
+.pbtn.start {
+  background: var(--pri);
+  color: #fff;
+}
+
+.pbtn.stop {
+  background: var(--danger);
+  color: #fff;
+}
+
+.pbtn.reset {
+  background: var(--bg);
+  color: var(--text2);
+  border: 1px solid var(--border);
+}
+
+.pbtn:active {
+  transform: scale(.95);
+}
+
+.pinput {
+  width: 100%;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  padding: 12px 16px;
+  font-size: 14px;
+  color: var(--text);
+  margin-bottom: 12px;
+  font-family: inherit;
+  outline: none;
+  transition: border-color .2s;
+}
+
+.pinput:focus {
+  border-color: var(--pri);
+}
+
+.pstats {
+  font-size: 13px;
+  color: var(--text2);
+  margin-top: 14px;
+}
+
+/* Generic sections */
+.sec {
+  padding: 0 16px 16px;
+}
+
+.card-box {
+  background: var(--card);
+  border-radius: var(--r);
+  padding: 20px;
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--border);
+}
+
+.input {
+  width: 100%;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  padding: 12px 16px;
+  font-size: 14px;
+  color: var(--text);
+  margin-bottom: 10px;
+  font-family: inherit;
+  outline: none;
+  transition: border-color .2s;
+}
+
+.input:focus {
+  border-color: var(--pri);
+}
+
+.ta {
+  width: 100%;
+  min-height: 80px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  padding: 12px 16px;
+  font-size: 14px;
+  color: var(--text);
+  resize: vertical;
+  margin-bottom: 10px;
+  font-family: inherit;
+  outline: none;
+  transition: border-color .2s;
+  line-height: 1.8;
+}
+
+.ta:focus {
+  border-color: var(--pri);
+}
+
+.save-btn {
+  background: var(--pri);
+  color: #fff;
+  border: none;
+  border-radius: var(--r-sm);
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all .2s;
+  letter-spacing: 0.03em;
+}
+
+.save-btn:active {
+  background: var(--priD);
+}
+
+.save-btn.danger {
+  background: var(--danger);
+}
+
+.list-item {
+  background: var(--bg);
+  border-radius: var(--r-sm);
+  padding: 12px 16px;
+  margin-bottom: 8px;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.list-item .topic {
+  font-weight: 600;
+  color: var(--pri);
+}
+
+.del-btn {
+  background: none;
+  border: none;
+  color: var(--danger);
+  font-size: 12px;
+  cursor: pointer;
+  float: right;
+  padding: 2px 8px;
+}
+
+/* Nav */
+.nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--card);
+  border-top: 1px solid var(--border);
+  display: flex;
+  padding: 6px 4px env(safe-area-inset-bottom, 6px) 4px;
+  z-index: 100;
+  justify-content: space-around;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.ni {
+  flex: 1;
+  text-align: center;
+  font-size: 9px;
+  color: var(--text3);
+  cursor: pointer;
+  padding: 4px 0;
+  transition: all .2s;
+  letter-spacing: 0.03em;
+  position: relative;
+}
+
+.ni.active {
+  color: var(--pri);
+  font-weight: 500;
+}
+
+.ni .ico {
+  font-size: 20px;
+  display: block;
+  margin-bottom: 1px;
+  transition: transform .2s;
+}
+
+.ni.active .ico {
+  transform: translateY(-1px);
+}
+
+/* Page switching */
+.page {
+  display: none;
+  animation: fadeIn .2s ease;
+}
+
+.page.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: .5; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Toast */
+.toast {
+  position: fixed;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--text);
+  color: var(--bg);
+  padding: 10px 24px;
+  border-radius: 20px;
+  font-size: 13px;
+  z-index: 200;
+  opacity: 0;
+  transition: opacity .3s ease;
+  white-space: nowrap;
+  letter-spacing: 0.03em;
+  box-shadow: 0 4px 12px rgba(0,0,0,.1);
+}
+
+.toast.show {
+  opacity: 1;
+}
+
+/* Empty state */
+.empty {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text3);
+  font-size: 14px;
+  letter-spacing: 0.03em;
+}
+
+/* Flip card */
+.flip-card {
+  background: var(--card);
+  border-radius: var(--r-sm);
+  padding: 16px 18px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  transition: all .2s;
+}
+
+.flip-card:active {
+  background: var(--bg);
+}
+
+.flip-q {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--pri);
+  letter-spacing: 0.02em;
+  line-height: 1.5;
+}
+
+.flip-a {
+  font-size: 13px;
+  color: var(--text);
+  margin-top: 10px;
+  display: none;
+  line-height: 1.8;
+  white-space: pre-wrap;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+}
+
+.flip-card.open .flip-a {
+  display: block;
+}
+
+.flip-card.open .flip-q {
+  color: var(--ok);
+}
+
+/* Chapter tabs */
+.ch-tabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 14px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.ch-tab {
+  flex-shrink: 0;
+  padding: 7px 16px;
+  border-radius: 18px;
+  background: var(--bg);
+  font-size: 13px;
+  color: var(--text2);
+  cursor: pointer;
+  border: 1px solid var(--border);
+  transition: all .2s;
+  letter-spacing: 0.03em;
+}
+
+.ch-tab.active {
+  background: var(--pri);
+  color: #fff;
+  border-color: var(--pri);
+}
+
+/* Sleep slider */
+.sleep-slider {
+  width: 100%;
+  margin: 18px 0 10px;
+  -webkit-appearance: none;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--border);
+  outline: none;
+}
+
+.sleep-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--pri);
+  cursor: pointer;
+  box-shadow: 0 1px 4px rgba(0,0,0,.1);
+  transition: transform .15s;
+}
+
+.sleep-slider::-webkit-slider-thumb:active {
+  transform: scale(1.1);
+}
+
+.sq-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.sq-btn {
+  flex: 1;
+  padding: 10px 6px;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--border);
+  background: var(--bg);
+  font-size: 13px;
+  color: var(--text2);
+  cursor: pointer;
+  text-align: center;
+  transition: all .2s;
+}
+
+.sq-btn.active {
+  border-color: var(--pri);
+  background: var(--priL);
+  color: var(--pri);
+  font-weight: 500;
+}
+
+.sleep-advice {
+  background: var(--priL);
+  border-radius: var(--r-sm);
+  padding: 14px 16px;
+  margin-top: 14px;
+  font-size: 13px;
+  color: var(--pri);
+  line-height: 1.7;
+}
+
+.sleep-chart {
+  display: flex;
+  gap: 6px;
+  align-items: flex-end;
+  height: 80px;
+  margin-top: 14px;
+}
+
+.sleep-bar {
+  flex: 1;
+  border-radius: 3px 3px 0 0;
+  min-height: 4px;
+  opacity: .8;
+  transition: height .3s ease;
+}
+
+.sleep-bar.good { background: var(--ok); }
+.sleep-bar.warn { background: var(--warn); }
+.sleep-bar.bad { background: var(--danger); }
+
+.sleep-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sleep-lbl {
+  font-size: 9px;
+  color: var(--text2);
+  margin-top: 4px;
+}
+
+/* Schedule */
+.sched-paste {
+  width: 100%;
+  min-height: 120px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  padding: 12px 16px;
+  font-size: 13px;
+  color: var(--text);
+  resize: vertical;
+  margin-bottom: 10px;
+  font-family: inherit;
+  outline: none;
+  line-height: 1.8;
+}
+
+.sched-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+}
+
+.sched-item .date {
+  font-weight: 600;
+}
+
+.sched-item .info {
+  flex: 1;
+  margin-left: 12px;
+  font-size: 11px;
+  color: var(--text2);
+}
+
+/* Flight feeling */
+.ff-card {
+  background: var(--card);
+  border-radius: var(--r);
+  margin-bottom: 10px;
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+.ff-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 16px;
+}
+
+.ff-date {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.ff-type {
+  font-size: 11px;
+  padding: 3px 10px;
+  border-radius: 10px;
+  font-weight: 500;
+}
+
+.ff-type.flight {
+  background: var(--warnL);
+  color: var(--warn);
+}
+
+.ff-type.rest {
+  background: var(--okL);
+  color: var(--ok);
+}
+
+[data-theme="dark"] .ff-type.flight {
+  background: var(--warnL);
+  color: var(--warn);
+}
+
+[data-theme="dark"] .ff-type.rest {
+  background: var(--okL);
+  color: var(--ok);
+}
+
+.ff-info {
+  flex: 1;
+  font-size: 11px;
+  color: var(--text2);
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ff-del {
+  background: none;
+  border: none;
+  color: var(--danger);
+  font-size: 12px;
+  cursor: pointer;
+  padding: 2px 6px;
+}
+
+.ff-body {
+  padding: 0 16px 14px;
+}
+
+.ff-stars {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 10px;
+}
+
+.ff-star {
+  font-size: 22px;
+  cursor: pointer;
+  opacity: .3;
+  transition: opacity .15s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.ff-star.on {
+  opacity: 1;
+}
+
+.ff-tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.ff-tag {
+  padding: 6px 14px;
+  border-radius: 18px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  font-size: 12px;
+  cursor: pointer;
+  color: var(--text2);
+  transition: all .2s;
+}
+
+.ff-tag.on {
+  border-color: var(--pri);
+  background: var(--priL);
+  color: var(--pri);
+  font-weight: 500;
+}
+
+.ff-photo-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.ff-photo-btn {
+  padding: 7px 14px;
+  border-radius: var(--r-sm);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  font-size: 12px;
+  cursor: pointer;
+  color: var(--text2);
+  transition: all .2s;
+}
+
+.ff-photo-btn:active {
+  background: var(--priL);
+}
+
+.ff-photo-preview {
+  width: 56px;
+  height: 56px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.ff-note {
+  width: 100%;
+  min-height: 36px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 13px;
+  color: var(--text);
+  resize: vertical;
+  font-family: inherit;
+  margin-bottom: 10px;
+  outline: none;
+}
+
+.ff-save {
+  background: var(--pri);
+  color: #fff;
+  border: none;
+  border-radius: var(--r-sm);
+  padding: 9px 24px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all .2s;
+}
+
+.ff-save:active {
+  background: var(--priD);
+}
+
+.ff-saved {
+  font-size: 11px;
+  color: var(--ok);
+  margin-left: 10px;
+  display: none;
+}
+
+.ff-saved.show {
+  display: inline;
+}
+
+.ff-rating-display {
+  font-size: 13px;
+  color: var(--text);
+  margin-top: 6px;
+}
+
+.ff-tags-display {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+
+.ff-tag-display {
+  font-size: 10px;
+  padding: 3px 10px;
+  border-radius: 10px;
+  background: var(--priL);
+  color: var(--pri);
+}
+
+/* Mood */
+.mood-row {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.mood-btn {
+  padding: 7px 14px;
+  border-radius: 18px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  font-size: 12px;
+  cursor: pointer;
+  color: var(--text2);
+  transition: all .2s;
+}
+
+.mood-btn.active {
+  border-color: var(--pri);
+  background: var(--priL);
+  color: var(--pri);
+}
+
+/* Social Work News */
+.sw-card {
+  background: var(--card);
+  border-radius: var(--r);
+  margin-bottom: 12px;
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  transition: all .2s;
+}
+
+.sw-card-head {
+  padding: 16px 18px 10px;
+}
+
+.sw-card-tag {
+  display: inline-block;
+  font-size: 10px;
+  padding: 3px 10px;
+  border-radius: 10px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  letter-spacing: 0.04em;
+}
+
+.sw-card-tag.policy { background: var(--priL); color: var(--pri); }
+.sw-card-tag.news { background: var(--warnL); color: var(--warn); }
+.sw-card-tag.trend { background: var(--okL); color: var(--ok); }
+.sw-card-tag.global { background: #F0ECF5; color: #9B8EC4; }
+
+[data-theme="dark"] .sw-card-tag.policy { background: var(--priL); color: var(--pri); }
+[data-theme="dark"] .sw-card-tag.news { background: var(--warnL); color: var(--warn); }
+[data-theme="dark"] .sw-card-tag.trend { background: var(--okL); color: var(--ok); }
+[data-theme="dark"] .sw-card-tag.global { background: #2A2440; color: #9B8EC4; }
+
+.sw-card-title {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--text);
+  letter-spacing: 0.02em;
+}
+
+.sw-card-meta {
+  font-size: 11px;
+  color: var(--text3);
+  margin-top: 6px;
+  display: flex;
+  gap: 10px;
+}
+
+.sw-card-summary {
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.8;
+  padding: 0 18px 12px;
+}
+
+.sw-card-detail {
+  font-size: 12px;
+  color: var(--text2);
+  line-height: 1.8;
+  padding: 0 18px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .35s ease, padding .35s ease;
+  border-top: 1px solid var(--border);
+}
+
+.sw-card.open .sw-card-detail {
+  max-height: 500px;
+  padding: 12px 18px 16px;
+}
+
+.sw-card-toggle {
+  font-size: 12px;
+  color: var(--pri);
+  text-align: center;
+  padding: 8px 0;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background .2s;
+}
+
+.sw-card-toggle:hover {
+  background: var(--priL);
+}
+
+/* SW filter tags */
+.sw-ftag {
+  flex-shrink: 0;
+  padding: 6px 14px;
+  border-radius: 16px;
+  background: var(--bg);
+  font-size: 13px;
+  color: var(--text2);
+  cursor: pointer;
+  border: 1px solid var(--border);
+}
+
+.sw-ftag.active {
+  background: var(--pri);
+  color: #fff;
+}
+
+/* Backup button */
+.backup-btn {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  padding: 12px 24px;
+  font-size: 13px;
+  color: var(--text2);
+  cursor: pointer;
+  width: 100%;
+  margin-top: 8px;
+  transition: all .2s;
+  letter-spacing: 0.03em;
+}
+
+.backup-btn:active {
+  background: var(--priL);
+}
+
+/* ============================================================
+   Modal (Anxiety / Share / Checkin)
+   ============================================================ */
+
+#anxietyModal[style*="display:flex"],
+#sharePicker[style*="display:flex"] {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Breathing animation for anxiety modal */
+@keyframes breathe {
+  0%, 100% { transform: scale(.85); opacity: .8; }
+  50% { transform: scale(1.1); opacity: 1; }
+}
+
+/* ============================================================
+   Scrollbar (hidden for cleanliness)
+   ============================================================ */
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+/* ============================================================
+   Responsive touches
+   ============================================================ */
+@media (min-width: 500px) {
+  .nav {
+    max-width: 500px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: var(--r-lg) var(--r-lg) 0 0;
+  }
+  .header {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+}
+
 </style>
 </head>
 <body>
 
-<!-- 主应用 -->
 <div id="app">
-<!-- 首页 -->
+
+<!-- ============================================================
+     首页
+     ============================================================ -->
 <div id="p-home" class="page active">
-<div class="header">
-<div class="ht">
-<div class="ui"><span>👋</span><span id="dn">同学</span></div>
-<div><button class="btn-icon" onclick="toggleTheme()" id="themeBtn">🌙</button></div>
-</div>
-<div class="cc">
-<div class="cn" id="dl">150</div>
-<div class="cl">距离目标还有（天）</div>
-<div class="pw"><div class="pb" id="pbar" style="width:3%"></div></div>
-<div class="pt" id="ptext">进度 3%</div>
-</div>
-</div>
-<div class="stats">
-<div class="sc streak"><div class="sn" id="stk">0</div><div class="sl">连续打卡</div></div>
-<div class="sc pomo"><div class="sn" id="tp">0</div><div class="sl">今日番茄</div></div>
-<div class="sc"><div class="sn" id="wc">0%</div><div class="sl">本周完成</div></div>
-</div>
-<div class="encourage" onclick="getEncourage()"><div class="et" id="encT">你今天打开了这里，就已经比昨天的自己进步了。</div><div class="er">点击换一句 →</div></div>
-<div class="kbit"><div class="kbit-label">📖 今日知识点</div><div class="kbit-text" id="kbitText">加载中...</div></div>
-<div class="mode-sec">
-<div class="mode-bar">
-<div><div class="ml" id="ml">正常模式</div><div class="md" id="md">按计划执行全部任务</div></div>
-<button class="mb" id="mbtn" onclick="toggleMode()">切缩壳模式</button>
-</div>
-</div>
-<div class="st">今日任务 <span class="dt-badge rest" id="dtBadge">休息日</span></div>
-<div class="tl" id="taskList"><div class="empty">加载中...</div></div>
-<div style="text-align:center;padding:16px 0">
-<span onclick="showAnxiety()" style="font-size:13px;color:var(--text2);cursor:pointer;border-bottom:1px dashed var(--text2)">😵 有点焦虑？点这里</span>
-</div>
+  <div class="header">
+    <div class="ht">
+      <div class="ui">
+        <span>—</span>
+        <span id="dn">同学</span>
+        <span style="font-size:12px;color:var(--text3)">· 考研日记</span>
+      </div>
+      <button class="btn-icon" onclick="toggleTheme()" id="themeBtn">🌙</button>
+    </div>
+    <div class="cc">
+      <div class="cn" id="dl">150</div>
+      <div class="cl">距离目标还有（天）</div>
+      <div class="pw"><div class="pb" id="pbar" style="width:3%"></div></div>
+      <div class="pt" id="ptext">进度 3%</div>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="sc streak"><div class="sn" id="stk">0</div><div class="sl">连续打卡</div></div>
+    <div class="sc pomo"><div class="sn" id="tp">0</div><div class="sl">今日番茄</div></div>
+    <div class="sc"><div class="sn" id="wc">0%</div><div class="sl">本周完成</div></div>
+  </div>
+
+  <div class="encourage" onclick="getEncourage()">
+    <div class="et" id="encT">你今天打开了这里，就已经比昨天的自己进步了。</div>
+    <div class="er">点击换一句 →</div>
+  </div>
+
+  <div class="kbit">
+    <div class="kbit-label">今日知识点</div>
+    <div class="kbit-text" id="kbitText">加载中...</div>
+  </div>
+
+  <div class="mode-sec">
+    <div class="mode-bar">
+      <div>
+        <div class="ml" id="ml">正常模式</div>
+        <div class="md" id="md">按计划执行全部任务</div>
+      </div>
+      <button class="mb" id="mbtn" onclick="toggleMode()">切缩壳模式</button>
+    </div>
+  </div>
+
+  <div class="st">今日任务 <span class="dt-badge rest" id="dtBadge">休息日</span></div>
+  <div class="tl" id="taskList"><div class="empty">加载中...</div></div>
+
+  <div style="text-align:center;padding:20px 0">
+    <span onclick="showAnxiety()" style="font-size:12px;color:var(--text3);cursor:pointer;text-decoration:underline;text-underline-offset:4px;text-decoration-color:var(--border)">有点焦虑？点这里放松一下</span>
+  </div>
 </div>
 
-<!-- 焦虑弹窗 -->
-<div id="anxietyModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.6);z-index:300;align-items:center;justify-content:center;padding:20px">
-<div style="background:var(--card);border-radius:20px;padding:28px 24px;max-width:360px;width:100%;text-align:center">
-<div style="font-size:48px;margin-bottom:12px">🫧</div>
-<div style="font-size:18px;font-weight:700;margin-bottom:8px;color:var(--text)">深呼吸，没事的</div>
-<div id="anxietyMsg" style="font-size:14px;color:var(--text2);line-height:1.6;margin-bottom:20px"></div>
-<div style="font-size:13px;color:var(--text2);margin-bottom:16px">跟着这个节奏呼吸：</div>
-<div style="width:120px;height:120px;border-radius:50%;background:linear-gradient(135deg,var(--pri),#764ba2);margin:0 auto 20px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;font-weight:600;animation:breathe 4s ease-in-out infinite">吸气<br>呼气</div>
-<style>@keyframes breathe{0%,100%{transform:scale(.8);opacity:.7}50%{transform:scale(1.1);opacity:1}}</style>
-<button onclick="closeAnxiety()" style="background:var(--pri);color:#fff;border:none;border-radius:24px;padding:12px 32px;font-size:15px;font-weight:600;cursor:pointer">好了，我平静多了</button>
-</div>
-</div>
-
-<!-- 勾选分享内容弹窗 -->
-<div id="sharePicker" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.6);z-index:400;padding:20px;display:flex;align-items:center;justify-content:center">
-<div style="background:var(--card);border-radius:20px;padding:24px 20px;max-width:360px;width:100%">
-<div style="font-size:18px;font-weight:700;margin-bottom:6px;text-align:center">选择要分享的内容</div>
-<div style="font-size:13px;color:var(--text2);text-align:center;margin-bottom:16px">勾选你想让老师看到的板块</div>
-<div id="shareOptions" style="display:flex;flex-direction:column;gap:10px">
-<label style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:var(--bg);border-radius:10px;cursor:pointer;font-size:14px"><input type="checkbox" id="opt_tasks" checked style="width:20px;height:20px"> ✅ 今日完成任务</label>
-<label style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:var(--bg);border-radius:10px;cursor:pointer;font-size:14px"><input type="checkbox" id="opt_stats" checked style="width:20px;height:20px"> 📊 学习数据</label>
-<label style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:var(--bg);border-radius:10px;cursor:pointer;font-size:14px"><input type="checkbox" id="opt_words" style="width:20px;height:20px"> 📖 单词记录</label>
-<label style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:var(--bg);border-radius:10px;cursor:pointer;font-size:14px"><input type="checkbox" id="opt_knowledge" checked style="width:20px;height:20px"> 📚 今日知识点</label>
-<label style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:var(--bg);border-radius:10px;cursor:pointer;font-size:14px"><input type="checkbox" id="opt_diary" style="width:20px;height:20px"> 📔 心情状态</label>
-</div>
-<button onclick="generateShareImage()" style="width:100%;background:var(--ok);color:#fff;border:none;border-radius:12px;padding:14px;font-size:15px;font-weight:600;cursor:pointer;margin-top:16px">生成打卡图</button>
-<button onclick="document.getElementById('sharePicker').style.display='none'" style="width:100%;background:var(--border);color:var(--text);border:none;border-radius:12px;padding:12px;font-size:14px;cursor:pointer;margin-top:8px">取消</button>
-</div>
+<!-- ============================================================
+     焦虑弹窗
+     ============================================================ -->
+<div id="anxietyModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:300;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)">
+  <div style="background:var(--card);border-radius:24px;padding:32px 28px;max-width:340px;width:100%;text-align:center;box-shadow:0 8px 40px rgba(0,0,0,.08)">
+    <div style="font-size:40px;margin-bottom:14px;opacity:.7">· · ·</div>
+    <div style="font-size:16px;font-weight:600;margin-bottom:10px;color:var(--text);letter-spacing:0.02em">深呼吸，没事的</div>
+    <div id="anxietyMsg" style="font-size:13px;color:var(--text2);line-height:1.8;margin-bottom:22px"></div>
+    <div style="font-size:12px;color:var(--text3);margin-bottom:18px">跟着这个节奏呼吸</div>
+    <div style="width:100px;height:100px;border-radius:50%;background:var(--priL);margin:0 auto 22px;display:flex;align-items:center;justify-content:center;color:var(--pri);font-size:13px;font-weight:500;animation:breathe 4s ease-in-out infinite;letter-spacing:0.04em">吸气<br>呼气</div>
+    <button onclick="closeAnxiety()" style="background:var(--pri);color:#fff;border:none;border-radius:24px;padding:12px 32px;font-size:14px;font-weight:500;cursor:pointer;letter-spacing:0.03em;transition:all .2s" onmousedown="this.style.transform='scale(.95)'" onmouseup="this.style.transform=''">好了，我平静多了</button>
+  </div>
 </div>
 
-<!-- 打卡图预览弹窗 -->
-<div id="checkinModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.85);z-index:500;padding:20px;overflow-y:auto">
-<div style="max-width:400px;margin:0 auto;text-align:center">
-<div style="color:#fff;font-size:16px;font-weight:600;margin-bottom:12px">长按图片保存到相册，或点击下方分享</div>
-<img id="checkinImg" style="width:100%;border-radius:12px;box-shadow:0 8px 32px rgba(0,0,0,.3)" src="">
-<div style="display:flex;gap:10px;margin-top:16px">
-<a id="downloadLink" href="#" download="学习打卡.png" style="flex:1;background:var(--ok);color:#fff;text-decoration:none;padding:14px;border-radius:12px;font-size:15px;font-weight:600;display:block">💾 保存图片</a>
-<button onclick="document.getElementById('checkinModal').style.display='none'" style="flex:1;background:var(--border);color:var(--text);border:none;padding:14px;border-radius:12px;font-size:15px;font-weight:600;cursor:pointer">关闭</button>
-</div>
-<div style="color:rgba(255,255,255,.5);font-size:12px;margin-top:12px">💡 如果保存不成功，可以截图发给老师</div>
-</div>
+<!-- ============================================================
+     勾选分享内容弹窗
+     ============================================================ -->
+<div id="sharePicker" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:400;padding:20px;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)">
+  <div style="background:var(--card);border-radius:24px;padding:28px 24px;max-width:340px;width:100%;box-shadow:0 8px 40px rgba(0,0,0,.08)">
+    <div style="font-size:16px;font-weight:600;margin-bottom:6px;text-align:center;color:var(--text);letter-spacing:0.02em">选择要分享的内容</div>
+    <div style="font-size:12px;color:var(--text3);text-align:center;margin-bottom:18px">勾选你想让老师看到的板块</div>
+    <div id="shareOptions" style="display:flex;flex-direction:column;gap:8px">
+      <label style="display:flex;align-items:center;gap:10px;padding:12px 16px;background:var(--bg);border-radius:12px;cursor:pointer;font-size:13px;color:var(--text)"><input type="checkbox" id="opt_tasks" checked style="width:18px;height:18px;accent-color:var(--pri)"> 今日完成任务</label>
+      <label style="display:flex;align-items:center;gap:10px;padding:12px 16px;background:var(--bg);border-radius:12px;cursor:pointer;font-size:13px;color:var(--text)"><input type="checkbox" id="opt_stats" checked style="width:18px;height:18px;accent-color:var(--pri)"> 学习数据</label>
+      <label style="display:flex;align-items:center;gap:10px;padding:12px 16px;background:var(--bg);border-radius:12px;cursor:pointer;font-size:13px;color:var(--text)"><input type="checkbox" id="opt_words" style="width:18px;height:18px;accent-color:var(--pri)"> 单词记录</label>
+      <label style="display:flex;align-items:center;gap:10px;padding:12px 16px;background:var(--bg);border-radius:12px;cursor:pointer;font-size:13px;color:var(--text)"><input type="checkbox" id="opt_knowledge" checked style="width:18px;height:18px;accent-color:var(--pri)"> 今日知识点</label>
+      <label style="display:flex;align-items:center;gap:10px;padding:12px 16px;background:var(--bg);border-radius:12px;cursor:pointer;font-size:13px;color:var(--text)"><input type="checkbox" id="opt_diary" style="width:18px;height:18px;accent-color:var(--pri)"> 心情状态</label>
+    </div>
+    <button onclick="generateShareImage()" style="width:100%;background:var(--ok);color:#fff;border:none;border-radius:14px;padding:14px;font-size:14px;font-weight:500;cursor:pointer;margin-top:18px;letter-spacing:0.03em">生成打卡图</button>
+    <button onclick="document.getElementById('sharePicker').style.display='none'" style="width:100%;background:var(--bg);color:var(--text2);border:1px solid var(--border);border-radius:14px;padding:12px;font-size:13px;cursor:pointer;margin-top:8px">取消</button>
+  </div>
 </div>
 
-<!-- 番茄页 -->
+<!-- ============================================================
+     打卡图预览弹窗
+     ============================================================ -->
+<div id="checkinModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.88);z-index:500;padding:20px;overflow-y:auto;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)">
+  <div style="max-width:400px;margin:0 auto;text-align:center">
+    <div style="color:#fff;font-size:15px;font-weight:500;margin-bottom:14px;letter-spacing:0.02em">长按图片保存到相册，或点击下方分享</div>
+    <img id="checkinImg" style="width:100%;border-radius:16px;box-shadow:0 12px 40px rgba(0,0,0,.3)" src="">
+    <div style="display:flex;gap:10px;margin-top:16px">
+      <a id="downloadLink" href="#" download="学习打卡.png" style="flex:1;background:var(--ok);color:#fff;text-decoration:none;padding:14px;border-radius:14px;font-size:14px;font-weight:500;display:block;letter-spacing:0.03em">保存图片</a>
+      <button onclick="document.getElementById('checkinModal').style.display='none'" style="flex:1;background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.2);padding:14px;border-radius:14px;font-size:14px;font-weight:500;cursor:pointer">关闭</button>
+    </div>
+    <div style="color:rgba(255,255,255,.4);font-size:12px;margin-top:14px">如果保存不成功，可以截图发给老师</div>
+  </div>
+</div>
+
+<!-- ============================================================
+     番茄页
+     ============================================================ -->
 <div id="p-pomo" class="page">
-<div class="header"><div class="ht"><div class="ui"><span>🌳</span><span>专注种树</span></div></div>
-<div class="cc"><div style="font-size:14px;opacity:.85">今日已种树</div><div class="cn" id="ptc" style="font-size:36px">0 棵</div><div class="pt" id="ptm">0 分钟专注</div></div></div>
-<div class="pomo-sec">
-<div class="pomo-card">
-<div style="font-size:14px;color:var(--text2)">正在专注</div>
-<input type="text" class="pinput" id="pomoTask" placeholder="在做什么？（如：背单词/专业课）">
-<div class="ptimer" id="pTimer">25:00</div>
-<div class="pc">
-<button class="pbtn start" id="pStart" onclick="startPomo()">开始</button>
-<button class="pbtn reset" onclick="resetPomo()">重置</button>
-</div>
-<div class="pstats" id="pStats">累计种树 0 棵</div>
-</div>
-</div>
-<div class="sec">
-<div class="st" style="padding:0">🕐 今日时间规划</div>
-<div id="planList"><div class="empty">加载中...</div></div>
-<div id="planAdvice" style="margin-top:12px;padding:12px 14px;background:var(--priL);border-radius:10px;font-size:13px;color:var(--pri);line-height:1.5;display:none"></div>
-</div>
-<div class="sec">
-<button onclick="openSharePicker()" style="width:100%;background:var(--ok);color:#fff;border:none;border-radius:14px;padding:14px;font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 4px 12px rgba(72,187,120,.3)">📤 生成打卡图（发给老师）</button>
-</div>
+  <div class="header">
+    <div class="ht">
+      <div class="ui"><span>—</span><span>专注</span></div>
+    </div>
+    <div class="cc">
+      <div style="font-size:13px;color:var(--text2);letter-spacing:0.04em">今日已种树</div>
+      <div class="cn" id="ptc" style="font-size:36px;margin-top:4px">0 棵</div>
+      <div class="pt" id="ptm">0 分钟专注</div>
+    </div>
+  </div>
+  <div class="pomo-sec">
+    <div class="pomo-card">
+      <div style="font-size:13px;color:var(--text2);letter-spacing:0.04em">正在专注</div>
+      <input type="text" class="pinput" id="pomoTask" placeholder="在做什么？（如：背单词 / 专业课）">
+      <div class="ptimer" id="pTimer">25:00</div>
+      <div class="pc">
+        <button class="pbtn start" id="pStart" onclick="startPomo()">开始</button>
+        <button class="pbtn reset" onclick="resetPomo()">重置</button>
+      </div>
+      <div class="pstats" id="pStats">累计种树 0 棵</div>
+    </div>
+  </div>
+  <div class="sec">
+    <div class="st" style="padding:0">今日时间规划</div>
+    <div id="planList"><div class="empty">加载中...</div></div>
+    <div id="planAdvice" style="margin-top:12px;padding:14px 16px;background:var(--priL);border-radius:var(--r-sm);font-size:13px;color:var(--pri);line-height:1.7;display:none"></div>
+  </div>
+  <div class="sec">
+    <button onclick="openSharePicker()" style="width:100%;background:var(--ok);color:#fff;border:none;border-radius:var(--r);padding:14px;font-size:14px;font-weight:500;cursor:pointer;letter-spacing:0.03em;box-shadow:var(--shadow-card)">生成打卡图（发给老师）</button>
+  </div>
 </div>
 
-<!-- 知识库页 -->
+<!-- ============================================================
+     知识库页
+     ============================================================ -->
 <div id="p-knowledge" class="page">
-<div class="header"><div class="ht"><div class="ui"><span>📚</span><span>专业课知识库</span></div></div></div>
-<div class="sec" style="padding-top:16px">
-<div class="st" style="padding:0">点击卡片翻看答案</div>
-<div class="ch-tabs" id="chTabs"></div>
-<div id="cardList"><div class="empty">加载中...</div></div>
-</div>
+  <div class="header">
+    <div class="ht">
+      <div class="ui"><span>—</span><span>专业课知识库</span></div>
+    </div>
+  </div>
+  <div class="sec" style="padding-top:16px">
+    <div class="st" style="padding:0">点击卡片翻看答案</div>
+    <div class="ch-tabs" id="chTabs"></div>
+    <div id="cardList"><div class="empty">加载中...</div></div>
+  </div>
 </div>
 
-<!-- 日记页 -->
+<!-- ============================================================
+     日记页
+     ============================================================ -->
 <div id="p-diary" class="page">
-<div class="header"><div class="ht"><div class="ui"><span>📔</span><span>今日日记</span></div></div></div>
-<div class="sec" style="padding-top:16px">
-<div class="st" style="padding:0">今天，心里想说什么？</div>
-<div class="card-box">
-<div style="font-size:13px;color:var(--text2);margin-bottom:6px">今天的心情</div>
-<div class="mood-row" id="moodRow">
-<div class="mood-btn" data-v="😊 开心" onclick="selectMood(this)">😊 开心</div>
-<div class="mood-btn" data-v="😌 平静" onclick="selectMood(this)">😌 平静</div>
-<div class="mood-btn" data-v="😔 低落" onclick="selectMood(this)">😔 低落</div>
-<div class="mood-btn" data-v="🥱 疲惫" onclick="selectMood(this)">🥱 疲惫</div>
-<div class="mood-btn" data-v="😤 烦躁" onclick="selectMood(this)">😤 烦躁</div>
-<div class="mood-btn" data-v="🥳 兴奋" onclick="selectMood(this)">🥳 兴奋</div>
-</div>
-<input type="hidden" id="diaryMood">
-<div style="font-size:13px;color:var(--text2);margin-bottom:6px;margin-top:10px">📖 今天学到了什么？</div>
-<textarea class="ta" id="diaryStudy" placeholder="哪怕只是一个知识点、一个单词，写下来就是收获" style="min-height:70px"></textarea>
-<div style="font-size:13px;color:var(--text2);margin-bottom:6px;margin-top:10px">💭 对自己说句话</div>
-<textarea class="ta" id="diarySelfTalk" placeholder="今天辛苦了 / 再加油一下 / 没关系明天再来" style="min-height:60px"></textarea>
-<div style="font-size:13px;color:var(--text2);margin-bottom:6px;margin-top:10px">✨ 今天有趣的小事</div>
-<textarea class="ta" id="diaryFun" placeholder="哪怕是很小的事也值得记录～" style="min-height:70px"></textarea>
-<div style="font-size:13px;color:var(--text2);margin-bottom:6px;margin-top:10px">🎯 明天的小目标</div>
-<textarea class="ta" id="diaryGoal" placeholder="明天想做到的一件小事就好" style="min-height:50px"></textarea>
-<button class="save-btn" style="width:100%;margin-top:10px" onclick="saveDiary()">保存今日日记</button>
-</div>
-</div>
+  <div class="header">
+    <div class="ht">
+      <div class="ui"><span>—</span><span>今日日记</span></div>
+    </div>
+  </div>
+  <div class="sec" style="padding-top:16px">
+    <div class="st" style="padding:0">今天，心里想说什么？</div>
+    <div class="card-box">
+      <div style="font-size:12px;color:var(--text3);margin-bottom:8px;letter-spacing:0.04em">今天的心情</div>
+      <div class="mood-row" id="moodRow">
+        <div class="mood-btn" data-v="😊 开心" onclick="selectMood(this)">开心</div>
+        <div class="mood-btn" data-v="😌 平静" onclick="selectMood(this)">平静</div>
+        <div class="mood-btn" data-v="😔 低落" onclick="selectMood(this)">低落</div>
+        <div class="mood-btn" data-v="🥱 疲惫" onclick="selectMood(this)">疲惫</div>
+        <div class="mood-btn" data-v="😤 烦躁" onclick="selectMood(this)">烦躁</div>
+        <div class="mood-btn" data-v="🥳 兴奋" onclick="selectMood(this)">兴奋</div>
+      </div>
+      <input type="hidden" id="diaryMood">
+      <div style="font-size:12px;color:var(--text3);margin-bottom:8px;margin-top:16px;letter-spacing:0.04em">今天学到了什么？</div>
+      <textarea class="ta" id="diaryStudy" placeholder="哪怕只是一个知识点、一个单词，写下来就是收获" style="min-height:70px"></textarea>
+      <div style="font-size:12px;color:var(--text3);margin-bottom:8px;margin-top:16px;letter-spacing:0.04em">对自己说句话</div>
+      <textarea class="ta" id="diarySelfTalk" placeholder="今天辛苦了 / 再加油一下 / 没关系明天再来" style="min-height:60px"></textarea>
+      <div style="font-size:12px;color:var(--text3);margin-bottom:8px;margin-top:16px;letter-spacing:0.04em">今天有趣的小事</div>
+      <textarea class="ta" id="diaryFun" placeholder="哪怕是很小的事也值得记录" style="min-height:70px"></textarea>
+      <div style="font-size:12px;color:var(--text3);margin-bottom:8px;margin-top:16px;letter-spacing:0.04em">明天的小目标</div>
+      <textarea class="ta" id="diaryGoal" placeholder="明天想做到的一件小事就好" style="min-height:50px"></textarea>
+      <button class="save-btn" style="width:100%;margin-top:14px" onclick="saveDiary()">保存今日日记</button>
+    </div>
+  </div>
 </div>
 
-<!-- 单词小记页 -->
+<!-- ============================================================
+     单词小记页
+     ============================================================ -->
 <div id="p-words" class="page">
-<div class="header"><div class="ht"><div class="ui"><span>📖</span><span>单词小记</span></div></div></div>
-<div class="sec" style="padding-top:16px">
-<div class="st" style="padding:0">记录新学/印象深刻的词</div>
-<div class="card-box">
-<input type="text" class="input" id="wnWord" placeholder="单词（如：abandon）">
-<input type="text" class="input" id="wnMeaning" placeholder="中文意思（如：放弃）">
-<textarea class="ta" id="wnNote" placeholder="备注（怎么记住的？在阅读里见到的？）" style="min-height:60px"></textarea>
-<button class="save-btn" style="width:100%" onclick="addWordNote()">记录</button>
-</div>
-<div class="st" style="padding:0;margin-top:16px">今日记录</div>
-<div id="wnList"><div class="empty">还没有记录</div></div>
-</div>
+  <div class="header">
+    <div class="ht">
+      <div class="ui"><span>—</span><span>单词小记</span></div>
+    </div>
+  </div>
+  <div class="sec" style="padding-top:16px">
+    <div class="st" style="padding:0">记录新学 / 印象深刻的词</div>
+    <div class="card-box">
+      <input type="text" class="input" id="wnWord" placeholder="单词（如：abandon）">
+      <input type="text" class="input" id="wnMeaning" placeholder="中文意思（如：放弃）">
+      <textarea class="ta" id="wnNote" placeholder="备注（怎么记住的？在阅读里见到的？）" style="min-height:60px"></textarea>
+      <button class="save-btn" style="width:100%" onclick="addWordNote()">记录</button>
+    </div>
+    <div class="st" style="padding:0;margin-top:18px">今日记录</div>
+    <div id="wnList"><div class="empty">还没有记录</div></div>
+  </div>
 </div>
 
-<!-- 睡眠页 -->
+<!-- ============================================================
+     睡眠页
+     ============================================================ -->
 <div id="p-sleep" class="page">
-<div class="header"><div class="ht"><div class="ui"><span>😴</span><span>睡眠记录</span></div></div>
-<div class="cc"><div style="font-size:14px;opacity:.85">昨晚睡了</div><div class="cn" id="shDisplay" style="font-size:36px">— 小时</div><div class="pt" id="saText">本周平均 — 小时</div></div></div>
-<div style="padding:16px">
-<div class="st" style="padding:0">记录昨晚睡眠</div>
-<div class="card-box">
-<div style="text-align:center;font-size:48px;font-weight:800;color:var(--pri)"><span id="ssVal">7.0</span><span style="font-size:16px;font-weight:500;color:var(--text2)"> 小时</span></div>
-<input type="range" class="sleep-slider" id="ssSlider" min="0" max="12" step="0.5" value="7.0" oninput="document.getElementById('ssVal').textContent=this.value">
-<div class="sq-row">
-<div class="sq-btn" id="sqBad" onclick="selectSQ('bad',this)">😴 很差</div>
-<div class="sq-btn active" id="sqNormal" onclick="selectSQ('normal',this)">🙂 一般</div>
-<div class="sq-btn" id="sqGood" onclick="selectSQ('good',this)">😊 很好</div>
-</div>
-<button class="save-btn" style="width:100%;margin-top:12px" onclick="saveSleep()">保存</button>
-<div class="sleep-advice" id="sAdvice" style="display:none"></div>
-</div>
-<div class="st" style="padding:0;margin-top:16px">本周睡眠趋势</div>
-<div class="card-box"><div class="sleep-chart" id="sChart"></div></div>
-</div>
+  <div class="header">
+    <div class="ht">
+      <div class="ui"><span>—</span><span>睡眠记录</span></div>
+    </div>
+    <div class="cc">
+      <div style="font-size:13px;color:var(--text2);letter-spacing:0.04em">昨晚睡了</div>
+      <div class="cn" id="shDisplay" style="font-size:36px;margin-top:4px">— 小时</div>
+      <div class="pt" id="saText">本周平均 — 小时</div>
+    </div>
+  </div>
+  <div style="padding:16px">
+    <div class="st" style="padding:0">记录昨晚睡眠</div>
+    <div class="card-box">
+      <div style="text-align:center;font-size:48px;font-weight:200;color:var(--pri);letter-spacing:-0.02em">
+        <span id="ssVal">7.0</span>
+        <span style="font-size:14px;font-weight:400;color:var(--text2);margin-left:4px">小时</span>
+      </div>
+      <input type="range" class="sleep-slider" id="ssSlider" min="0" max="12" step="0.5" value="7.0" oninput="document.getElementById('ssVal').textContent=this.value">
+      <div class="sq-row">
+        <div class="sq-btn" id="sqBad" onclick="selectSQ('bad',this)">很差</div>
+        <div class="sq-btn active" id="sqNormal" onclick="selectSQ('normal',this)">一般</div>
+        <div class="sq-btn" id="sqGood" onclick="selectSQ('good',this)">很好</div>
+      </div>
+      <button class="save-btn" style="width:100%;margin-top:14px" onclick="saveSleep()">保存</button>
+      <div class="sleep-advice" id="sAdvice" style="display:none"></div>
+    </div>
+    <div class="st" style="padding:0;margin-top:18px">本周睡眠趋势</div>
+    <div class="card-box"><div class="sleep-chart" id="sChart"></div></div>
+  </div>
 </div>
 
-<!-- 政治学习页 -->
+<!-- ============================================================
+     政治学习页
+     ============================================================ -->
 <div id="p-video" class="page">
-<div class="header"><div class="ht"><div class="ui"><span>🎬</span><span>政治学习</span></div></div></div>
-<div class="sec" style="padding-top:16px">
-<div class="st" style="padding:0">徐涛强化班（B站正版）</div>
-<div class="card-box">
-<div style="font-size:13px;line-height:1.6;color:var(--text);margin-bottom:12px">
-徐涛老师在B站课堂有正版的2027考研政治精讲班，点下方按钮会跳转到B站APP打开课程页面。<br><br>
-<span style="color:var(--warn);font-weight:600">注意：</span>课程需要购买（几百元），购买后一年内有效。如果你暂时不买，先看下面的"每日政治知识点"也能学。
-</div>
-<a href="https://www.bilibili.com/cheese/play/ep2373641" target="_blank" class="save-btn" style="width:100%;display:block;text-align:center;text-decoration:none;margin-bottom:10px" onclick="event.stopPropagation()">打开B站徐涛课程 →</a>
-<div style="font-size:12px;color:var(--text2);text-align:center">这是B站官方课堂链接，安全稳定</div>
-</div>
-<div class="st" style="padding:0;margin-top:16px">每日政治知识点（视频替代）</div>
-<div class="card-box">
-<div class="kbit" style="margin:0;border-left-color:var(--ok)">
-<div class="kbit-label" style="color:var(--ok)">📝 今天先学这个</div>
-<div class="kbit-text" id="politicsToday">加载中...</div>
-</div>
-<div style="font-size:12px;color:var(--text2);margin-top:10px;line-height:1.5">
-政治不用急着全看视频。从7月开始，每天看1-2个知识点+周末做肖1000题，完全来得及。<br><br>
-推荐节奏：<br>
-• 7-8月：每天看知识点，周末做肖1000题马原部分<br>
-• 9-10月：看徐涛强化班重点章节（马原+毛中特）<br>
-• 11-12月：背肖四肖八
-</div>
-</div>
-</div>
+  <div class="header">
+    <div class="ht">
+      <div class="ui"><span>—</span><span>政治学习</span></div>
+    </div>
+  </div>
+  <div class="sec" style="padding-top:16px">
+    <div class="st" style="padding:0">徐涛强化班（B站正版）</div>
+    <div class="card-box">
+      <div style="font-size:13px;line-height:1.8;color:var(--text);margin-bottom:14px">
+        徐涛老师在B站课堂有正版的2027考研政治精讲班，点下方按钮会跳转到B站APP打开课程页面。<br><br>
+        <span style="color:var(--warn);font-weight:600">注意：</span>课程需要购买（几百元），购买后一年内有效。如果你暂时不买，先看下面的"每日政治知识点"也能学。
+      </div>
+      <a href="https://www.bilibili.com/cheese/play/ep2373641" target="_blank" class="save-btn" style="width:100%;display:block;text-align:center;text-decoration:none;margin-bottom:10px" onclick="event.stopPropagation()">打开B站徐涛课程</a>
+      <div style="font-size:12px;color:var(--text3);text-align:center">这是B站官方课堂链接，安全稳定</div>
+    </div>
+    <div class="st" style="padding:0;margin-top:18px">每日政治知识点（视频替代）</div>
+    <div class="card-box">
+      <div class="kbit" style="margin:0;border-left-color:var(--ok)">
+        <div class="kbit-label" style="color:var(--ok)">今天先学这个</div>
+        <div class="kbit-text" id="politicsToday">加载中...</div>
+      </div>
+      <div style="font-size:12px;color:var(--text2);margin-top:12px;line-height:1.8">
+        政治不用急着全看视频。从7月开始，每天看1-2个知识点+周末做肖1000题，完全来得及。<br><br>
+        推荐节奏：<br>
+        · 7-8月：每天看知识点，周末做肖1000题马原部分<br>
+        · 9-10月：看徐涛强化班重点章节（马原+毛中特）<br>
+        · 11-12月：背肖四肖八
+      </div>
+    </div>
+  </div>
 </div>
 
-<!-- 排班页 -->
+<!-- ============================================================
+     排班页
+     ============================================================ -->
 <div id="p-sched" class="page">
-<div class="header"><div class="ht"><div class="ui"><span>✈️</span><span>排班 & 航班感受</span></div></div></div>
-<div class="sec" style="padding-top:16px">
-<div class="st" style="padding:0">粘贴航班信息自动识别</div>
-<div class="card-box">
-<textarea class="sched-paste" id="schedPaste" placeholder="直接粘贴你收到的航班短信，比如：&#10;张佳蓓,您的航班为：&#10;2026-07-22 16:05--18:45&#10;MF8153 厦并&#10;2026-07-22 20:15--22:55&#10;MF8154 并厦&#10;..."></textarea>
-<button class="save-btn" style="width:100%" onclick="parseSched()">一键识别并设置排班</button>
-</div>
-<div class="st" style="padding:0;margin-top:16px">我的排班 <button class="save-btn danger" style="float:right;padding:4px 12px;font-size:12px" onclick="clearSched()">清空</button></div>
-<div id="schedList"><div class="empty">暂无排班，粘贴上方文本自动识别</div></div>
-<div style="margin-top:16px">
-<div class="st" style="padding:0;margin-bottom:10px">数据备份与恢复</div>
-<button class="backup-btn" onclick="exportData()">📤 导出备份到手机</button>
-<button class="backup-btn" onclick="importData()">📥 从文件导入</button>
-<button class="backup-btn" onclick="cloudPull()" style="border-color:var(--pri);color:var(--pri)">☁️ 从云端恢复</button>
-<button class="backup-btn" onclick="restoreFromSnapshot()">💾 从本地快照恢复</button>
-<button class="backup-btn" onclick="cloudSync('manual')" style="border-color:var(--ok);color:var(--ok)">🔄 立即同步到云端</button>
-<button class="backup-btn" onclick="setupToken()" id="tokenBtn">🔑 设置云端Token</button>
-<div id="syncStatus" style="text-align:center;font-size:11px;color:var(--text2);margin-top:8px"></div>
-</div>
-</div>
+  <div class="header">
+    <div class="ht">
+      <div class="ui"><span>—</span><span>排班 &amp; 航班感受</span></div>
+    </div>
+  </div>
+  <div class="sec" style="padding-top:16px">
+    <div class="st" style="padding:0">粘贴航班信息自动识别</div>
+    <div class="card-box">
+      <textarea class="sched-paste" id="schedPaste" placeholder="直接粘贴你收到的航班短信，比如：&#10;张佳蓓,您的航班为：&#10;2026-07-22 16:05--18:45&#10;MF8153 厦并&#10;2026-07-22 20:15--22:55&#10;MF8154 并厦&#10;..."></textarea>
+      <button class="save-btn" style="width:100%" onclick="parseSched()">一键识别并设置排班</button>
+    </div>
+    <div class="st" style="padding:0;margin-top:18px">
+      我的排班
+      <button class="save-btn danger" style="float:right;padding:6px 16px;font-size:12px;border-radius:14px" onclick="clearSched()">清空</button>
+    </div>
+    <div id="schedList"><div class="empty">暂无排班，粘贴上方文本自动识别</div></div>
+    <div style="margin-top:18px">
+      <div class="st" style="padding:0;margin-bottom:10px">数据备份与恢复</div>
+      <button class="backup-btn" onclick="exportData()">导出备份到手机</button>
+      <button class="backup-btn" onclick="importData()">从文件导入</button>
+      <button class="backup-btn" onclick="cloudPull()" style="border-color:var(--pri);color:var(--pri)">从云端恢复</button>
+      <button class="backup-btn" onclick="restoreFromSnapshot()">从本地快照恢复</button>
+      <button class="backup-btn" onclick="cloudSync('manual')" style="border-color:var(--ok);color:var(--ok)">立即同步到云端</button>
+      <button class="backup-btn" onclick="setupToken()" id="tokenBtn">设置云端Token</button>
+      <div id="syncStatus" style="text-align:center;font-size:11px;color:var(--text3);margin-top:10px"></div>
+    </div>
+  </div>
 </div>
 
-<!-- 社工资讯页 -->
+<!-- ============================================================
+     社工资讯页
+     ============================================================ -->
 <div id="p-news" class="page">
-<div class="header"><div class="ht"><div class="ui"><span>📰</span><span>社工资讯</span></div></div></div>
-<div class="sec" style="padding-top:16px">
-<div id="swFactCard" style="background:linear-gradient(135deg,#667eea,#764ba2);border-radius:14px;padding:16px 18px;color:#fff;margin-bottom:14px;box-shadow:var(--shadow)">
-<div style="font-size:11px;opacity:.8;font-weight:600;margin-bottom:6px">💡 社工小知识 · 每日一条</div>
-<div id="swFactText" style="font-size:14px;line-height:1.6">加载中...</div>
-<div style="font-size:11px;opacity:.6;margin-top:8px;text-align:right" id="swFactIdx"></div>
-</div>
-<div id="swFilter" style="display:flex;gap:6px;margin-bottom:12px;overflow-x:auto;padding-bottom:4px">
-<div class="sw-ftag active" onclick="filterSW('all',this)" style="flex-shrink:0;padding:6px 14px;border-radius:16px;background:var(--pri);color:#fff;font-size:13px;cursor:pointer">全部</div>
-<div class="sw-ftag" onclick="filterSW('policy',this)" style="flex-shrink:0;padding:6px 14px;border-radius:16px;background:var(--bg);font-size:13px;color:var(--text2);cursor:pointer;border:1px solid var(--border)">📋 政策</div>
-<div class="sw-ftag" onclick="filterSW('news',this)" style="flex-shrink:0;padding:6px 14px;border-radius:16px;background:var(--bg);font-size:13px;color:var(--text2);cursor:pointer;border:1px solid var(--border)">📰 动态</div>
-<div class="sw-ftag" onclick="filterSW('trend',this)" style="flex-shrink:0;padding:6px 14px;border-radius:16px;background:var(--bg);font-size:13px;color:var(--text2);cursor:pointer;border:1px solid var(--border)">📈 趋势</div>
-<div class="sw-ftag" onclick="filterSW('global',this)" style="flex-shrink:0;padding:6px 14px;border-radius:16px;background:var(--bg);font-size:13px;color:var(--text2);cursor:pointer;border:1px solid var(--border)">🌍 国际</div>
-</div>
-<div id="swNewsList"><div class="empty">加载中...</div></div>
-</div>
+  <div class="header">
+    <div class="ht">
+      <div class="ui"><span>—</span><span>社工资讯</span></div>
+    </div>
+  </div>
+  <div class="sec" style="padding-top:16px">
+    <div id="swFactCard" style="background:var(--priL);border-radius:var(--r);padding:18px 20px;color:var(--pri);margin-bottom:16px;box-shadow:var(--shadow-card);border:1px solid var(--border)">
+      <div style="font-size:11px;opacity:.7;font-weight:600;margin-bottom:8px;letter-spacing:0.04em">社工小知识 · 每日一条</div>
+      <div id="swFactText" style="font-size:14px;line-height:1.8;font-weight:400">加载中...</div>
+      <div style="font-size:11px;opacity:.4;margin-top:10px;text-align:right" id="swFactIdx"></div>
+    </div>
+    <div id="swFilter" style="display:flex;gap:6px;margin-bottom:14px;overflow-x:auto;padding-bottom:4px">
+      <div class="sw-ftag active" onclick="filterSW('all',this)" style="flex-shrink:0;padding:6px 14px;border-radius:16px;background:var(--pri);color:#fff;font-size:13px;cursor:pointer">全部</div>
+      <div class="sw-ftag" onclick="filterSW('policy',this)" style="flex-shrink:0;padding:6px 14px;border-radius:16px;background:var(--bg);font-size:13px;color:var(--text2);cursor:pointer;border:1px solid var(--border)">政策</div>
+      <div class="sw-ftag" onclick="filterSW('news',this)" style="flex-shrink:0;padding:6px 14px;border-radius:16px;background:var(--bg);font-size:13px;color:var(--text2);cursor:pointer;border:1px solid var(--border)">动态</div>
+      <div class="sw-ftag" onclick="filterSW('trend',this)" style="flex-shrink:0;padding:6px 14px;border-radius:16px;background:var(--bg);font-size:13px;color:var(--text2);cursor:pointer;border:1px solid var(--border)">趋势</div>
+      <div class="sw-ftag" onclick="filterSW('global',this)" style="flex-shrink:0;padding:6px 14px;border-radius:16px;background:var(--bg);font-size:13px;color:var(--text2);cursor:pointer;border:1px solid var(--border)">国际</div>
+    </div>
+    <div id="swNewsList"><div class="empty">加载中...</div></div>
+  </div>
 </div>
 
-<!-- 底部导航 -->
+<!-- ============================================================
+     底部导航
+     ============================================================ -->
 <div class="nav">
-<div class="ni active" onclick="switchPage('home',this)"><span class="ico">📋</span>任务</div>
-<div class="ni" onclick="switchPage('pomo',this)"><span class="ico">🌳</span>番茄</div>
-<div class="ni" onclick="switchPage('knowledge',this)"><span class="ico">📚</span>知识库</div>
-<div class="ni" onclick="switchPage('words',this)"><span class="ico">📖</span>单词</div>
-<div class="ni" onclick="switchPage('diary',this)"><span class="ico">📔</span>日记</div>
-<div class="ni" onclick="switchPage('sleep',this)"><span class="ico">😴</span>睡眠</div>
-<div class="ni" onclick="switchPage('video',this)"><span class="ico">🎬</span>视频</div>
-<div class="ni" onclick="switchPage('news',this)"><span class="ico">📰</span>资讯</div>
-<div class="ni" onclick="switchPage('sched',this)"><span class="ico">✈️</span>排班</div>
+  <div class="ni active" onclick="switchPage('home',this)"><span class="ico">☰</span>任务</div>
+  <div class="ni" onclick="switchPage('pomo',this)"><span class="ico">◷</span>番茄</div>
+  <div class="ni" onclick="switchPage('knowledge',this)"><span class="ico">☷</span>知识库</div>
+  <div class="ni" onclick="switchPage('words',this)"><span class="ico">A</span>单词</div>
+  <div class="ni" onclick="switchPage('diary',this)"><span class="ico">✎</span>日记</div>
+  <div class="ni" onclick="switchPage('sleep',this)"><span class="ico">☽</span>睡眠</div>
+  <div class="ni" onclick="switchPage('video',this)"><span class="ico">▸</span>视频</div>
+  <div class="ni" onclick="switchPage('news',this)"><span class="ico">◻</span>资讯</div>
+  <div class="ni" onclick="switchPage('sched',this)"><span class="ico">✈</span>排班</div>
 </div>
+
 </div>
 
 <div class="toast" id="toast"></div>
+
+<input type="file" id="importFile" style="display:none" accept=".json" onchange="handleImport(this)">
 
 <script>
 // ============================================================

@@ -680,7 +680,7 @@ body {
   padding: 2px 8px;
 }
 
-/* Nav */
+/* Nav — 精简 5 按钮，大字号清晰 */
 .nav {
   position: fixed;
   bottom: 0;
@@ -689,7 +689,7 @@ body {
   background: var(--card);
   border-top: 1px solid var(--border);
   display: flex;
-  padding: 6px 4px env(safe-area-inset-bottom, 6px) 4px;
+  padding: 8px 0 env(safe-area-inset-bottom, 8px) 0;
   z-index: 100;
   justify-content: space-around;
   backdrop-filter: blur(20px);
@@ -699,29 +699,34 @@ body {
 .ni {
   flex: 1;
   text-align: center;
-  font-size: 9px;
+  font-size: 11px;
   color: var(--text3);
   cursor: pointer;
-  padding: 4px 0;
+  padding: 6px 0;
   transition: all .2s;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.02em;
   position: relative;
 }
 
 .ni.active {
   color: var(--pri);
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .ni .ico {
-  font-size: 20px;
+  font-size: 24px;
   display: block;
-  margin-bottom: 1px;
+  margin-bottom: 3px;
   transition: transform .2s;
 }
 
+.ni .nl {
+  font-size: 11px;
+  display: block;
+}
+
 .ni.active .ico {
-  transform: translateY(-1px);
+  transform: translateY(-2px) scale(1.1);
 }
 
 /* Page switching */
@@ -1410,19 +1415,13 @@ body {
     <div class="er">点击换一句 →</div>
   </div>
 
-  <div class="kbit">
-    <div class="kbit-label">今日知识点</div>
-    <div class="kbit-text" id="kbitText">加载中...</div>
-  </div>
-
-  <div class="mode-sec">
-    <div class="mode-bar">
-      <div>
-        <div class="ml" id="ml">正常模式</div>
-        <div class="md" id="md">按计划执行全部任务</div>
-      </div>
-      <button class="mb" id="mbtn" onclick="toggleMode()">切缩壳模式</button>
-    </div>
+  <!-- 隐藏元素（JS依赖，不显示） -->
+  <div style="display:none">
+    <div id="kbitText"></div>
+    <div id="ml"></div>
+    <div id="md"></div>
+    <button id="mbtn"></button>
+    <button id="tokenBtn"></button>
   </div>
 
   <div class="st">今日任务 <span class="dt-badge rest" id="dtBadge">休息日</span></div>
@@ -1511,9 +1510,6 @@ body {
     <div class="st" style="padding:0">今日时间规划</div>
     <div id="planList"><div class="empty">加载中...</div></div>
     <div id="planAdvice" style="margin-top:12px;padding:14px 16px;background:var(--priL);border-radius:var(--r-sm);font-size:13px;color:var(--pri);line-height:1.7;display:none"></div>
-  </div>
-  <div class="sec">
-    <button onclick="openSharePicker()" style="width:100%;background:var(--ok);color:#fff;border:none;border-radius:var(--r);padding:14px;font-size:14px;font-weight:500;cursor:pointer;letter-spacing:0.03em;box-shadow:var(--shadow-card)">生成打卡图（发给老师）</button>
   </div>
 </div>
 
@@ -1682,13 +1678,10 @@ body {
     </div>
     <div id="schedList"><div class="empty">暂无排班，粘贴上方文本自动识别</div></div>
     <div style="margin-top:18px">
-      <div class="st" style="padding:0;margin-bottom:10px">数据备份与恢复</div>
+      <div class="st" style="padding:0;margin-bottom:10px">数据备份</div>
       <button class="backup-btn" onclick="exportData()">导出备份到手机</button>
       <button class="backup-btn" onclick="importData()">从文件导入</button>
-      <button class="backup-btn" onclick="cloudPull()" style="border-color:var(--pri);color:var(--pri)">从云端恢复</button>
       <button class="backup-btn" onclick="restoreFromSnapshot()">从本地快照恢复</button>
-      <button class="backup-btn" onclick="cloudSync('manual')" style="border-color:var(--ok);color:var(--ok)">立即同步到云端</button>
-      <button class="backup-btn" onclick="setupToken()" id="tokenBtn">设置云端Token</button>
       <div id="syncStatus" style="text-align:center;font-size:11px;color:var(--text3);margin-top:10px"></div>
     </div>
   </div>
@@ -1721,18 +1714,14 @@ body {
 </div>
 
 <!-- ============================================================
-     底部导航
+     底部导航 — 精简为 5 个核心板块
      ============================================================ -->
 <div class="nav">
-  <div class="ni active" onclick="switchPage('home',this)"><span class="ico">☰</span>任务</div>
-  <div class="ni" onclick="switchPage('pomo',this)"><span class="ico">◷</span>番茄</div>
-  <div class="ni" onclick="switchPage('knowledge',this)"><span class="ico">☷</span>知识库</div>
-  <div class="ni" onclick="switchPage('words',this)"><span class="ico">A</span>单词</div>
-  <div class="ni" onclick="switchPage('diary',this)"><span class="ico">✎</span>日记</div>
-  <div class="ni" onclick="switchPage('sleep',this)"><span class="ico">☽</span>睡眠</div>
-  <div class="ni" onclick="switchPage('video',this)"><span class="ico">▸</span>视频</div>
-  <div class="ni" onclick="switchPage('news',this)"><span class="ico">◻</span>资讯</div>
-  <div class="ni" onclick="switchPage('sched',this)"><span class="ico">✈</span>排班</div>
+  <div class="ni active" onclick="switchPage('home',this)"><span class="ico">📋</span><span class="nl">任务</span></div>
+  <div class="ni" onclick="switchPage('pomo',this)"><span class="ico">🌳</span><span class="nl">番茄</span></div>
+  <div class="ni" onclick="switchPage('diary',this)"><span class="ico">📔</span><span class="nl">日记</span></div>
+  <div class="ni" onclick="switchPage('knowledge',this)"><span class="ico">📚</span><span class="nl">知识库</span></div>
+  <div class="ni" onclick="switchPage('sched',this)"><span class="ico">✈️</span><span class="nl">排班</span></div>
 </div>
 
 </div>
@@ -2025,21 +2014,7 @@ function parseFlightText(text) {
         }
     }
 
-    // Fill in rest days for gaps between flight dates
-    if (results.length > 0) {
-        results.sort((a, b) => a.date.localeCompare(b.date));
-        const firstDate = new Date(results[0].date);
-        const lastDate = new Date(results[results.length - 1].date);
-        const current = new Date(firstDate);
-        while (current <= lastDate) {
-            const dateStr = current.getFullYear() + '-' + String(current.getMonth()+1).padStart(2,'0') + '-' + String(current.getDate()).padStart(2,'0');
-            if (!results.find(r => r.date === dateStr)) {
-                results.push({ id: 0, date: dateStr, day_type: 'rest', flight_info: '' });
-            }
-            current.setDate(current.getDate() + 1);
-        }
-        results.sort((a, b) => a.date.localeCompare(b.date));
-    }
+    // 只保留有航班的日期，不自动填充休息日
 
     // Assign IDs
     const schedules = LS('schedules', []);
@@ -2311,27 +2286,17 @@ function loadAll() {
 function updateSyncStatus() {
     const el = document.getElementById('syncStatus');
     if (!el) return;
-    const btn = document.getElementById('tokenBtn');
     const hasToken = isCloudReady();
-    if (btn) {
-        btn.textContent = hasToken ? '🔑 Token已设置 (点击修改)' : '🔑 设置云端Token';
-    }
     const lastSync = LS('last_cloud_sync', null);
-    const gistId = localStorage.getItem('study_app_gist_id');
-    let html = '';
-    if (!hasToken) {
-        html = '⚠️ 未设置Token，仅本地备份。点击上方按钮设置后启用云端同步';
+    if (hasToken && lastSync) {
+        const t = new Date(lastSync);
+        const timeStr = (t.getMonth()+1) + '/' + t.getDate() + ' ' + String(t.getHours()).padStart(2,'0') + ':' + String(t.getMinutes()).padStart(2,'0');
+        el.textContent = '云端已同步 · ' + timeStr;
+    } else if (hasToken) {
+        el.textContent = '云端已绑定，待同步';
     } else {
-        if (gistId) html += '☁️ 已绑定云端 | ';
-        if (lastSync) {
-            const t = new Date(lastSync);
-            const timeStr = (t.getMonth()+1) + '/' + t.getDate() + ' ' + String(t.getHours()).padStart(2,'0') + ':' + String(t.getMinutes()).padStart(2,'0');
-            html += '上次同步: ' + timeStr;
-        } else {
-            html += '尚未同步';
-        }
+        el.textContent = '本地备份已开启';
     }
-    el.textContent = html;
 }
 
 function setupToken() {
@@ -2473,11 +2438,11 @@ function loadTasks() {
         let btn = '';
         if (lk) {
             if (x.task_type === 'politics')
-                btn = '<button class="tbtn politics" onclick="event.stopPropagation();switchPage(\'video\',document.querySelectorAll(\'.ni\')[6])">' + lk.icon + ' ' + lk.label + '</button>';
+                btn = '<span class="tag flex">' + lk.icon + ' ' + lk.label + '</span>';
             else if (x.task_type === 'anki' || x.task_type === 'major')
-                btn = '<button class="tbtn ' + lk.cls + '" onclick="event.stopPropagation();switchPage(\'knowledge\',document.querySelectorAll(\'.ni\')[2])">' + lk.icon + ' ' + lk.label + '</button>';
+                btn = '<button class="tbtn ' + lk.cls + '" onclick="event.stopPropagation();switchPage(\'knowledge\',document.querySelectorAll(\'.ni\')[3])">' + lk.icon + ' ' + lk.label + '</button>';
             else if (x.task_type === 'word')
-                btn = '<button class="tbtn word" onclick="event.stopPropagation();switchPage(\'words\',document.querySelectorAll(\'.ni\')[3])">' + lk.icon + ' ' + lk.label + '</button>';
+                btn = '<span class="tag flex">' + lk.icon + ' ' + lk.label + '</span>';
             else
                 btn = '<span class="tag flex">' + lk.icon + ' ' + lk.label + '</span>';
         }
@@ -2721,7 +2686,7 @@ function saveDiary() {
     // 自动备份到本地安全副本 + 云端
     autoLocalBackup();
     cloudSync('diary');
-    toast('日记已保存 📔 自动备份中...');
+    toast('日记已保存 ✓');
 }
 
 function loadDiary() {
@@ -3578,10 +3543,12 @@ function restoreFromSnapshot() {
     }
 }
 
-// 每 5 分钟自动本地备份
+// 本地快照保留（静默，不打扰）
 setInterval(autoLocalBackup, 5 * 60 * 1000);
-// 每 30 分钟自动云同步
-setInterval(() => cloudSync('auto'), 30 * 60 * 1000);
+// 云同步：只在线时静默执行，离线不报错不提醒
+setInterval(() => { if (navigator.onLine) cloudSync('auto'); }, 30 * 60 * 1000);
+// 网络恢复时自动同步一次
+window.addEventListener('online', () => { cloudSync('auto'); });
 
 // ============================================================
 // 数据导出/导入
@@ -3640,13 +3607,9 @@ function switchPage(name, el) {
     document.querySelectorAll('.ni').forEach(n => n.classList.remove('active'));
     el.classList.add('active');
     if (name === 'knowledge') loadChapters();
-    if (name === 'words') loadWN();
     if (name === 'diary') loadDiary();
-    if (name === 'sleep') loadSleep();
     if (name === 'sched') loadSched();
     if (name === 'pomo') loadPlan();
-    if (name === 'video') loadPoliticsToday();
-    if (name === 'news') loadSWNews();
 }
 
 // ============================================================
